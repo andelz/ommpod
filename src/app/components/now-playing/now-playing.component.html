@@ -1,0 +1,55 @@
+<div class="np-view">
+  <div class="np-header">
+    <button class="close-btn" (click)="close.emit()">[ &lt; back ]</button>
+    <span class="label dim">now playing</span>
+  </div>
+
+  @if (player.episode(); as ep) {
+    <div class="np-body">
+      <div class="np-titles">
+        <div class="np-podcast dim">{{ ep.podcastTitle }}</div>
+        <div class="np-title">{{ ep.title }}</div>
+        @if (ep.pubDate) {
+          <div class="np-date dim">{{ ep.pubDate | date: 'yyyy-MM-dd' }}</div>
+        }
+      </div>
+
+      <div class="np-scrubber">
+        <div class="progress-track" (click)="onProgressClick($event)" role="slider"
+          [attr.aria-valuenow]="player.currentTime()" [attr.aria-valuemax]="player.duration()"
+          aria-label="Seek">
+          <div class="progress-fill" [style.width.%]="progressPct"></div>
+          <div class="progress-thumb" [style.left.%]="progressPct"></div>
+        </div>
+        <div class="np-times">
+          <span>{{ player.currentTime() | duration }}</span>
+          <span class="dim">{{ player.duration() | duration }}</span>
+        </div>
+      </div>
+
+      <div class="np-controls">
+        @if (player.loading()) {
+          <span class="status dim">buffering...</span>
+        }
+        <div class="np-btns">
+          <button (click)="player.seekRelative(-30)" title="-30s" class="skip-btn">-30</button>
+          <button (click)="player.seekRelative(-15)" title="-15s" class="skip-btn">-15</button>
+          <button class="play-btn" (click)="player.togglePlay()"
+            [attr.aria-label]="player.isPlaying() ? 'Pause' : 'Play'">
+            {{ player.isPlaying() ? '[ || ]' : '[ > ]' }}
+          </button>
+          <button (click)="player.seekRelative(30)" title="+30s" class="skip-btn">+30</button>
+          <button (click)="player.seekRelative(60)" title="+60s" class="skip-btn">+60</button>
+        </div>
+        <button class="rate-btn" (click)="cycleRate()">{{ player.playbackRate() }}x</button>
+      </div>
+
+      @if (ep.description) {
+        <div class="np-desc">
+          <div class="np-desc-label dim">---</div>
+          <div class="np-desc-text dim">{{ ep.description }}</div>
+        </div>
+      }
+    </div>
+  }
+</div>

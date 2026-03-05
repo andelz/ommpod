@@ -1,0 +1,173 @@
+.np-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.np-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.close-btn {
+  font-size: var(--size-sm);
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.label {
+  font-size: var(--size-xs);
+}
+
+.np-body {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  gap: 32px;
+}
+
+.np-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.np-podcast {
+  font-size: var(--size-xs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.np-title {
+  font-size: var(--size-lg);
+  line-height: 1.4;
+}
+
+.np-date {
+  font-size: var(--size-xs);
+}
+
+.np-scrubber {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progress-track {
+  height: 3px;
+  background: var(--mid);
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    height: 5px;
+
+    .progress-thumb {
+      opacity: 1;
+    }
+  }
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--fg);
+  pointer-events: none;
+}
+
+.progress-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: var(--fg);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.np-times {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--size-xs);
+}
+
+.np-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.status {
+  font-size: var(--size-xs);
+  letter-spacing: 2px;
+}
+
+.np-btns {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.skip-btn {
+  font-size: var(--size-sm);
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.play-btn {
+  font-size: 20px;
+  letter-spacing: 2px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.rate-btn {
+  font-size: var(--size-xs);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.np-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.np-desc-label {
+  font-size: var(--size-xs);
+}
+
+.np-desc-text {
+  font-size: var(--size-xs);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.dim {
+  color: var(--dim);
+}

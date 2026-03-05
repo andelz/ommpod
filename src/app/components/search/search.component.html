@@ -1,0 +1,39 @@
+<div class="search-view">
+  <div class="search-bar">
+    <span class="prompt">>&nbsp;</span>
+    <input
+      type="search"
+      [ngModel]="query()"
+      (ngModelChange)="query.set($event)"
+      (keydown)="onKeydown($event)"
+      placeholder="search podcasts..."
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <button (click)="search()" [disabled]="loading()">
+      {{ loading() ? '...' : '[search]' }}
+    </button>
+  </div>
+
+  @if (error()) {
+    <div class="error">! {{ error() }}</div>
+  }
+
+  <div class="results">
+    @for (p of results(); track p.id) {
+      <div class="result-row" (click)="select(p)" tabindex="0" (keydown.enter)="select(p)">
+        <div class="result-main">
+          <span class="result-title">{{ p.title }}</span>
+          <span class="result-meta dim">{{ p.author }} &middot; {{ p.genre }} &middot; {{ p.episodeCount }} eps</span>
+        </div>
+        <button class="sub-btn" (click)="toggleSubscribe(p, $event)"
+          [attr.aria-label]="library.isSubscribed(p.id) ? 'Unsubscribe' : 'Subscribe'">
+          {{ library.isSubscribed(p.id) ? '[-]' : '[+]' }}
+        </button>
+      </div>
+    }
+    @if (!loading() && results().length === 0 && query()) {
+      <div class="empty dim">no results</div>
+    }
+  </div>
+</div>

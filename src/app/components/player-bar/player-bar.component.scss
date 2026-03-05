@@ -1,0 +1,101 @@
+.player-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  z-index: 100;
+}
+
+.progress-track {
+  height: 2px;
+  background: var(--mid);
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    height: 4px;
+  }
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--fg);
+  pointer-events: none;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ep-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
+.ep-title {
+  font-size: var(--size-sm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ep-pod {
+  font-size: var(--size-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-dot {
+  font-size: var(--size-xs);
+  color: var(--dim);
+  letter-spacing: 2px;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+
+  button {
+    font-size: var(--size-sm);
+    opacity: 0.7;
+    transition: opacity 0.1s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.play-btn {
+  font-size: var(--size-lg) !important;
+  opacity: 1 !important;
+  letter-spacing: 1px;
+}
+
+.rate-btn {
+  font-size: var(--size-xs) !important;
+  border: 1px solid var(--border) !important;
+  padding: 1px 4px !important;
+}
+
+.time {
+  font-size: var(--size-xs);
+  white-space: nowrap;
+}
+
+.dim {
+  color: var(--dim);
+}

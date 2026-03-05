@@ -1,0 +1,34 @@
+<div class="dl-view">
+  <div class="dl-header">
+    <span class="label">downloads</span>
+    <span class="count dim">{{ download.downloadedEpisodes().length }} episodes</span>
+  </div>
+
+  <div class="dl-list">
+    @for (ep of download.downloadedEpisodes(); track ep.id) {
+      <div class="dl-row" [class.active]="isActive(ep)" (click)="play(ep)"
+        tabindex="0" (keydown.enter)="play(ep)">
+        <div class="dl-main">
+          <span class="dl-title">
+            @if (isActive(ep)) {
+              <span class="now">{{ isPlaying(ep) ? '|>' : '||' }}&nbsp;</span>
+            }
+            {{ ep.title }}
+          </span>
+          <span class="dl-meta dim">
+            {{ ep.podcastTitle }}
+            @if (ep.duration) { &middot; {{ ep.duration | duration }} }
+          </span>
+        </div>
+        <button class="del-btn" (click)="remove(ep, $event)" aria-label="Remove download">[x]</button>
+      </div>
+    }
+
+    @if (download.downloadedEpisodes().length === 0) {
+      <div class="empty">
+        <span class="dim">no downloads</span>
+        <span class="dim hint">open a podcast and press [dl] on an episode</span>
+      </div>
+    }
+  </div>
+</div>

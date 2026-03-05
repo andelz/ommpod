@@ -1,1 +1,97 @@
-/* You can add global styles to this file, and also import other style files */
+/* Terminal B&W aesthetic - global reset and base */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #000;
+  --fg: #fff;
+  --dim: #666;
+  --mid: #333;
+  --border: #333;
+  --hover: #111;
+  --active: #fff;
+  --active-bg: #fff;
+  --active-fg: #000;
+  --font: 'Courier New', Courier, monospace;
+  --size-xs: 11px;
+  --size-sm: 13px;
+  --size-base: 14px;
+  --size-lg: 16px;
+  --gap: 8px;
+  --gap-lg: 16px;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: var(--size-base);
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--mid);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dim);
+}
+
+button {
+  font-family: var(--font);
+  font-size: var(--size-base);
+  background: none;
+  border: none;
+  color: var(--fg);
+  cursor: pointer;
+  padding: 0;
+
+  &:focus-visible {
+    outline: 1px solid var(--fg);
+    outline-offset: 2px;
+  }
+}
+
+input {
+  font-family: var(--font);
+  font-size: var(--size-base);
+  background: none;
+  border: none;
+  color: var(--fg);
+  outline: none;
+  width: 100%;
+}
+
+a {
+  color: var(--fg);
+  text-decoration: underline;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

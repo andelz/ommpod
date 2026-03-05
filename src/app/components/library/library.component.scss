@@ -1,0 +1,81 @@
+.lib-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.lib-header {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+
+  .label {
+    font-size: var(--size-sm);
+    color: var(--dim);
+  }
+}
+
+.lib-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.lib-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--mid);
+  cursor: pointer;
+  gap: 8px;
+
+  &:hover,
+  &:focus {
+    background: var(--hover);
+    outline: none;
+  }
+}
+
+.lib-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.lib-title {
+  font-size: var(--size-sm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lib-meta {
+  font-size: var(--size-xs);
+}
+
+.unsub-btn {
+  flex-shrink: 0;
+  font-size: var(--size-xs);
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.empty {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hint {
+  font-size: var(--size-xs);
+}
+
+.dim {
+  color: var(--dim);
+}

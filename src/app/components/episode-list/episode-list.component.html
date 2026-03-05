@@ -1,0 +1,56 @@
+<div class="ep-view">
+  <div class="ep-header">
+    <button class="back-btn" (click)="back.emit()">[ &lt; back ]</button>
+    <div class="pod-info">
+      <span class="pod-title">{{ podcast().title }}</span>
+      <span class="pod-author dim">{{ podcast().author }}</span>
+    </div>
+    <button class="sub-btn" (click)="toggleSubscribe($event)">
+      {{ library.isSubscribed(podcast().id) ? '[-sub]' : '[+sub]' }}
+    </button>
+  </div>
+
+  @if (loading()) {
+    <div class="status dim">loading...</div>
+  } @else if (error()) {
+    <div class="status error">! {{ error() }}</div>
+  } @else {
+    <div class="ep-list">
+      @for (ep of episodes(); track ep.id) {
+        <div class="ep-row" [class.active]="isActive(ep)" (click)="playEpisode(ep)"
+          tabindex="0" (keydown.enter)="playEpisode(ep)">
+          <div class="ep-main">
+            <span class="ep-title">
+              @if (isActive(ep)) {
+                <span class="now">{{ isPlaying(ep) ? '|>' : '||' }}&nbsp;</span>
+              }
+              {{ ep.title }}
+            </span>
+            <span class="ep-meta dim">
+              {{ ep.pubDate | date: 'yyyy-MM-dd' }}
+              @if (ep.duration) { &middot; {{ ep.duration | duration }} }
+            </span>
+          </div>
+          <div class="ep-actions">
+            @if (downloadProgress(ep) !== undefined) {
+              <div class="dl-progress">
+                <div class="dl-bar">
+                  <div class="dl-fill" [style.width.%]="downloadProgress(ep)"></div>
+                </div>
+                <span class="dl-pct dim">{{ downloadProgress(ep) }}%</span>
+              </div>
+            } @else {
+              <button class="dl-btn" (click)="toggleDownload(ep, $event)"
+                [attr.aria-label]="isDownloaded(ep) ? 'Delete download' : 'Download'">
+                {{ isDownloaded(ep) ? '[x]' : '[dl]' }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+      @if (episodes().length === 0) {
+        <div class="status dim">no episodes</div>
+      }
+    </div>
+  }
+</div>

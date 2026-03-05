@@ -1,0 +1,100 @@
+.dl-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.dl-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+
+  .label {
+    font-size: var(--size-sm);
+    color: var(--dim);
+  }
+
+  .count {
+    font-size: var(--size-xs);
+  }
+}
+
+.dl-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.dl-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--mid);
+  cursor: pointer;
+  gap: 8px;
+
+  &:hover,
+  &:focus {
+    background: var(--hover);
+    outline: none;
+  }
+
+  &.active {
+    border-left: 2px solid var(--fg);
+  }
+}
+
+.dl-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.dl-title {
+  font-size: var(--size-sm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.now {
+  font-size: var(--size-xs);
+  opacity: 0.8;
+}
+
+.dl-meta {
+  font-size: var(--size-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.del-btn {
+  flex-shrink: 0;
+  font-size: var(--size-xs);
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.empty {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hint {
+  font-size: var(--size-xs);
+}
+
+.dim {
+  color: var(--dim);
+}

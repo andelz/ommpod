@@ -1,0 +1,29 @@
+@if (player.episode()) {
+  <div class="player-bar">
+    <div class="progress-track" (click)="onProgressClick($event)" role="slider"
+      [attr.aria-valuenow]="player.currentTime()" [attr.aria-valuemax]="player.duration()"
+      aria-label="Seek">
+      <div class="progress-fill" [style.width.%]="progressPct"></div>
+    </div>
+
+    <div class="controls">
+      <button class="ep-info" (click)="openNowPlaying.emit()" title="Open now playing">
+        @if (player.loading()) {
+          <span class="status-dot">...</span>
+        }
+        <span class="ep-title">{{ player.episode()!.title }}</span>
+        <span class="ep-pod dim">{{ player.episode()!.podcastTitle }}</span>
+      </button>
+
+      <div class="btns">
+        <button (click)="skip(-15)" title="-15s">-15</button>
+        <button class="play-btn" (click)="player.togglePlay()" [attr.aria-label]="player.isPlaying() ? 'Pause' : 'Play'">
+          {{ player.isPlaying() ? '[||]' : '[>]' }}
+        </button>
+        <button (click)="skip(30)" title="+30s">+30</button>
+        <button class="rate-btn" (click)="cycleRate()" title="Playback rate">{{ player.playbackRate() }}x</button>
+        <span class="time dim">{{ player.currentTime() | duration }} / {{ player.duration() | duration }}</span>
+      </div>
+    </div>
+  </div>
+}

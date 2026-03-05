@@ -1,0 +1,26 @@
+<div class="lib-view">
+  <div class="lib-header">
+    <span class="label">subscriptions</span>
+  </div>
+
+  <div class="lib-list">
+    @for (p of library.subscriptions(); track p.id) {
+      <div class="lib-row" (click)="select(p)" tabindex="0" (keydown.enter)="select(p)">
+        <div class="lib-main">
+          <span class="lib-title">{{ p.title }}</span>
+          <span class="lib-meta dim">{{ p.author }} &middot; {{ p.episodeCount }} eps</span>
+        </div>
+        <button class="unsub-btn" (click)="unsubscribe(p, $event)" aria-label="Unsubscribe">
+          [-]
+        </button>
+      </div>
+    }
+
+    @if (library.subscriptions().length === 0) {
+      <div class="empty">
+        <span class="dim">no subscriptions</span>
+        <span class="dim hint">search for podcasts and press [+] to subscribe</span>
+      </div>
+    }
+  </div>
+</div>
