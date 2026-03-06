@@ -1,11 +1,14 @@
 <div class="np-view">
   <div class="np-header">
-    <button class="close-btn" (click)="close.emit()">[ &lt; back ]</button>
+    <button class="close-btn" (click)="goBack()">[ &lt; back ]</button>
     <span class="label dim">now playing</span>
   </div>
 
   @if (player.episode(); as ep) {
     <div class="np-body">
+      @if (ep.artworkUrl) {
+        <img class="np-artwork" [src]="ep.artworkUrl" [alt]="ep.podcastTitle" />
+      }
       <div class="np-titles">
         <div class="np-podcast dim">{{ ep.podcastTitle }}</div>
         <div class="np-title">{{ ep.title }}</div>

@@ -1,5 +1,6 @@
-import { Component, inject, ChangeDetectionStrategy, output } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
 import { DurationPipe } from '../../pipes/duration.pipe';
 
@@ -13,7 +14,11 @@ import { DurationPipe } from '../../pipes/duration.pipe';
 })
 export class PlayerBarComponent {
   player = inject(PlayerService);
-  openNowPlaying = output<void>();
+  private router = inject(Router);
+
+  openNowPlaying(): void {
+    this.router.navigate(['/now-playing']);
+  }
 
   get progressPct(): number {
     const d = this.player.duration();

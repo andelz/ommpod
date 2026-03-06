@@ -57,6 +57,7 @@ export class DownloadService {
   }
 
   private downloadViaSW(sw: ServiceWorker, episode: Episode): Promise<void> {
+    this.setProgress(episode.id, 0);
     return new Promise((resolve, reject) => {
       const channel = new MessageChannel();
 

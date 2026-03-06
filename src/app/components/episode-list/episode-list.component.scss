@@ -14,6 +14,15 @@
   flex-shrink: 0;
 }
 
+.artwork {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  object-fit: cover;
+  filter: grayscale(100%);
+  opacity: 0.8;
+}
+
 .back-btn {
   flex-shrink: 0;
   font-size: var(--size-sm);
@@ -64,6 +73,19 @@
 .ep-list {
   flex: 1;
   overflow-y: auto;
+}
+
+.ep-artwork {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  object-fit: cover;
+  filter: grayscale(100%);
+  opacity: 0.7;
+}
+
+.ep-artwork-placeholder {
+  background: var(--mid);
 }
 
 .ep-row {
@@ -152,4 +174,30 @@
 
 .dim {
   color: var(--dim);
+}
+
+.listen-bar {
+  width: 100%;
+  height: 2px;
+  background: var(--mid);
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.listen-fill {
+  height: 100%;
+  background: var(--fg);
+  opacity: 0.5;
+  transition: width 0.5s linear;
+}
+
+.done-mark {
+  font-size: var(--size-xs);
+}
+
+.ep-row.completed {
+  .ep-title,
+  .ep-meta {
+    opacity: 0.45;
+  }
 }

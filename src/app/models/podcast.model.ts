@@ -15,6 +15,7 @@ export interface Episode {
   title: string;
   description: string;
   audioUrl: string;
+  artworkUrl: string;
   duration: number; // seconds
   pubDate: Date;
   downloaded: boolean;

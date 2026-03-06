@@ -1,11 +1,14 @@
 import { Injectable, signal, computed, effect, inject } from '@angular/core';
 import { Episode, PlayerState } from '../models/podcast.model';
 import { DownloadService } from './download.service';
+import { LibraryService } from './library.service';
 
 @Injectable({ providedIn: 'root' })
 export class PlayerService {
   private audio = new Audio();
   private downloadService = inject(DownloadService);
+  private libraryService = inject(LibraryService);
+  private lastSavedTime = 0;
 
   episode = signal<Episode | null>(null);
   isPlaying = signal(false);
@@ -25,13 +28,26 @@ export class PlayerService {
 
   constructor() {
     this.audio.addEventListener('timeupdate', () => {
-      this.currentTime.set(this.audio.currentTime);
+      const t = this.audio.currentTime;
+      this.currentTime.set(t);
+      // Save progress every 5 seconds
+      if (t - this.lastSavedTime >= 5) {
+        this.lastSavedTime = t;
+        const ep = this.episode();
+        if (ep) {
+          this.libraryService.saveProgress(ep.id, t);
+        }
+      }
     });
     this.audio.addEventListener('durationchange', () => {
       this.duration.set(this.audio.duration || 0);
     });
     this.audio.addEventListener('ended', () => {
       this.isPlaying.set(false);
+      const ep = this.episode();
+      if (ep) {
+        this.libraryService.markCompleted(ep.id);
+      }
     });
     this.audio.addEventListener('playing', () => {
       this.isPlaying.set(true);
@@ -68,11 +84,18 @@ export class PlayerService {
 
     this.episode.set(episode);
     this.loading.set(true);
+    this.lastSavedTime = 0;
 
     const src = await this.downloadService.getPlaybackUrl(episode);
     this.audio.src = src;
     this.audio.playbackRate = this.playbackRate();
     this.audio.load();
+
+    const savedTime = this.libraryService.getProgress(episode.id);
+    if (savedTime > 0) {
+      this.audio.currentTime = savedTime;
+    }
+
     await this.audio.play();
   }
 

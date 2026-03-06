@@ -7,7 +7,7 @@
     </div>
 
     <div class="controls">
-      <button class="ep-info" (click)="openNowPlaying.emit()" title="Open now playing">
+      <button class="ep-info" (click)="openNowPlaying()" title="Open now playing">
         @if (player.loading()) {
           <span class="status-dot">...</span>
         }

@@ -1,7 +1,8 @@
 import {
-  Component, inject, signal, ChangeDetectionStrategy, output
+  Component, inject, signal, ChangeDetectionStrategy
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PodcastSearchService } from '../../services/podcast-search.service';
 import { LibraryService } from '../../services/library.service';
 import { Podcast } from '../../models/podcast.model';
@@ -16,9 +17,8 @@ import { Podcast } from '../../models/podcast.model';
 })
 export class SearchComponent {
   private searchSvc = inject(PodcastSearchService);
+  private router = inject(Router);
   library = inject(LibraryService);
-
-  podcastSelected = output<Podcast>();
 
   query = signal('');
   results = signal<Podcast[]>([]);
@@ -46,7 +46,7 @@ export class SearchComponent {
   }
 
   select(podcast: Podcast): void {
-    this.podcastSelected.emit(podcast);
+    this.router.navigate(['/search', podcast.id], { state: { podcast } });
   }
 
   toggleSubscribe(podcast: Podcast, event: Event): void {

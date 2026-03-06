@@ -1,5 +1,6 @@
-import { Component, inject, ChangeDetectionStrategy, output } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Location } from '@angular/common';
 import { PlayerService } from '../../services/player.service';
 import { DurationPipe } from '../../pipes/duration.pipe';
 
@@ -13,7 +14,11 @@ import { DurationPipe } from '../../pipes/duration.pipe';
 })
 export class NowPlayingComponent {
   player = inject(PlayerService);
-  close = output<void>();
+  private location = inject(Location);
+
+  goBack(): void {
+    this.location.back();
+  }
 
   get progressPct(): number {
     const d = this.player.duration();

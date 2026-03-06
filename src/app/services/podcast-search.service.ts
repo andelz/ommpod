@@ -54,6 +54,13 @@ export class PodcastSearchService {
       const durationStr = item.querySelector('duration')?.textContent ?? '0';
       const duration = parseDuration(durationStr);
       const pubDateStr = item.querySelector('pubDate')?.textContent ?? '';
+      const episodeArtwork =
+        item.querySelector('image')?.getAttribute('href') ??
+        item.querySelector('image href')?.textContent ??
+        item.getElementsByTagNameNS('http://www.itunes.com/dtds/podcast-1.0.dtd', 'image')[0]?.getAttribute('href') ??
+        item.getElementsByTagNameNS('http://search.yahoo.com/mrss/', 'content')[0]?.getAttribute('url') ??
+        item.getElementsByTagNameNS('http://search.yahoo.com/mrss/', 'thumbnail')[0]?.getAttribute('url') ??
+        '';
       return {
         id: `${podcast.id}-${i}`,
         podcastId: podcast.id,
@@ -61,6 +68,7 @@ export class PodcastSearchService {
         title: item.querySelector('title')?.textContent?.trim() ?? `Episode ${i + 1}`,
         description: item.querySelector('description')?.textContent?.trim() ?? '',
         audioUrl,
+        artworkUrl: episodeArtwork || podcast.artworkUrl,
         duration,
         pubDate: pubDateStr ? new Date(pubDateStr) : new Date(),
         downloaded: false,

@@ -1,4 +1,5 @@
-import { Component, inject, ChangeDetectionStrategy, output } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 import { LibraryService } from '../../services/library.service';
 import { Podcast } from '../../models/podcast.model';
 
@@ -11,10 +12,10 @@ import { Podcast } from '../../models/podcast.model';
 })
 export class LibraryComponent {
   library = inject(LibraryService);
-  podcastSelected = output<Podcast>();
+  private router = inject(Router);
 
   select(podcast: Podcast): void {
-    this.podcastSelected.emit(podcast);
+    this.router.navigate(['/library', podcast.id], { state: { podcast } });
   }
 
   unsubscribe(podcast: Podcast, event: Event): void {

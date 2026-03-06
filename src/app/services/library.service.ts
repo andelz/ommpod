@@ -3,10 +3,12 @@ import { Podcast, Episode } from '../models/podcast.model';
 
 const STORAGE_KEY_PODCASTS = 'pod-subscriptions';
 const STORAGE_KEY_PROGRESS = 'pod-playback-progress';
+const STORAGE_KEY_COMPLETED = 'pod-completed-episodes';
 
 @Injectable({ providedIn: 'root' })
 export class LibraryService {
   subscriptions = signal<Podcast[]>(this.loadSubscriptions());
+  completedEpisodes = signal<Set<string>>(this.loadCompleted());
 
   subscribe(podcast: Podcast): void {
     const current = this.subscriptions();
@@ -36,6 +38,21 @@ export class LibraryService {
     return this.loadAllProgress()[episodeId] ?? 0;
   }
 
+  markCompleted(episodeId: string): void {
+    const ids = new Set(this.completedEpisodes());
+    ids.add(episodeId);
+    this.completedEpisodes.set(ids);
+    localStorage.setItem(STORAGE_KEY_COMPLETED, JSON.stringify([...ids]));
+    // Clear saved progress once completed
+    const all = this.loadAllProgress();
+    delete all[episodeId];
+    localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(all));
+  }
+
+  isCompleted(episodeId: string): boolean {
+    return this.completedEpisodes().has(episodeId);
+  }
+
   private loadSubscriptions(): Podcast[] {
     try {
       return JSON.parse(localStorage.getItem(STORAGE_KEY_PODCASTS) ?? '[]');
@@ -49,6 +66,15 @@ export class LibraryService {
       return JSON.parse(localStorage.getItem(STORAGE_KEY_PROGRESS) ?? '{}');
     } catch {
       return {};
+    }
+  }
+
+  private loadCompleted(): Set<string> {
+    try {
+      const ids: string[] = JSON.parse(localStorage.getItem(STORAGE_KEY_COMPLETED) ?? '[]');
+      return new Set(ids);
+    } catch {
+      return new Set();
     }
   }
 }

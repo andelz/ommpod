@@ -1,26 +1,18 @@
 <div class="shell">
-  @if (nowPlayingOpen()) {
-    <app-now-playing (close)="closeNowPlaying()" />
-  } @else {
+  @if (!isNowPlaying()) {
     <nav class="nav">
       <span class="nav-brand">POD</span>
-      <button class="nav-btn" [class.active]="activeView() === 'library'" (click)="setView('library')">[lib]</button>
-      <button class="nav-btn" [class.active]="activeView() === 'downloads'" (click)="setView('downloads')">[dl]</button>
-      <button class="nav-btn" [class.active]="activeView() === 'search'" (click)="setView('search')">[search]</button>
+      <a class="nav-btn" routerLink="/library" routerLinkActive="active">[lib]</a>
+      <a class="nav-btn" routerLink="/downloads" routerLinkActive="active">[dl]</a>
+      <a class="nav-btn" routerLink="/search" routerLinkActive="active">[search]</a>
     </nav>
+  }
 
-    <main class="main">
-      @if (selectedPodcast()) {
-        <app-episode-list [podcast]="selectedPodcast()!" (back)="closePodcast()" />
-      } @else if (activeView() === 'search') {
-        <app-search (podcastSelected)="openPodcast($event)" />
-      } @else if (activeView() === 'downloads') {
-        <app-downloads />
-      } @else {
-        <app-library (podcastSelected)="openPodcast($event)" />
-      }
-    </main>
+  <main class="main">
+    <router-outlet />
+  </main>
 
-    <app-player-bar (openNowPlaying)="openNowPlaying()" />
+  @if (!isNowPlaying()) {
+    <app-player-bar />
   }
 </div>

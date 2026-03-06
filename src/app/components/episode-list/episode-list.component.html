@@ -1,12 +1,15 @@
 <div class="ep-view">
   <div class="ep-header">
-    <button class="back-btn" (click)="back.emit()">[ &lt; back ]</button>
+    <button class="back-btn" (click)="goBack()">[ &lt; back ]</button>
+    @if (podcast()!.artworkUrl) {
+      <img class="artwork" [src]="podcast()!.artworkUrl" [alt]="podcast()!.title" />
+    }
     <div class="pod-info">
-      <span class="pod-title">{{ podcast().title }}</span>
-      <span class="pod-author dim">{{ podcast().author }}</span>
+      <span class="pod-title">{{ podcast()!.title }}</span>
+      <span class="pod-author dim">{{ podcast()!.author }}</span>
     </div>
     <button class="sub-btn" (click)="toggleSubscribe($event)">
-      {{ library.isSubscribed(podcast().id) ? '[-sub]' : '[+sub]' }}
+      {{ library.isSubscribed(podcast()!.id) ? '[-sub]' : '[+sub]' }}
     </button>
   </div>
 
@@ -17,12 +20,20 @@
   } @else {
     <div class="ep-list">
       @for (ep of episodes(); track ep.id) {
-        <div class="ep-row" [class.active]="isActive(ep)" (click)="playEpisode(ep)"
-          tabindex="0" (keydown.enter)="playEpisode(ep)">
+        <div class="ep-row" [class.active]="isActive(ep)" [class.completed]="isCompleted(ep)"
+          (click)="playEpisode(ep)" tabindex="0" (keydown.enter)="playEpisode(ep)">
+          @if (ep.artworkUrl) {
+            <img class="ep-artwork" [src]="ep.artworkUrl" [alt]="ep.title" loading="lazy" />
+          } @else {
+            <div class="ep-artwork ep-artwork-placeholder"></div>
+          }
           <div class="ep-main">
             <span class="ep-title">
               @if (isActive(ep)) {
                 <span class="now">{{ isPlaying(ep) ? '|>' : '||' }}&nbsp;</span>
+              }
+              @if (isCompleted(ep)) {
+                <span class="done-mark dim">[✓]&nbsp;</span>
               }
               {{ ep.title }}
             </span>
@@ -30,6 +41,11 @@
               {{ ep.pubDate | date: 'yyyy-MM-dd' }}
               @if (ep.duration) { &middot; {{ ep.duration | duration }} }
             </span>
+            @if (!isCompleted(ep) && listenProgressRatio(ep) > 0) {
+              <div class="listen-bar">
+                <div class="listen-fill" [style.width.%]="listenProgressRatio(ep) * 100"></div>
+              </div>
+            }
           </div>
           <div class="ep-actions">
             @if (downloadProgress(ep) !== undefined) {

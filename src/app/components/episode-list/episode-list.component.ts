@@ -1,7 +1,8 @@
 import {
-  Component, inject, signal, input, output, OnChanges, ChangeDetectionStrategy
+  Component, inject, signal, OnInit, ChangeDetectionStrategy
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
+import { Router } from '@angular/router';
 import { Podcast, Episode } from '../../models/podcast.model';
 import { PodcastSearchService } from '../../services/podcast-search.service';
 import { PlayerService } from '../../services/player.service';
@@ -17,29 +18,38 @@ import { DurationPipe } from '../../pipes/duration.pipe';
   templateUrl: './episode-list.component.html',
   styleUrl: './episode-list.component.scss',
 })
-export class EpisodeListComponent implements OnChanges {
+export class EpisodeListComponent implements OnInit {
   private searchSvc = inject(PodcastSearchService);
+  private location = inject(Location);
+  private router = inject(Router);
   player = inject(PlayerService);
   download = inject(DownloadService);
   library = inject(LibraryService);
 
-  podcast = input.required<Podcast>();
-  back = output<void>();
+  podcast = signal<Podcast | null>((this.router.getCurrentNavigation()?.extras.state ?? history.state)?.podcast ?? null);
 
   episodes = signal<Episode[]>([]);
   loading = signal(false);
   error = signal('');
   downloadedUrls = signal<Set<string>>(new Set());
 
-  async ngOnChanges(): Promise<void> {
+  async ngOnInit(): Promise<void> {
+    if (!this.podcast()) {
+      this.location.back();
+      return;
+    }
     await this.loadEpisodes();
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   async loadEpisodes(): Promise<void> {
     this.loading.set(true);
     this.error.set('');
     try {
-      const eps = await this.searchSvc.fetchEpisodes(this.podcast());
+      const eps = await this.searchSvc.fetchEpisodes(this.podcast()!);
       this.episodes.set(eps);
       const urls = await this.download.listDownloadedUrls();
       this.downloadedUrls.set(new Set(urls));
@@ -64,6 +74,20 @@ export class EpisodeListComponent implements OnChanges {
 
   isDownloaded(ep: Episode): boolean {
     return this.downloadedUrls().has(ep.audioUrl);
+  }
+
+  isCompleted(ep: Episode): boolean {
+    return this.library.isCompleted(ep.id);
+  }
+
+  listenProgressRatio(ep: Episode): number {
+    if (!ep.duration) return 0;
+    // If this episode is currently playing, use live currentTime
+    if (this.player.episode()?.id === ep.id) {
+      return Math.min(this.player.currentTime() / ep.duration, 1);
+    }
+    const saved = this.library.getProgress(ep.id);
+    return saved > 0 ? Math.min(saved / ep.duration, 1) : 0;
   }
 
   downloadProgress(ep: Episode): number | undefined {
@@ -92,6 +116,7 @@ export class EpisodeListComponent implements OnChanges {
   toggleSubscribe(event: Event): void {
     event.stopPropagation();
     const p = this.podcast();
+    if (!p) return;
     if (this.library.isSubscribed(p.id)) {
       this.library.unsubscribe(p.id);
     } else {

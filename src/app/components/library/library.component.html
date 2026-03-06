@@ -6,6 +6,11 @@
   <div class="lib-list">
     @for (p of library.subscriptions(); track p.id) {
       <div class="lib-row" (click)="select(p)" tabindex="0" (keydown.enter)="select(p)">
+        @if (p.artworkUrl) {
+          <img class="artwork" [src]="p.artworkUrl" [alt]="p.title" loading="lazy" />
+        } @else {
+          <div class="artwork artwork-placeholder"></div>
+        }
         <div class="lib-main">
           <span class="lib-title">{{ p.title }}</span>
           <span class="lib-meta dim">{{ p.author }} &middot; {{ p.episodeCount }} eps</span>

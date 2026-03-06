@@ -7,6 +7,7 @@
 
 const APP_CACHE = 'pod-app-v1';
 const AUDIO_CACHE = 'pod-audio-v1';
+const IMAGE_CACHE = 'pod-images-v1';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -27,8 +28,11 @@ self.addEventListener('fetch', (event) => {
 
   const isLocal = req.url.startsWith(self.location.origin);
 
+  const isImage = /\.(jpe?g|png|webp|gif)(\?.*)?$/i.test(req.url) ||
+    req.destination === 'image';
+
   event.respondWith(
-    isLocal ? serveAppShell(req) : serveAudio(req)
+    isLocal ? serveAppShell(req) : isImage ? serveImage(req) : serveAudio(req)
   );
 });
 
@@ -42,6 +46,19 @@ async function serveAppShell(req) {
     return fresh;
   } catch {
     if (req.mode === 'navigate') return cache.match('/index.html') ?? Response.error();
+    return Response.error();
+  }
+}
+
+async function serveImage(req) {
+  const cache = await caches.open(IMAGE_CACHE);
+  const cached = await cache.match(req.url);
+  if (cached) return cached;
+  try {
+    const fresh = await fetch(req, { mode: 'no-cors' });
+    if (fresh.type === 'opaque' || fresh.ok) cache.put(req.url, fresh.clone());
+    return fresh;
+  } catch {
     return Response.error();
   }
 }

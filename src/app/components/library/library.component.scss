@@ -21,6 +21,19 @@
   overflow-y: auto;
 }
 
+.artwork {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  object-fit: cover;
+  filter: grayscale(100%);
+  opacity: 0.8;
+}
+
+.artwork-placeholder {
+  background: var(--mid);
+}
+
 .lib-row {
   display: flex;
   align-items: center;
