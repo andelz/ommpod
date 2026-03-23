@@ -28,4 +28,16 @@ Architectural decisions and rationale. Each entry: **date · decision · why**.
 **Why:** Many podcast RSS feeds lack CORS headers; multiple proxies improve reliability
 **Consequence:** Depends on third-party proxy services for feeds without CORS
 
+## ADR-005 · Home screen as default route
+**Date:** 2026-03-23
+**Decision:** Replace `/library` with `/home` as the default landing page; home shows genre-based recommendations derived from subscriptions
+**Why:** Provides a discovery surface that encourages exploration rather than dropping users straight into their existing library
+**Consequence:** Users with no subscriptions see an empty home screen — needs an onboarding/empty-state to remain useful for new users
+
+## ADR-006 · Layout design tokens with mobile media query
+**Date:** 2026-03-23
+**Decision:** Centralize layout dimensions (touch targets, artwork sizes, padding, progress bar heights) as CSS custom properties in `:root`, overridden at `max-width: 480px`
+**Why:** Ensures consistent sizing across all components and makes mobile responsiveness a single-point-of-change
+**Consequence:** All component SCSS must use tokens instead of hardcoded values
+
 <!-- Add new decisions below -->

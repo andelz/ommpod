@@ -3,7 +3,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } fro
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map, filter, startWith } from 'rxjs';
 import { PlayerBarComponent } from './components/player-bar/player-bar.component';
-import { LucideAngularModule, FileIcon, SquareLibraryIcon, FolderDownIcon, SearchIcon } from 'lucide-angular';
+import { LucideAngularModule, FileIcon, SquareLibraryIcon, FolderDownIcon, SearchIcon, HouseIcon } from 'lucide-angular';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -18,6 +18,7 @@ export class App {
   private router = inject(Router);  
 
   icons = {
+    home: HouseIcon,
     lib: SquareLibraryIcon,
     download: FolderDownIcon,
     search: SearchIcon,

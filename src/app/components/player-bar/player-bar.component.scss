@@ -9,13 +9,13 @@
 }
 
 .progress-track {
-  height: 2px;
+  height: var(--progress-h);
   background: var(--mid);
   cursor: pointer;
   position: relative;
 
   &:hover {
-    height: 4px;
+    height: var(--progress-h);
   }
 }
 
@@ -29,8 +29,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 12px;
-  gap: 12px;
+  padding: var(--header-pad-v) var(--header-pad-h);
+  gap: var(--gap);
   flex-wrap: wrap;
 }
 
@@ -65,7 +65,7 @@
 .btns {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--gap);
   flex-shrink: 0;
 
   button {
@@ -98,4 +98,10 @@
 
 .dim {
   color: var(--dim);
+}
+
+@media (max-width: 480px) {
+  .time {
+    display: none;
+  }
 }

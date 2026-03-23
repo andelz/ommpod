@@ -2,6 +2,9 @@
   @if (!isNowPlaying()) {
     <nav class="nav">
       <span class="nav-brand">POD</span>
+      <a class="nav-btn" routerLink="/home" routerLinkActive="active">
+        <lucide-icon [size]="18" [img]="icons.home"></lucide-icon>
+      </a>
       <a class="nav-btn" routerLink="/library" routerLinkActive="active">
         <lucide-icon [size]="18" [img]="icons.lib"></lucide-icon>
       </a>

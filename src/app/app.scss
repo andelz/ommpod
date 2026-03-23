@@ -14,8 +14,8 @@
 .nav {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 6px 12px;
+  gap: var(--gap);
+  padding: var(--header-pad-v) var(--header-pad-h);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
@@ -31,6 +31,11 @@
   font-size: var(--size-sm);
   opacity: 0.5;
   transition: opacity 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
 
   &:hover {
     opacity: 0.8;
@@ -45,5 +50,5 @@
 .main {
   flex: 1;
   overflow: hidden;
-  padding-bottom: 52px; // reserve space for player bar
+  padding-bottom: var(--player-reserve);
 }

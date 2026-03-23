@@ -8,8 +8,8 @@
 .np-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px 12px;
+  gap: var(--gap);
+  padding: var(--header-pad-v) var(--header-pad-h);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
@@ -38,7 +38,7 @@
 
 .np-artwork {
   width: 100%;
-  max-width: 240px;
+  max-width: var(--artwork-lg);
   aspect-ratio: 1;
   object-fit: cover;
   filter: grayscale(100%);
@@ -74,13 +74,13 @@
 }
 
 .progress-track {
-  height: 3px;
+  height: var(--progress-h-np);
   background: var(--mid);
   cursor: pointer;
   position: relative;
 
   &:hover {
-    height: 5px;
+    height: var(--progress-h-np);
 
     .progress-thumb {
       opacity: 1;
@@ -98,8 +98,8 @@
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 10px;
-  height: 10px;
+  width: var(--progress-thumb);
+  height: var(--progress-thumb);
   background: var(--fg);
   border-radius: 50%;
   pointer-events: none;
@@ -117,7 +117,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: var(--gap-lg);
 }
 
 .status {
@@ -128,7 +128,7 @@
 .np-btns {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--gap-lg);
 }
 
 .skip-btn {
@@ -141,7 +141,7 @@
 }
 
 .play-btn {
-  font-size: 20px;
+  font-size: var(--np-play-size);
   letter-spacing: 2px;
 
   &:hover {
@@ -180,4 +180,10 @@
 
 .dim {
   color: var(--dim);
+}
+
+@media (max-width: 480px) {
+  .progress-thumb {
+    opacity: 1;
+  }
 }

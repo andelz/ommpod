@@ -8,8 +8,8 @@
 .dl-header {
   display: flex;
   align-items: baseline;
-  gap: 10px;
-  padding: 8px 12px;
+  gap: var(--gap);
+  padding: var(--header-pad-v) var(--header-pad-h);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 
@@ -32,10 +32,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
+  padding: var(--row-pad-v) var(--row-pad-h);
   border-bottom: 1px solid var(--mid);
   cursor: pointer;
-  gap: 8px;
+  gap: var(--gap);
+  min-height: var(--row-min-h);
 
   &:hover,
   &:focus {

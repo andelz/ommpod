@@ -1,0 +1,136 @@
+.home-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.home-header {
+  padding: var(--header-pad-v) var(--header-pad-h);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+
+  .label {
+    font-size: var(--size-sm);
+    color: var(--dim);
+  }
+}
+
+.home-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+  padding: var(--gap-lg);
+  height: 100%;
+  text-align: center;
+}
+
+.search-btn {
+  margin-top: var(--gap);
+  font-size: var(--size-sm);
+
+  &:hover {
+    color: var(--fg);
+  }
+}
+
+.status {
+  padding: var(--row-pad-v) var(--row-pad-h);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.genre-section {
+  border-bottom: 1px solid var(--mid);
+  padding: var(--row-pad-v) 0;
+}
+
+.genre-label {
+  display: block;
+  font-size: var(--size-sm);
+  color: var(--dim);
+  padding: 0 var(--row-pad-h) var(--row-pad-v);
+}
+
+.genre-row {
+  display: flex;
+  overflow-x: auto;
+  gap: var(--gap);
+  padding: 0 var(--row-pad-h) var(--row-pad-v);
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.podcast-card {
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  min-width: 120px;
+  cursor: pointer;
+  gap: 4px;
+
+  &:hover,
+  &:focus {
+    outline: none;
+
+    .card-artwork {
+      opacity: 1;
+    }
+  }
+}
+
+.card-artwork {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  filter: grayscale(100%);
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+
+.artwork-placeholder {
+  background: var(--mid);
+}
+
+.card-title {
+  font-size: var(--size-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-meta {
+  font-size: var(--size-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sub-btn {
+  align-self: flex-start;
+  font-size: var(--size-xs);
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.dim {
+  color: var(--dim);
+}
+
+.hint {
+  font-size: var(--size-xs);
+}

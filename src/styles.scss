@@ -23,6 +23,23 @@
   --size-lg: 16px;
   --gap: 8px;
   --gap-lg: 16px;
+
+  /* layout tokens */
+  --touch-min: 0px;
+  --artwork-sm: 32px;
+  --artwork-md: 36px;
+  --artwork-lg: 240px;
+  --progress-h: 2px;
+  --progress-h-np: 3px;
+  --progress-thumb: 10px;
+  --row-pad-v: 8px;
+  --row-pad-h: 12px;
+  --row-min-h: 0px;
+  --header-pad-v: 8px;
+  --header-pad-h: 12px;
+  --nav-icon: 18px;
+  --player-reserve: 52px;
+  --np-play-size: 20px;
 }
 
 html, body {
@@ -94,4 +111,41 @@ a {
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  :root {
+    --size-xs: 13px;
+    --size-sm: 15px;
+    --size-base: 16px;
+    --size-lg: 18px;
+    --gap: 12px;
+    --gap-lg: 20px;
+
+    --touch-min: 44px;
+    --artwork-sm: 44px;
+    --artwork-md: 48px;
+    --artwork-lg: 100%;
+    --progress-h: 8px;
+    --progress-h-np: 8px;
+    --progress-thumb: 20px;
+    --row-pad-v: 12px;
+    --row-pad-h: 16px;
+    --row-min-h: 56px;
+    --header-pad-v: 10px;
+    --header-pad-h: 16px;
+    --nav-icon: 24px;
+    --player-reserve: 64px;
+    --np-play-size: 24px;
+  }
+
+  button {
+    min-height: var(--touch-min);
+    min-width: var(--touch-min);
+  }
+
+  input {
+    min-height: var(--touch-min);
+    font-size: var(--size-base);
+  }
 }

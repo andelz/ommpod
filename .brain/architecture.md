@@ -25,6 +25,8 @@ A standalone Angular 20 podcast player PWA that searches iTunes for podcasts, ma
 | `PodcastSearchService` | iTunes search API + RSS feed parsing with CORS proxy fallback chain |
 | `LibraryService` | Subscriptions & playback progress in localStorage |
 | `DownloadService` | Service-worker-based episode caching with progress signals |
+| `HomeComponent` | Home screen — genre-based podcast recommendations |
+| `DiscoveryService` | Fetches recommendations by genre from subscribed podcasts, in-memory cache |
 | `DurationPipe` | Formats seconds to HH:MM:SS |
 | `Podcast` / `Episode` / `PlayerState` | Core data models |
 
@@ -39,6 +41,7 @@ A standalone Angular 20 podcast player PWA that searches iTunes for podcasts, ma
 - **Service worker for downloads** — `audio-sw.js` registered by `DownloadService`; communicates via `MessageChannel` for download progress
 - **CORS proxy chain** — RSS fetching tries direct → corsproxy.io → allorigins as fallback
 - **Lucide icons** — icon library via `lucide-angular`
+- **Layout design tokens** — CSS custom properties for sizes, touch targets, artwork dimensions; mobile overrides at `max-width: 480px`
 - **OnPush / signal-driven** — `ChangeDetectionStrategy.OnPush` on root; signals drive all reactive state
 
 ---

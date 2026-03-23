@@ -1,7 +1,12 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'library', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./components/home/home.component').then(m => m.HomeComponent),
+  },
   {
     path: 'library',
     loadComponent: () =>
@@ -36,5 +41,5 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/now-playing/now-playing.component').then(m => m.NowPlayingComponent),
   },
-  { path: '**', redirectTo: 'library' },
+  { path: '**', redirectTo: 'home' },
 ];

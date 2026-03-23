@@ -6,7 +6,7 @@
 }
 
 .lib-header {
-  padding: 8px 12px;
+  padding: var(--header-pad-v) var(--header-pad-h);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 
@@ -22,8 +22,8 @@
 }
 
 .artwork {
-  width: 36px;
-  height: 36px;
+  width: var(--artwork-md);
+  height: var(--artwork-md);
   flex-shrink: 0;
   object-fit: cover;
   filter: grayscale(100%);
@@ -38,10 +38,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
+  padding: var(--row-pad-v) var(--row-pad-h);
   border-bottom: 1px solid var(--mid);
   cursor: pointer;
-  gap: 8px;
+  gap: var(--gap);
+  min-height: var(--row-min-h);
 
   &:hover,
   &:focus {
