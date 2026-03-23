@@ -3,17 +3,25 @@ import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } fro
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map, filter, startWith } from 'rxjs';
 import { PlayerBarComponent } from './components/player-bar/player-bar.component';
-
+import { LucideAngularModule, FileIcon, SquareLibraryIcon, FolderDownIcon, SearchIcon } from 'lucide-angular';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, PlayerBarComponent],
+  imports: [RouterOutlet, 
+    LucideAngularModule,
+    RouterLink, RouterLinkActive, PlayerBarComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
   private router = inject(Router);  
+
+  icons = {
+    lib: SquareLibraryIcon,
+    download: FolderDownIcon,
+    search: SearchIcon,
+  }
 
   isNowPlaying = toSignal(
     this.router.events.pipe(

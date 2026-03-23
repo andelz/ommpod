@@ -2,9 +2,15 @@
   @if (!isNowPlaying()) {
     <nav class="nav">
       <span class="nav-brand">POD</span>
-      <a class="nav-btn" routerLink="/library" routerLinkActive="active">[lib]</a>
-      <a class="nav-btn" routerLink="/downloads" routerLinkActive="active">[dl]</a>
-      <a class="nav-btn" routerLink="/search" routerLinkActive="active">[search]</a>
+      <a class="nav-btn" routerLink="/library" routerLinkActive="active">
+        <lucide-icon [size]="18" [img]="icons.lib"></lucide-icon>
+      </a>
+      <a class="nav-btn" routerLink="/downloads" routerLinkActive="active">
+        <lucide-icon [size]="18" [img]="icons.download"></lucide-icon>
+      </a>
+      <a class="nav-btn" routerLink="/search" routerLinkActive="active">
+        <lucide-icon [size]="18" [img]="icons.search"></lucide-icon>
+      </a>
     </nav>
   }
 
