@@ -1,6 +1,6 @@
 <div class="lib-view">
   <div class="lib-header">
-    <span class="label">subscriptions</span>
+    <span class="label">{{ 'library.label' | translate }}</span>
   </div>
 
   <div class="lib-list">
@@ -13,9 +13,9 @@
         }
         <div class="lib-main">
           <span class="lib-title">{{ p.title }}</span>
-          <span class="lib-meta dim">{{ p.author }} &middot; {{ p.episodeCount }} eps</span>
+          <span class="lib-meta dim">{{ p.author }} &middot; {{ 'library.episodes' | translate: { count: p.episodeCount } }}</span>
         </div>
-        <button class="unsub-btn" (click)="unsubscribe(p, $event)" aria-label="Unsubscribe">
+        <button class="unsub-btn" (click)="unsubscribe(p, $event)" [attr.aria-label]="'library.unsubscribe' | translate">
           [-]
         </button>
       </div>
@@ -23,8 +23,8 @@
 
     @if (library.subscriptions().length === 0) {
       <div class="empty">
-        <span class="dim">no subscriptions</span>
-        <span class="dim hint">search for podcasts and press [+] to subscribe</span>
+        <span class="dim">{{ 'library.empty.message' | translate }}</span>
+        <span class="dim hint">{{ 'library.empty.hint' | translate }}</span>
       </div>
     }
   </div>

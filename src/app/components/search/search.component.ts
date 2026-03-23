@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { PodcastSearchService } from '../../services/podcast-search.service';
 import { LibraryService } from '../../services/library.service';
 import { Podcast } from '../../models/podcast.model';
@@ -10,7 +11,7 @@ import { Podcast } from '../../models/podcast.model';
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',

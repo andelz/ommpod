@@ -1,0 +1,18 @@
+<div class="settings">
+  <h2 class="settings-title">{{ 'settings.label' | translate }}</h2>
+
+  <section class="settings-section">
+    <h3 class="section-title">{{ 'settings.language.label' | translate }}</h3>
+    <div class="lang-list">
+      @for (lang of languages; track lang.code) {
+        <button
+          class="lang-btn"
+          [class.active]="currentLang() === lang.code"
+          (click)="selectLanguage(lang.code)"
+        >
+          {{ lang.label }}
+        </button>
+      }
+    </div>
+  </section>
+</div>

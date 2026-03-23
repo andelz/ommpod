@@ -1,12 +1,15 @@
 /* Terminal B&W aesthetic - global reset and base */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 :root {
+  --accent: #f2a90c;
   --bg: #000;
   --fg: #fff;
   --dim: #666;
@@ -42,7 +45,8 @@
   --np-play-size: 20px;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   background: var(--bg);
   color: var(--fg);

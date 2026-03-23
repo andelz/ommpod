@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Podcast, Episode } from '../../models/podcast.model';
 import { PodcastSearchService } from '../../services/podcast-search.service';
 import { PlayerService } from '../../services/player.service';
@@ -13,7 +14,7 @@ import { DurationPipe } from '../../pipes/duration.pipe';
 @Component({
   selector: 'app-episode-list',
   standalone: true,
-  imports: [CommonModule, DurationPipe],
+  imports: [CommonModule, DurationPipe, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './episode-list.component.html',
   styleUrl: './episode-list.component.scss',

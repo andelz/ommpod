@@ -6,12 +6,12 @@
       [ngModel]="query()"
       (ngModelChange)="query.set($event)"
       (keydown)="onKeydown($event)"
-      placeholder="search podcasts..."
+      [placeholder]="'search.placeholder' | translate"
       autocomplete="off"
       spellcheck="false"
     />
     <button (click)="search()" [disabled]="loading()">
-      {{ loading() ? '...' : '[search]' }}
+      {{ loading() ? ('search.loading' | translate) : ('search.button' | translate) }}
     </button>
   </div>
 
@@ -29,16 +29,16 @@
         }
         <div class="result-main">
           <span class="result-title">{{ p.title }}</span>
-          <span class="result-meta dim">{{ p.author }} &middot; {{ p.genre }} &middot; {{ p.episodeCount }} eps</span>
+          <span class="result-meta dim">{{ p.author }} &middot; {{ p.genre }} &middot; {{ 'search.episodes' | translate: { count: p.episodeCount } }}</span>
         </div>
         <button class="sub-btn" (click)="toggleSubscribe(p, $event)"
-          [attr.aria-label]="library.isSubscribed(p.id) ? 'Unsubscribe' : 'Subscribe'">
+          [attr.aria-label]="library.isSubscribed(p.id) ? ('search.unsubscribe' | translate) : ('search.subscribe' | translate)">
           {{ library.isSubscribed(p.id) ? '[-]' : '[+]' }}
         </button>
       </div>
     }
     @if (!loading() && results().length === 0 && query()) {
-      <div class="empty dim">no results</div>
+      <div class="empty dim">{{ 'search.empty' | translate }}</div>
     }
   </div>
 </div>

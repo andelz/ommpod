@@ -1,13 +1,14 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { PlayerService } from '../../services/player.service';
 import { DurationPipe } from '../../pipes/duration.pipe';
 
 @Component({
   selector: 'app-player-bar',
   standalone: true,
-  imports: [CommonModule, DurationPipe],
+  imports: [CommonModule, DurationPipe, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './player-bar.component.html',
   styleUrl: './player-bar.component.scss',

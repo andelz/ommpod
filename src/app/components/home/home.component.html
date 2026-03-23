@@ -1,20 +1,20 @@
 <div class="home-view">
   <div class="home-header">
-    <span class="label">home</span>
+    <span class="label">{{ 'home.label' | translate }}</span>
   </div>
 
   <div class="home-content">
     @if (!hasSubscriptions()) {
       <div class="welcome">
-        <span>welcome to POD</span>
-        <span class="dim">subscribe to podcasts to get personalized recommendations</span>
-        <button class="search-btn" (click)="goToSearch()">[search podcasts]</button>
+        <span>{{ 'home.welcome.title' | translate }}</span>
+        <span class="dim">{{ 'home.welcome.subtitle' | translate }}</span>
+        <button class="search-btn" (click)="goToSearch()">{{ 'home.subscribe' | translate }}</button>
       </div>
     }
 
     @if (hasSubscriptions()) {
       @if (loading()) {
-        <div class="status"><span class="dim">loading recommendations...</span></div>
+        <div class="status"><span class="dim">{{ 'home.loading' | translate }}</span></div>
       }
 
       @if (error()) {
@@ -23,7 +23,7 @@
 
       @for (section of recommendations(); track section.genre) {
         <div class="genre-section">
-          <span class="genre-label">based on [{{ section.genre }}]</span>
+          <span class="genre-label">{{ 'home.genre-label' | translate: { genre: section.genre } }}</span>
           <div class="genre-row">
             @for (p of section.podcasts; track p.id) {
               <div class="podcast-card" (click)="select(p)" tabindex="0" (keydown.enter)="select(p)">
@@ -34,7 +34,7 @@
                 }
                 <span class="card-title">{{ p.title }}</span>
                 <span class="card-meta dim">{{ p.author }}</span>
-                <button class="sub-btn" (click)="subscribe(p, $event)" aria-label="Subscribe">[+]</button>
+                <button class="sub-btn" (click)="subscribe(p, $event)" [attr.aria-label]="'home.subscribe' | translate">[+]</button>
               </div>
             }
           </div>
@@ -43,8 +43,8 @@
 
       @if (!loading() && recommendations().length === 0 && !error()) {
         <div class="status">
-          <span class="dim">no recommendations found</span>
-          <span class="dim hint">try subscribing to more podcasts</span>
+          <span class="dim">{{ 'home.empty.message' | translate }}</span>
+          <span class="dim hint">{{ 'home.empty.hint' | translate }}</span>
         </div>
       }
     }

@@ -1,14 +1,16 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { map, filter, startWith } from 'rxjs';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { SwUpdate } from '@angular/service-worker';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { FolderDownIcon, HouseIcon, LucideAngularModule, SearchIcon, SettingsIcon, SquareLibraryIcon } from 'lucide-angular';
+import { filter, map, startWith } from 'rxjs';
 import { PlayerBarComponent } from './components/player-bar/player-bar.component';
-import { LucideAngularModule, FileIcon, SquareLibraryIcon, FolderDownIcon, SearchIcon, HouseIcon } from 'lucide-angular';
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, 
-    LucideAngularModule,
+    LucideAngularModule, TranslateModule,
     RouterLink, RouterLinkActive, PlayerBarComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
@@ -22,7 +24,9 @@ export class App {
     lib: SquareLibraryIcon,
     download: FolderDownIcon,
     search: SearchIcon,
+    settings: SettingsIcon,
   }
+  updateAvailable = signal(false);
 
   isNowPlaying = toSignal(
     this.router.events.pipe(
@@ -32,4 +36,24 @@ export class App {
     ),
     { initialValue: false },
   );
+
+    constructor() {
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) {
+      inject(TranslateService).use(savedLang);
+    }
+
+    const swUpdate = inject(SwUpdate, { optional: true });
+    if (swUpdate?.isEnabled) {
+      swUpdate.versionUpdates.subscribe((event) => {
+        if (event.type === 'VERSION_READY') {
+          this.updateAvailable.set(true);
+        }
+      });
+    }
+  }
+
+  reload() {
+    window.location.reload();
+  }
 }

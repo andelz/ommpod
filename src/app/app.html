@@ -1,4 +1,11 @@
 <div class="shell">
+  @if (updateAvailable()) {
+    <div class="update-banner" role="alert">
+      <span>{{ 'home.update.message' | translate }}</span>
+      <button class="update-btn" (click)="reload()">{{ 'home.update.reload' | translate }}</button>
+    </div>
+  }
+
   @if (!isNowPlaying()) {
     <nav class="nav">
       <span class="nav-brand">POD</span>
@@ -13,6 +20,9 @@
       </a>
       <a class="nav-btn" routerLink="/search" routerLinkActive="active">
         <lucide-icon [size]="18" [img]="icons.search"></lucide-icon>
+      </a>
+      <a class="nav-btn" routerLink="/settings" routerLinkActive="active">
+        <lucide-icon [size]="18" [img]="icons.settings"></lucide-icon>
       </a>
     </nav>
   }

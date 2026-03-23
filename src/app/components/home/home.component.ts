@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { DiscoveryService } from '../../services/discovery.service';
 import { LibraryService } from '../../services/library.service';
 import { Podcast } from '../../models/podcast.model';
@@ -7,6 +8,7 @@ import { Podcast } from '../../models/podcast.model';
 @Component({
   selector: 'app-home',
   standalone: true,
+  imports: [TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

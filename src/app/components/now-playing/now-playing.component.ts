@@ -1,13 +1,14 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { PlayerService } from '../../services/player.service';
 import { DurationPipe } from '../../pipes/duration.pipe';
 
 @Component({
   selector: 'app-now-playing',
   standalone: true,
-  imports: [CommonModule, DurationPipe],
+  imports: [CommonModule, DurationPipe, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './now-playing.component.html',
   styleUrl: './now-playing.component.scss',

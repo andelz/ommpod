@@ -1,6 +1,6 @@
 <div class="ep-view">
   <div class="ep-header">
-    <button class="back-btn" (click)="goBack()">[ &lt; back ]</button>
+    <button class="back-btn" (click)="goBack()">{{ 'episode-list.back' | translate }}</button>
     @if (podcast()!.artworkUrl) {
       <img class="artwork" [src]="podcast()!.artworkUrl" [alt]="podcast()!.title" />
     }
@@ -9,12 +9,12 @@
       <span class="pod-author dim">{{ podcast()!.author }}</span>
     </div>
     <button class="sub-btn" (click)="toggleSubscribe($event)">
-      {{ library.isSubscribed(podcast()!.id) ? '[-sub]' : '[+sub]' }}
+      {{ library.isSubscribed(podcast()!.id) ? ('episode-list.unsubscribe' | translate) : ('episode-list.subscribe' | translate) }}
     </button>
   </div>
 
   @if (loading()) {
-    <div class="status dim">loading...</div>
+    <div class="status dim">{{ 'episode-list.loading' | translate }}</div>
   } @else if (error()) {
     <div class="status error">! {{ error() }}</div>
   } @else {
@@ -57,7 +57,7 @@
               </div>
             } @else {
               <button class="dl-btn" (click)="toggleDownload(ep, $event)"
-                [attr.aria-label]="isDownloaded(ep) ? 'Delete download' : 'Download'">
+                [attr.aria-label]="isDownloaded(ep) ? ('episode-list.delete-download' | translate) : ('episode-list.download' | translate)">
                 {{ isDownloaded(ep) ? '[x]' : '[dl]' }}
               </button>
             }
@@ -65,7 +65,7 @@
         </div>
       }
       @if (episodes().length === 0) {
-        <div class="status dim">no episodes</div>
+        <div class="status dim">{{ 'episode-list.empty' | translate }}</div>
       }
     </div>
   }
