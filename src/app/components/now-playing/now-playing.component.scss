@@ -15,7 +15,7 @@
 }
 
 .close-btn {
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
   opacity: 0.6;
 
   &:hover {
@@ -24,7 +24,7 @@
 }
 
 .label {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
 }
 
 .np-body {
@@ -53,18 +53,18 @@
 }
 
 .np-podcast {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   letter-spacing: 1px;
   text-transform: uppercase;
 }
 
 .np-title {
-  font-size: var(--size-lg);
+  font-size: var(--font-size-lg);
   line-height: 1.4;
 }
 
 .np-date {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
 }
 
 .np-scrubber {
@@ -110,7 +110,7 @@
 .np-times {
   display: flex;
   justify-content: space-between;
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
 }
 
 .np-controls {
@@ -121,7 +121,7 @@
 }
 
 .status {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   letter-spacing: 2px;
 }
 
@@ -132,7 +132,7 @@
 }
 
 .skip-btn {
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
   opacity: 0.5;
 
   &:hover {
@@ -150,7 +150,7 @@
 }
 
 .rate-btn {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   border: 1px solid var(--border);
   padding: 2px 8px;
   opacity: 0.6;
@@ -168,11 +168,11 @@
 }
 
 .np-desc-label {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
 }
 
 .np-desc-text {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   line-height: 1.7;
   white-space: pre-wrap;
   word-break: break-word;

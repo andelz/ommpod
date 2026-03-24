@@ -1,4 +1,4 @@
-<div class="shell">
+
   @if (updateAvailable()) {
     <div class="update-banner" role="alert">
       <span>{{ 'home.update.message' | translate }}</span>
@@ -7,23 +7,32 @@
   }
 
   @if (!isNowPlaying()) {
-    <nav class="nav">
-      <span class="nav-brand">POD</span>
-      <a class="nav-btn" routerLink="/home" routerLinkActive="active">
-        <lucide-icon [size]="18" [img]="icons.home"></lucide-icon>
-      </a>
-      <a class="nav-btn" routerLink="/library" routerLinkActive="active">
-        <lucide-icon [size]="18" [img]="icons.lib"></lucide-icon>
-      </a>
-      <a class="nav-btn" routerLink="/downloads" routerLinkActive="active">
-        <lucide-icon [size]="18" [img]="icons.download"></lucide-icon>
-      </a>
-      <a class="nav-btn" routerLink="/search" routerLinkActive="active">
-        <lucide-icon [size]="18" [img]="icons.search"></lucide-icon>
-      </a>
-      <a class="nav-btn" routerLink="/settings" routerLinkActive="active">
-        <lucide-icon [size]="18" [img]="icons.settings"></lucide-icon>
-      </a>
+
+    <header>
+      <a routerLink="/home" class="brand">P<em>O</em>D</a>
+    </header>
+
+
+    <nav>
+
+        <!-- <a class="nav-btn" routerLink="/home" routerLinkActive="active">
+          {{ 'home.label' | translate }}
+          <lucide-icon [size]="18" [img]="icons.lib"></lucide-icon>
+        </a> -->
+        <a class="nav-btn" routerLink="/library" routerLinkActive="active">
+          <lucide-icon [size]="24" [img]="icons.lib"></lucide-icon>
+
+        </a>
+        <a class="nav-btn" routerLink="/downloads" routerLinkActive="active">
+          <lucide-icon [size]="24" [img]="icons.download"></lucide-icon>
+        </a>
+        <a class="nav-btn" routerLink="/search" routerLinkActive="active">
+          <lucide-icon [size]="24" [img]="icons.search"></lucide-icon>
+        </a>
+        <a class="nav-btn" routerLink="/settings" routerLinkActive="active">
+          <lucide-icon [size]="24" [img]="icons.settings"></lucide-icon>
+        </a>
+
     </nav>
   }
 
@@ -34,4 +43,3 @@
   @if (!isNowPlaying()) {
     <app-player-bar />
   }
-</div>

@@ -1,11 +1,12 @@
 .player-bar {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  inset-block-end: var(--spacing);
+  inset-inline: var(--spacing);
   background: var(--bg);
   border-top: 1px solid var(--border);
   z-index: 100;
+  background-color: var(--surface-highest);
+  border: 1px solid var(--surface-highest-outline);
 }
 
 .progress-track {
@@ -43,21 +44,21 @@
 }
 
 .ep-title {
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .ep-pod {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .status-dot {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   color: var(--dim);
   letter-spacing: 2px;
 }
@@ -69,7 +70,7 @@
   flex-shrink: 0;
 
   button {
-    font-size: var(--size-sm);
+    font-size: var(--font-size-s);
     opacity: 0.7;
     transition: opacity 0.1s;
 
@@ -80,19 +81,19 @@
 }
 
 .play-btn {
-  font-size: var(--size-lg) !important;
+  font-size: var(--font-size-lg) !important;
   opacity: 1 !important;
   letter-spacing: 1px;
 }
 
 .rate-btn {
-  font-size: var(--size-xs) !important;
+  font-size: var(--font-size-xs) !important;
   border: 1px solid var(--border) !important;
   padding: 1px 4px !important;
 }
 
 .time {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   white-space: nowrap;
 }
 

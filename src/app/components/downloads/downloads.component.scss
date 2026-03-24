@@ -14,12 +14,12 @@
   flex-shrink: 0;
 
   .label {
-    font-size: var(--size-sm);
+    font-size: var(--font-size-s);
     color: var(--dim);
   }
 
   .count {
-    font-size: var(--size-xs);
+    font-size: var(--font-size-xs);
   }
 }
 
@@ -57,19 +57,19 @@
 }
 
 .dl-title {
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .now {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   opacity: 0.8;
 }
 
 .dl-meta {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -77,7 +77,7 @@
 
 .del-btn {
   flex-shrink: 0;
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   opacity: 0.4;
 
   &:hover {
@@ -93,7 +93,7 @@
 }
 
 .hint {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
 }
 
 .dim {

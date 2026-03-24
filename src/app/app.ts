@@ -20,7 +20,7 @@ export class App {
   private router = inject(Router);  
 
   icons = {
-    home: HouseIcon,
+    // home: HouseIcon,
     lib: SquareLibraryIcon,
     download: FolderDownIcon,
     search: SearchIcon,

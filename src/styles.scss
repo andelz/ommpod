@@ -19,13 +19,28 @@
   --active: #fff;
   --active-bg: #fff;
   --active-fg: #000;
-  --font: 'Courier New', Courier, monospace;
-  --size-xs: 11px;
-  --size-sm: 13px;
-  --size-base: 14px;
-  --size-lg: 16px;
+  --font: 'Lexend Deca', sans-serif;
   --gap: 8px;
   --gap-lg: 16px;
+
+  --font-size-m: 1rem;
+  --font-size-s: 0.875rem;
+  --font-size-xs: 0.75rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+
+  --spacing: 16px;
+  --spacing-s: 8px;
+  --spacing-xs: 4px;
+
+  --surface-highest: #2b2b2b;
+  --surface-high: #191919;
+  --surface-highest-outline: #353535;
+  --surface-high-outline: #242424;
+
+
+
+
 
   /* layout tokens */
   --touch-min: 0px;
@@ -41,7 +56,6 @@
   --header-pad-v: 8px;
   --header-pad-h: 12px;
   --nav-icon: 18px;
-  --player-reserve: 52px;
   --np-play-size: 20px;
 }
 
@@ -51,7 +65,7 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font);
-  font-size: var(--size-base);
+  font-size: var(--font-size-m);
   line-height: 1.5;
   overflow: hidden;
 }
@@ -80,7 +94,7 @@ body {
 
 button {
   font-family: var(--font);
-  font-size: var(--size-base);
+  font-size: var(--font-size-m);
   background: none;
   border: none;
   color: var(--fg);
@@ -95,7 +109,7 @@ button {
 
 input {
   font-family: var(--font);
-  font-size: var(--size-base);
+  font-size: var(--font-size-m);
   background: none;
   border: none;
   color: var(--fg);
@@ -119,10 +133,6 @@ a {
 
 @media (max-width: 480px) {
   :root {
-    --size-xs: 13px;
-    --size-sm: 15px;
-    --size-base: 16px;
-    --size-lg: 18px;
     --gap: 12px;
     --gap-lg: 20px;
 
@@ -139,7 +149,6 @@ a {
     --header-pad-v: 10px;
     --header-pad-h: 16px;
     --nav-icon: 24px;
-    --player-reserve: 64px;
     --np-play-size: 24px;
   }
 
@@ -150,6 +159,6 @@ a {
 
   input {
     min-height: var(--touch-min);
-    font-size: var(--size-base);
+    font-size: var(--font-size-m);
   }
 }

@@ -1,22 +1,18 @@
-.home-view {
+:host {
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
 }
 
-.home-header {
+h1 {
+  margin: 0;
   padding: var(--header-pad-v) var(--header-pad-h);
-  border-bottom: 1px solid var(--border);
+  // border-bottom: 1px solid var(--border);
   flex-shrink: 0;
-
-  .label {
-    font-size: var(--size-sm);
-    color: var(--dim);
-  }
 }
 
-.home-content {
+main {
   flex: 1;
   overflow-y: auto;
 }
@@ -34,7 +30,7 @@
 
 .search-btn {
   margin-top: var(--gap);
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
 
   &:hover {
     color: var(--fg);
@@ -55,7 +51,7 @@
 
 .genre-label {
   display: block;
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
   color: var(--dim);
   padding: 0 var(--row-pad-h) var(--row-pad-v);
 }
@@ -104,14 +100,14 @@
 }
 
 .card-title {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .card-meta {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -119,7 +115,7 @@
 
 .sub-btn {
   align-self: flex-start;
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   opacity: 0.4;
 
   &:hover {
@@ -132,5 +128,5 @@
 }
 
 .hint {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
 }

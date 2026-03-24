@@ -25,7 +25,7 @@
   button {
     flex-shrink: 0;
     opacity: 0.7;
-    font-size: var(--size-sm);
+    font-size: var(--font-size-s);
 
     &:hover:not([disabled]) {
       opacity: 1;
@@ -39,7 +39,7 @@
 
 .error {
   padding: var(--header-pad-v) var(--header-pad-h);
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
   color: var(--fg);
   opacity: 0.5;
   flex-shrink: 0;
@@ -88,14 +88,14 @@
 }
 
 .result-title {
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .result-meta {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -103,7 +103,7 @@
 
 .sub-btn {
   flex-shrink: 0;
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
   opacity: 0.5;
 
   &:hover {
@@ -113,7 +113,7 @@
 
 .empty {
   padding: 12px;
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
 }
 
 .dim {

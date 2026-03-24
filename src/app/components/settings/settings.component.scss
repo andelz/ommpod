@@ -5,7 +5,7 @@
 }
 
 .settings-title {
-  font-size: var(--size-lg);
+  font-size: var(--font-size-lg);
   font-weight: 600;
   margin: 0 0 var(--gap-lg);
 }
@@ -15,7 +15,7 @@
 }
 
 .section-title {
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--dim);
@@ -36,7 +36,7 @@
   border: 1px solid var(--border);
   background: transparent;
   color: var(--fg);
-  font-size: var(--size-base);
+  font-size: var(--font-size-m);
   cursor: pointer;
   transition: background 0.1s, border-color 0.1s;
   text-align: left;

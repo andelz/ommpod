@@ -25,7 +25,7 @@
 
 .back-btn {
   flex-shrink: 0;
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
   opacity: 0.6;
 
   &:hover {
@@ -41,19 +41,19 @@
 }
 
 .pod-title {
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .pod-author {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
 }
 
 .sub-btn {
   flex-shrink: 0;
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
   opacity: 0.6;
 
   &:hover {
@@ -63,7 +63,7 @@
 
 .status {
   padding: 12px;
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
 }
 
 .error {
@@ -117,19 +117,19 @@
 }
 
 .ep-title {
-  font-size: var(--size-sm);
+  font-size: var(--font-size-s);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .now {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   opacity: 0.8;
 }
 
 .ep-meta {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
 }
 
 .ep-actions {
@@ -160,12 +160,12 @@
 }
 
 .dl-pct {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   line-height: 1;
 }
 
 .dl-btn {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
   opacity: 0.4;
 
   &:hover {
@@ -193,7 +193,7 @@
 }
 
 .done-mark {
-  font-size: var(--size-xs);
+  font-size: var(--font-size-xs);
 }
 
 .ep-row.completed {
