@@ -20,6 +20,9 @@
 
   header {
     grid-area: header;
+    display: flex;
+
+    padding: var(--spacing-s) var(--spacing);
   }
   nav {
     grid-area: nav;
@@ -36,22 +39,6 @@ nav {
   align-items: center;
   justify-content: space-around;
 }
-
-// nav {
-//   display: flex;
-//   align-items: center;
-//   gap: var(--gap);
-//   padding: var(--header-pad-v) var(--header-pad-h);
-//   border-bottom: 1px solid var(--border);
-//   flex-shrink: 0;
-
-//   display: grid;
-//   grid-template-rows: auto auto;
-//   grid-template-columns: 1fr auto;
-//   grid-template-areas:
-//     'brand navSecondary'
-//     'navMain navMain';
-// }
 
 .brand {
   grid-area: brand;

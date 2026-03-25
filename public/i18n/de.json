@@ -40,6 +40,7 @@
 	"player.seek": "Springen",
 	"player.skip-back": "{{s}}s zurückspringen",
 	"player.skip-fwd": "{{s}}s vorspringen",
+	"player.stop": "Wiedergabe beenden",
 	"search.button": "Suchen",
 	"search.empty": "Keine Ergebnisse gefunden.",
 	"search.episodes": "{{count}} Folgen",

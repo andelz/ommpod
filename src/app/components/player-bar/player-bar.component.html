@@ -23,6 +23,7 @@
         <button (click)="skip(30)" [title]="'player.skip-fwd' | translate: { s: 30 }">+30</button>
         <button class="rate-btn" (click)="cycleRate()" [title]="'player.playback-rate' | translate">{{ player.playbackRate() }}x</button>
         <span class="time dim">{{ player.currentTime() | duration }} / {{ player.duration() | duration }}</span>
+        <button class="stop-btn" (click)="player.stop()" [title]="'player.stop' | translate">✕</button>
       </div>
     </div>
   </div>

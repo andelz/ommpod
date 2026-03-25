@@ -116,6 +116,17 @@ export class PlayerService {
     this.seek(this.audio.currentTime + delta);
   }
 
+  stop(): void {
+    this.audio.pause();
+    this.audio.src = '';
+    this.episode.set(null);
+    this.isPlaying.set(false);
+    this.currentTime.set(0);
+    this.duration.set(0);
+    this.loading.set(false);
+    this.lastSavedTime = 0;
+  }
+
   setPlaybackRate(rate: number): void {
     this.playbackRate.set(rate);
     this.audio.playbackRate = rate;

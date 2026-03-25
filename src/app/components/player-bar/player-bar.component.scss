@@ -1,6 +1,6 @@
 .player-bar {
   position: fixed;
-  inset-block-end: var(--spacing);
+  inset-block-end: calc(var(--spacing) * 3.5);
   inset-inline: var(--spacing);
   background: var(--bg);
   border-top: 1px solid var(--border);
@@ -90,6 +90,16 @@
   font-size: var(--font-size-xs) !important;
   border: 1px solid var(--border) !important;
   padding: 1px 4px !important;
+}
+
+.stop-btn {
+  font-size: var(--font-size-xs) !important;
+  opacity: 0.4 !important;
+  margin-inline-start: var(--gap);
+
+  &:hover {
+    opacity: 0.8 !important;
+  }
 }
 
 .time {

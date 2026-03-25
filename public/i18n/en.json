@@ -40,6 +40,7 @@
 	"player.seek": "Seek",
 	"player.skip-back": "Skip back {{s}}s",
 	"player.skip-fwd": "Skip forward {{s}}s",
+	"player.stop": "Stop playback",
 	"search.button": "Search",
 	"search.empty": "No results found.",
 	"search.episodes": "{{count}} episodes",
