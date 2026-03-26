@@ -18,7 +18,7 @@
   font-size: var(--font-size-s);
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--dim);
+  color: var(--on-surface-dim);
   margin: 0 0 var(--gap);
 }
 
@@ -33,9 +33,9 @@
   align-items: center;
   padding: var(--gap) var(--gap-lg);
   border-radius: var(--radius);
-  border: 1px solid var(--border);
+  border: 1px solid var(--surface-outline);
   background: transparent;
-  color: var(--fg);
+  color: var(--on-surface);
   font-size: var(--font-size-m);
   cursor: pointer;
   transition: background 0.1s, border-color 0.1s;

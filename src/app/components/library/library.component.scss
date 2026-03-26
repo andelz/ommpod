@@ -7,12 +7,12 @@
 
 .lib-header {
   padding: var(--header-pad-v) var(--header-pad-h);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--surface-outline);
   flex-shrink: 0;
 
   .label {
     font-size: var(--font-size-s);
-    color: var(--dim);
+    color: var(--on-surface-dim);
   }
 }
 
@@ -91,5 +91,5 @@
 }
 
 .dim {
-  color: var(--dim);
+  color: var(--on-surface-dim);
 }

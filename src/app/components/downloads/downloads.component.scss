@@ -10,12 +10,12 @@
   align-items: baseline;
   gap: var(--gap);
   padding: var(--header-pad-v) var(--header-pad-h);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--surface-outline);
   flex-shrink: 0;
 
   .label {
     font-size: var(--font-size-s);
-    color: var(--dim);
+    color: var(--on-surface);
   }
 
   .count {
@@ -45,7 +45,7 @@
   }
 
   &.active {
-    border-left: 2px solid var(--fg);
+    border-left: 2px solid var(--on-surface);
   }
 }
 
@@ -97,5 +97,5 @@
 }
 
 .dim {
-  color: var(--dim);
+  color: var(--on-surface-dim);
 }

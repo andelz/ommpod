@@ -3,7 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { FolderDownIcon, HouseIcon, LucideAngularModule, SearchIcon, SettingsIcon, SquareLibraryIcon } from 'lucide-angular';
+import { FolderDownIcon, Grid2x2Icon, Grid2x2XIcon, HouseIcon, LucideAngularModule, SearchIcon, SettingsIcon, SquareLibraryIcon } from 'lucide-angular';
 import { filter, map, startWith } from 'rxjs';
 import { PlayerBarComponent } from './components/player-bar/player-bar.component';
 @Component({
@@ -20,7 +20,7 @@ export class App {
   private router = inject(Router);  
 
   icons = {
-    // home: HouseIcon,
+    home: Grid2x2Icon,
     lib: SquareLibraryIcon,
     download: FolderDownIcon,
     search: SearchIcon,

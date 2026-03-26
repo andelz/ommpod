@@ -8,13 +8,13 @@
 .search-bar {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--surface-outline);
   padding: var(--header-pad-v) var(--header-pad-h);
   gap: var(--gap);
   flex-shrink: 0;
 
   .prompt {
-    color: var(--dim);
+    color: var(--on-surface-dim);
     flex-shrink: 0;
   }
 
@@ -40,7 +40,7 @@
 .error {
   padding: var(--header-pad-v) var(--header-pad-h);
   font-size: var(--font-size-s);
-  color: var(--fg);
+  color: var(--on-surface);
   opacity: 0.5;
   flex-shrink: 0;
 }
@@ -117,5 +117,5 @@
 }
 
 .dim {
-  color: var(--dim);
+  color: var(--on-surface-dim);
 }

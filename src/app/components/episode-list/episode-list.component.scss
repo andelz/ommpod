@@ -10,7 +10,7 @@
   align-items: center;
   gap: var(--gap);
   padding: var(--header-pad-v) var(--header-pad-h);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--surface-outline);
   flex-shrink: 0;
   height: 33vh;
 }
@@ -106,7 +106,7 @@
   }
 
   &.active {
-    border-left: 2px solid var(--fg);
+    border-left: 2px solid var(--on-surface);
   }
 }
 
@@ -156,7 +156,7 @@
 
 .dl-fill {
   height: 100%;
-  background: var(--fg);
+  background: var(--on-surface);
   transition: width 0.2s linear;
 }
 
@@ -175,7 +175,7 @@
 }
 
 .dim {
-  color: var(--dim);
+  color: var(--on-surface-dim);
 }
 
 .listen-bar {
@@ -188,7 +188,7 @@
 
 .listen-fill {
   height: 100%;
-  background: var(--fg);
+  background: var(--on-surface);
   opacity: 0.5;
   transition: width 0.5s linear;
 }

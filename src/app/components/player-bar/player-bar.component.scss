@@ -1,10 +1,10 @@
 .player-bar {
-  position: fixed;
-  inset-block-end: calc(var(--spacing) * 3.5);
-  inset-inline: var(--spacing);
-  background: var(--bg);
-  border-top: 1px solid var(--border);
-  z-index: 100;
+  // position: fixed;
+  // inset-block-end: calc(var(--spacing) * 3.5);
+  // inset-inline: var(--spacing);
+  // background: var(--bg);
+  // border-top: 1px solid var(--surface-outline);
+  // z-index: 100;
   background-color: var(--surface-highest);
   border: 1px solid var(--surface-highest-outline);
 }
@@ -22,7 +22,7 @@
 
 .progress-fill {
   height: 100%;
-  background: var(--fg);
+  background: var(--on-surface);
   pointer-events: none;
 }
 
@@ -59,7 +59,7 @@
 
 .status-dot {
   font-size: var(--font-size-xs);
-  color: var(--dim);
+  color: var(--on-surface-dim);
   letter-spacing: 2px;
 }
 
@@ -88,7 +88,7 @@
 
 .rate-btn {
   font-size: var(--font-size-xs) !important;
-  border: 1px solid var(--border) !important;
+  border: 1px solid var(--surface-outline) !important;
   padding: 1px 4px !important;
 }
 
@@ -108,7 +108,7 @@
 }
 
 .dim {
-  color: var(--dim);
+  color: var(--on-surface-dim);
 }
 
 @media (max-width: 480px) {

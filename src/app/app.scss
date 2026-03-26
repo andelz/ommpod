@@ -6,12 +6,17 @@
   // .shell {
   display: grid;
   max-width: 800px;
+
   margin: 0 auto;
+      box-shadow: 0 0 200px 5px rgb(255 255 255 / .1);
+    outline: 1px solid rgb(255 255 255 / .1);
+  
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
     'header'
     'main'
+    'player'
     'nav'
     ;
 
@@ -31,20 +36,25 @@
     grid-area: main;
     overflow: hidden;
   }
+  app-player-bar {
+    grid-area: player;
+  }
 }
 
 nav {
   display: flex;
   gap: var(--gap);
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  background-color: var(--surface-high);
+  border-top: 1px solid var(--surface-high-outline);
 }
 
 .brand {
   grid-area: brand;
   font-size: var(--font-size-xs);
   letter-spacing: 4px;
-  color: var(--dim);
+  color: var(--on-surface-dim);
   flex: 1;
   text-decoration: none;
 
@@ -55,9 +65,7 @@ nav {
 }
 
 .nav-btn {
-  // font-size: var(--font-size-s);
-  // opacity: 0.5;
-  transition: opacity 0.1s;
+  transition: opacity, background-color 0.1s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,24 +73,14 @@ nav {
   min-width: var(--touch-min);
   min-height: var(--touch-min);
   position: relative;
-  &::after {
-      content: '';
-      position: absolute;
-      inset-inline: 0;
-      inset-block-end: 0;
-      height: 2px;
-      border-radius: 4px;
-      background-color: var(--indicator-bg);
-    }
+  color: var(--on-surface-dim);
 
   &:hover {
-    --indicator-bg: var(--hover);
     opacity: 0.8;
-    
   }
   
   &.active {
-    --indicator-bg: var(--accent);
+color: var(--on-surface);
     opacity: 1;    
   }
 }
