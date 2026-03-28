@@ -1,12 +1,16 @@
 @if (player.episode()) {
   <div class="player-bar">
+    
+    <!-- progress track -->
     <div class="progress-track" (click)="onProgressClick($event)" role="slider"
       [attr.aria-valuenow]="player.currentTime()" [attr.aria-valuemax]="player.duration()"
       [attr.aria-label]="'player.seek' | translate">
       <div class="progress-fill" [style.width.%]="progressPct"></div>
     </div>
 
+    <!-- controls -->
     <div class="controls">
+
       <button class="ep-info" (click)="openNowPlaying()" [title]="'player.open-now-playing' | translate">
         @if (player.loading()) {
           <span class="status-dot">...</span>
