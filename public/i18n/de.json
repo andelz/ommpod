@@ -49,5 +49,19 @@
 	"search.subscribe": "Abonnieren",
 	"search.unsubscribe": "Abonnement beenden",
 	"settings.label": "Einstellungen",
-	"settings.language.label": "Sprache"
+	"settings.language.label": "Sprache",
+	"settings.solid.label": "Solid Pod",
+	"settings.solid.issuer": "Identitätsanbieter",
+	"settings.solid.issuer-placeholder": "https://login.inrupt.com",
+	"settings.solid.connect": "Verbinden",
+	"settings.solid.disconnect": "Trennen",
+	"settings.solid.connected-as": "Verbunden als",
+	"settings.solid.pod-url": "Pod-URL",
+	"settings.solid.status": "Status",
+	"settings.solid.sync-now": "Jetzt synchronisieren",
+	"settings.solid.syncing": "Synchronisiere…",
+	"settings.solid.last-sync": "Zuletzt synchronisiert",
+	"settings.solid.idle": "Aktuell",
+	"settings.solid.error": "Synchronisierungsfehler",
+	"settings.solid.offline": "Offline"
 }

@@ -1,80 +1,67 @@
-import { Injectable, signal } from '@angular/core';
-import { Podcast, Episode } from '../models/podcast.model';
-
-const STORAGE_KEY_PODCASTS = 'pod-subscriptions';
-const STORAGE_KEY_PROGRESS = 'pod-playback-progress';
-const STORAGE_KEY_COMPLETED = 'pod-completed-episodes';
+import { Injectable, signal, inject } from '@angular/core';
+import { Podcast } from '../models/podcast.model';
+import { PersistenceService } from './persistence.service';
 
 @Injectable({ providedIn: 'root' })
 export class LibraryService {
-  subscriptions = signal<Podcast[]>(this.loadSubscriptions());
-  completedEpisodes = signal<Set<string>>(this.loadCompleted());
+  private persistence = inject(PersistenceService);
 
-  subscribe(podcast: Podcast): void {
-    const current = this.subscriptions();
-    if (current.some(p => p.id === podcast.id)) return;
-    const updated = [...current, podcast];
-    this.subscriptions.set(updated);
-    localStorage.setItem(STORAGE_KEY_PODCASTS, JSON.stringify(updated));
+  subscriptions = signal<Podcast[]>([]);
+  completedEpisodes = signal<Set<string>>(new Set());
+  ready = signal(false);
+  lastChange = signal(0);
+
+  constructor() {
+    this.init();
   }
 
-  unsubscribe(podcastId: string): void {
-    const updated = this.subscriptions().filter(p => p.id !== podcastId);
-    this.subscriptions.set(updated);
-    localStorage.setItem(STORAGE_KEY_PODCASTS, JSON.stringify(updated));
+  private async init(): Promise<void> {
+    const [subs, completedIds] = await Promise.all([
+      this.persistence.getSubscriptions(),
+      this.persistence.getCompletedIds(),
+    ]);
+    this.subscriptions.set(subs);
+    this.completedEpisodes.set(new Set(completedIds));
+    this.ready.set(true);
+  }
+
+  async subscribe(podcast: Podcast): Promise<void> {
+    const current = this.subscriptions();
+    if (current.some(p => p.id === podcast.id)) return;
+    this.subscriptions.set([...current, podcast]);
+    await this.persistence.putSubscription(podcast);
+    this.lastChange.update(v => v + 1);
+  }
+
+  async unsubscribe(podcastId: string): Promise<void> {
+    this.subscriptions.set(this.subscriptions().filter(p => p.id !== podcastId));
+    await this.persistence.deleteSubscription(podcastId);
+    this.lastChange.update(v => v + 1);
   }
 
   isSubscribed(podcastId: string): boolean {
     return this.subscriptions().some(p => p.id === podcastId);
   }
 
-  saveProgress(episodeId: string, time: number): void {
-    const all = this.loadAllProgress();
-    all[episodeId] = time;
-    localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(all));
+  async saveProgress(episodeId: string, time: number): Promise<void> {
+    await this.persistence.putProgress(episodeId, time);
+    this.lastChange.update(v => v + 1);
   }
 
-  getProgress(episodeId: string): number {
-    return this.loadAllProgress()[episodeId] ?? 0;
+  async getProgress(episodeId: string): Promise<number> {
+    return this.persistence.getProgress(episodeId);
   }
 
-  markCompleted(episodeId: string): void {
+  async markCompleted(episodeId: string): Promise<void> {
     const ids = new Set(this.completedEpisodes());
     ids.add(episodeId);
     this.completedEpisodes.set(ids);
-    localStorage.setItem(STORAGE_KEY_COMPLETED, JSON.stringify([...ids]));
-    // Clear saved progress once completed
-    const all = this.loadAllProgress();
-    delete all[episodeId];
-    localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(all));
+    await this.persistence.putCompleted(episodeId);
+    await this.persistence.deleteProgress(episodeId);
+    this.lastChange.update(v => v + 1);
   }
 
   isCompleted(episodeId: string): boolean {
     return this.completedEpisodes().has(episodeId);
-  }
-
-  private loadSubscriptions(): Podcast[] {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY_PODCASTS) ?? '[]');
-    } catch {
-      return [];
-    }
-  }
-
-  private loadAllProgress(): Record<string, number> {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY_PROGRESS) ?? '{}');
-    } catch {
-      return {};
-    }
-  }
-
-  private loadCompleted(): Set<string> {
-    try {
-      const ids: string[] = JSON.parse(localStorage.getItem(STORAGE_KEY_COMPLETED) ?? '[]');
-      return new Set(ids);
-    } catch {
-      return new Set();
-    }
   }
 }

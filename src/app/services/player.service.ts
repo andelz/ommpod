@@ -91,7 +91,7 @@ export class PlayerService {
     this.audio.playbackRate = this.playbackRate();
     this.audio.load();
 
-    const savedTime = this.libraryService.getProgress(episode.id);
+    const savedTime = await this.libraryService.getProgress(episode.id);
     if (savedTime > 0) {
       this.audio.currentTime = savedTime;
     }

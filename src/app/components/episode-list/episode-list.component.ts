@@ -9,6 +9,7 @@ import { PodcastSearchService } from '../../services/podcast-search.service';
 import { PlayerService } from '../../services/player.service';
 import { DownloadService } from '../../services/download.service';
 import { LibraryService } from '../../services/library.service';
+import { PersistenceService } from '../../services/persistence.service';
 import { DurationPipe } from '../../pipes/duration.pipe';
 
 @Component({
@@ -26,6 +27,7 @@ export class EpisodeListComponent implements OnInit {
   player = inject(PlayerService);
   download = inject(DownloadService);
   library = inject(LibraryService);
+  private persistence = inject(PersistenceService);
 
   podcast = signal<Podcast | null>((this.router.getCurrentNavigation()?.extras.state ?? history.state)?.podcast ?? null);
 
@@ -33,6 +35,7 @@ export class EpisodeListComponent implements OnInit {
   loading = signal(false);
   error = signal('');
   downloadedUrls = signal<Set<string>>(new Set());
+  private progressCache = signal<Record<string, number>>({});
 
   async ngOnInit(): Promise<void> {
     if (!this.podcast()) {
@@ -52,8 +55,12 @@ export class EpisodeListComponent implements OnInit {
     try {
       const eps = await this.searchSvc.fetchEpisodes(this.podcast()!);
       this.episodes.set(eps);
-      const urls = await this.download.listDownloadedUrls();
+      const [urls, progress] = await Promise.all([
+        this.download.listDownloadedUrls(),
+        this.persistence.getAllProgress(),
+      ]);
       this.downloadedUrls.set(new Set(urls));
+      this.progressCache.set(progress);
     } catch {
       this.error.set('failed to load episodes');
     } finally {
@@ -87,7 +94,7 @@ export class EpisodeListComponent implements OnInit {
     if (this.player.episode()?.id === ep.id) {
       return Math.min(this.player.currentTime() / ep.duration, 1);
     }
-    const saved = this.library.getProgress(ep.id);
+    const saved = this.progressCache()[ep.id] ?? 0;
     return saved > 0 ? Math.min(saved / ep.duration, 1) : 0;
   }
 

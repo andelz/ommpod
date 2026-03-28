@@ -15,4 +15,57 @@
       }
     </div>
   </section>
+
+  <section class="settings-section">
+    <h3 class="section-title">{{ 'settings.solid.label' | translate }}</h3>
+
+    @if (solidAuth.isLoggedIn()) {
+      <div class="solid-info">
+        <div class="solid-row">
+          <span class="solid-label">{{ 'settings.solid.connected-as' | translate }}</span>
+          <span class="solid-value">{{ solidAuth.webId() }}</span>
+        </div>
+        @if (solidAuth.podUrl()) {
+          <div class="solid-row">
+            <span class="solid-label">{{ 'settings.solid.pod-url' | translate }}</span>
+            <span class="solid-value">{{ solidAuth.podUrl() }}</span>
+          </div>
+        }
+        <div class="solid-row">
+          <span class="solid-label">{{ 'settings.solid.status' | translate }}</span>
+          <span class="solid-value solid-status" [attr.data-status]="solidSync.syncStatus()">
+            {{ 'settings.solid.' + solidSync.syncStatus() | translate }}
+          </span>
+          @if (solidSync.lastSyncTime()) {
+            <span class="solid-last-sync">
+              {{ 'settings.solid.last-sync' | translate }}: {{ solidSync.lastSyncTime()?.toLocaleTimeString() }}
+            </span>
+          }
+        </div>
+        <div class="solid-actions">
+          <button class="solid-btn" (click)="syncNow()" [disabled]="solidSync.syncStatus() === 'syncing'">
+            {{ (solidSync.syncStatus() === 'syncing' ? 'settings.solid.syncing' : 'settings.solid.sync-now') | translate }}
+          </button>
+          <button class="solid-btn solid-btn--disconnect" (click)="disconnectSolid()">
+            {{ 'settings.solid.disconnect' | translate }}
+          </button>
+        </div>
+      </div>
+    } @else {
+      <div class="solid-connect">
+        <label class="solid-input-label" for="issuer-url">{{ 'settings.solid.issuer' | translate }}</label>
+        <input
+          id="issuer-url"
+          class="solid-input"
+          type="url"
+          [placeholder]="'settings.solid.issuer-placeholder' | translate"
+          [ngModel]="issuerUrl()"
+          (ngModelChange)="issuerUrl.set($event)"
+        />
+        <button class="solid-btn" (click)="connectSolid()">
+          {{ 'settings.solid.connect' | translate }}
+        </button>
+      </div>
+    }
+  </section>
 </div>

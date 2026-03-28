@@ -1,18 +1,26 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { Episode } from '../models/podcast.model';
+import { PersistenceService } from './persistence.service';
 
-const META_KEY = 'pod-downloaded-meta';
 const SW_PATH = '/audio-sw.js';
 
 @Injectable({ providedIn: 'root' })
 export class DownloadService {
+  private persistence = inject(PersistenceService);
+
   progress = signal<Record<string, number>>({});
-  downloadedEpisodes = signal<Episode[]>(this.loadMeta());
+  downloadedEpisodes = signal<Episode[]>([]);
 
   private swReady: Promise<ServiceWorker | null>;
 
   constructor() {
     this.swReady = this.registerSW();
+    this.init();
+  }
+
+  private async init(): Promise<void> {
+    const episodes = await this.persistence.getDownloadedEpisodes();
+    this.downloadedEpisodes.set(episodes);
   }
 
   private async registerSW(): Promise<ServiceWorker | null> {
@@ -38,7 +46,6 @@ export class DownloadService {
     return urls.includes(episode.audioUrl);
   }
 
-  // The SW intercepts the audio URL directly — just return it as-is
   async getPlaybackUrl(episode: Episode): Promise<string> {
     return episode.audioUrl;
   }
@@ -48,10 +55,9 @@ export class DownloadService {
     if (sw) {
       await this.downloadViaSW(sw, episode);
     } else {
-      // SW unavailable — native browser download as last resort
       this.triggerNativeDownload(episode);
       this.setProgress(episode.id, 100);
-      this.addMeta(episode);
+      await this.addMeta(episode);
       setTimeout(() => this.clearProgress(episode.id), 2000);
     }
   }
@@ -103,7 +109,7 @@ export class DownloadService {
         sw.postMessage({ type: 'DELETE', url: episode.audioUrl }, [channel.port2]);
       });
     }
-    this.removeMeta(episode.id);
+    await this.removeMeta(episode.id);
   }
 
   async listDownloadedUrls(): Promise<string[]> {
@@ -128,25 +134,15 @@ export class DownloadService {
     });
   }
 
-  private loadMeta(): Episode[] {
-    try {
-      return JSON.parse(localStorage.getItem(META_KEY) ?? '[]');
-    } catch {
-      return [];
-    }
-  }
-
-  private addMeta(episode: Episode): void {
+  private async addMeta(episode: Episode): Promise<void> {
     const list = this.downloadedEpisodes();
     if (list.some(e => e.id === episode.id)) return;
-    const updated = [episode, ...list];
-    this.downloadedEpisodes.set(updated);
-    localStorage.setItem(META_KEY, JSON.stringify(updated));
+    this.downloadedEpisodes.set([episode, ...list]);
+    await this.persistence.putDownloadMeta(episode);
   }
 
-  private removeMeta(episodeId: string): void {
-    const updated = this.downloadedEpisodes().filter(e => e.id !== episodeId);
-    this.downloadedEpisodes.set(updated);
-    localStorage.setItem(META_KEY, JSON.stringify(updated));
+  private async removeMeta(episodeId: string): Promise<void> {
+    this.downloadedEpisodes.set(this.downloadedEpisodes().filter(e => e.id !== episodeId));
+    await this.persistence.deleteDownloadMeta(episodeId);
   }
 }
