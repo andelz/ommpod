@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SolidAuthService } from '../../services/solid-auth.service';
 import { SolidSyncService } from '../../services/solid-sync.service';
+import { UpdateService } from '../../services/update.service';
 
 @Component({
   selector: 'app-settings',
@@ -16,6 +17,7 @@ export class SettingsComponent {
   private translate = inject(TranslateService);
   solidAuth = inject(SolidAuthService);
   solidSync = inject(SolidSyncService);
+  updateService = inject(UpdateService);
 
   languages = [
     { code: 'en', label: 'English' },

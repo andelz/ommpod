@@ -2,6 +2,19 @@
   <h2 class="settings-title">{{ 'settings.label' | translate }}</h2>
 
   <section class="settings-section">
+    <h3 class="section-title">{{ 'settings.update.label' | translate }}</h3>
+    @if (updateService.updateAvailable()) {
+      <p class="update-info">{{ 'home.update.message' | translate }}</p>
+      <button class="solid-btn" (click)="updateService.reload()">{{ 'home.update.reload' | translate }}</button>
+    } @else {
+      <p class="update-info">{{ 'settings.update.up-to-date' | translate }}</p>
+      <button class="solid-btn" (click)="updateService.checkForUpdate()" [disabled]="updateService.checking()">
+        {{ (updateService.checking() ? 'settings.update.checking' : 'settings.update.check') | translate }}
+      </button>
+    }
+  </section>
+
+  <section class="settings-section">
     <h3 class="section-title">{{ 'settings.language.label' | translate }}</h3>
     <div class="lang-list">
       @for (lang of languages; track lang.code) {
