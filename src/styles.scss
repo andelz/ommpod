@@ -7,7 +7,7 @@
   margin: 0;
   padding: 0;
   // global tap-highlight fix for mobile
-  -webkit-tap-highlight-color: rgb(from var(--on-surface) r g b / .1);
+  -webkit-tap-highlight-color: rgb(from var(--on-surface) r g b / 0.1);
 }
 
 :root {
@@ -22,7 +22,7 @@
 
   // --active-bg: #fff;
   // --active-fg: #000;
-  
+
   --font: 'Lexend Deca', sans-serif;
   --gap: 8px;
   --gap-lg: 16px;
@@ -37,19 +37,20 @@
   --spacing-s: 8px;
   --spacing-xs: 4px;
 
+  --on-surface: #fff;
+  --on-surface-dim: #757575;
 
   --surface: #121212;
   --surface-outline: #333;
-  --on-surface: #fff;
-  --on-surface-dim: #757575;
+
   --surface-highest: #2b2b2b;
-  --surface-high: #191919;
   --surface-highest-outline: #353535;
+
+  --surface-high: #191919;
   --surface-high-outline: #242424;
 
-
-
-
+  --surface-emphasize: #292420;
+  --surface-emphasize-outline: #4b4743;
 
   /* layout tokens */
   --touch-min: 0px;
