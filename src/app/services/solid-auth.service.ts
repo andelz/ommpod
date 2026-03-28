@@ -115,8 +115,8 @@ export class SolidAuthService {
     localStorage.setItem(ISSUER_KEY, issuer);
     await login({
       oidcIssuer: issuer,
-      redirectUrl: window.location.href,
-      clientName: 'Pod — Podcast Player',
+      redirectUrl: window.location.origin + window.location.pathname,
+      clientName: 'POD — Pur Podcast Player',
     });
   }
 
