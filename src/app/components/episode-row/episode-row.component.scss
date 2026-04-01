@@ -1,0 +1,142 @@
+.ep-artwork {
+  width: var(--artwork-sm);
+  height: var(--artwork-sm);
+  flex-shrink: 0;
+  object-fit: cover;
+  filter: grayscale(100%);
+  opacity: 0.7;
+}
+
+.ep-artwork-placeholder {
+  background: var(--mid);
+}
+
+.ep-row {
+  display: flex;
+  align-items: center;
+  padding: var(--row-pad-v) var(--row-pad-h);
+  border-bottom: 1px solid var(--mid);
+  cursor: pointer;
+  gap: var(--gap);
+  min-height: var(--row-min-h);
+
+  &:hover,
+  &:focus {
+    background: var(--hover);
+    outline: none;
+  }
+
+  &.active {
+    border-left: 2px solid var(--on-surface);
+  }
+}
+
+.ep-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.ep-title {
+  font-size: var(--font-size-s);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.now {
+  font-size: var(--font-size-xs);
+  opacity: 0.8;
+}
+
+.ep-meta {
+  font-size: var(--font-size-xs);
+}
+
+.podcast-link {
+  font-size: inherit;
+  color: inherit;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+    color: var(--on-surface);
+  }
+}
+
+.listen-bar {
+  width: 100%;
+  height: var(--progress-h);
+  background: var(--mid);
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.listen-fill {
+  height: 100%;
+  background: var(--on-surface);
+  opacity: 0.5;
+  transition: width 0.5s linear;
+}
+
+.done-mark {
+  font-size: var(--font-size-xs);
+}
+
+.ep-row.completed {
+  .ep-title,
+  .ep-meta {
+    opacity: 0.45;
+  }
+}
+
+.dim {
+  color: var(--on-surface-dim);
+}
+
+.ep-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 1;
+    color: var(--on-surface);
+  }
+}
+
+.dl-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  width: 56px;
+}
+
+.dl-bar {
+  width: 100%;
+  height: var(--progress-h);
+  background: var(--mid);
+  overflow: hidden;
+}
+
+.dl-fill {
+  height: 100%;
+  background: var(--on-surface);
+  transition: width 0.2s linear;
+}
+
+.dl-pct {
+  font-size: var(--font-size-xs);
+  line-height: 1;
+}

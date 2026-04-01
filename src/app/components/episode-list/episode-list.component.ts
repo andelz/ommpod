@@ -1,7 +1,7 @@
 import {
   Component, inject, signal, OnInit, ChangeDetectionStrategy
 } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Podcast, Episode } from '../../models/podcast.model';
@@ -10,12 +10,12 @@ import { PlayerService } from '../../services/player.service';
 import { DownloadService } from '../../services/download.service';
 import { LibraryService } from '../../services/library.service';
 import { PersistenceService } from '../../services/persistence.service';
-import { DurationPipe } from '../../pipes/duration.pipe';
+import { EpisodeRowComponent } from '../episode-row/episode-row.component';
 
 @Component({
   selector: 'app-episode-list',
   standalone: true,
-  imports: [CommonModule, DurationPipe, TranslateModule],
+  imports: [TranslateModule, EpisodeRowComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './episode-list.component.html',
   styleUrl: './episode-list.component.scss',
@@ -24,10 +24,10 @@ export class EpisodeListComponent implements OnInit {
   private searchSvc = inject(PodcastSearchService);
   private location = inject(Location);
   private router = inject(Router);
-  player = inject(PlayerService);
-  download = inject(DownloadService);
-  library = inject(LibraryService);
+  private player = inject(PlayerService);
+  private download = inject(DownloadService);
   private persistence = inject(PersistenceService);
+  library = inject(LibraryService);
 
   podcast = signal<Podcast | null>((this.router.getCurrentNavigation()?.extras.state ?? history.state)?.podcast ?? null);
 
@@ -72,25 +72,17 @@ export class EpisodeListComponent implements OnInit {
     this.player.play(ep);
   }
 
-  isPlaying(ep: Episode): boolean {
-    return this.player.episode()?.id === ep.id && this.player.isPlaying();
-  }
-
-  isActive(ep: Episode): boolean {
-    return this.player.episode()?.id === ep.id;
+  selectEpisode(ep: Episode): void {
+    this.player.loadEpisode(ep);
+    this.router.navigate(['/now-playing']);
   }
 
   isDownloaded(ep: Episode): boolean {
     return this.downloadedUrls().has(ep.audioUrl);
   }
 
-  isCompleted(ep: Episode): boolean {
-    return this.library.isCompleted(ep.id);
-  }
-
   listenProgressRatio(ep: Episode): number {
     if (!ep.duration) return 0;
-    // If this episode is currently playing, use live currentTime
     if (this.player.episode()?.id === ep.id) {
       return Math.min(this.player.currentTime() / ep.duration, 1);
     }
@@ -102,23 +94,22 @@ export class EpisodeListComponent implements OnInit {
     return this.download.progress()[ep.id];
   }
 
-  async toggleDownload(ep: Episode, event: Event): Promise<void> {
-    event.stopPropagation();
-    if (this.isDownloaded(ep)) {
-      await this.download.deleteDownload(ep);
+  async downloadEpisode(ep: Episode): Promise<void> {
+    try {
+      await this.download.download(ep);
       const urls = this.downloadedUrls();
-      urls.delete(ep.audioUrl);
+      urls.add(ep.audioUrl);
       this.downloadedUrls.set(new Set(urls));
-    } else {
-      try {
-        await this.download.download(ep);
-        const urls = this.downloadedUrls();
-        urls.add(ep.audioUrl);
-        this.downloadedUrls.set(new Set(urls));
-      } catch {
-        // download.service already cleans up progress on error
-      }
+    } catch {
+      // download.service handles cleanup
     }
+  }
+
+  async removeDownload(ep: Episode): Promise<void> {
+    await this.download.deleteDownload(ep);
+    const urls = this.downloadedUrls();
+    urls.delete(ep.audioUrl);
+    this.downloadedUrls.set(new Set(urls));
   }
 
   toggleSubscribe(event: Event): void {

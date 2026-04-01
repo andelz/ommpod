@@ -99,6 +99,27 @@ export class PlayerService {
     await this.audio.play();
   }
 
+  async loadEpisode(episode: Episode): Promise<void> {
+    const current = this.episode();
+    if (current?.id === episode.id) return;
+
+    this.episode.set(episode);
+    this.loading.set(true);
+    this.lastSavedTime = 0;
+
+    const src = await this.downloadService.getPlaybackUrl(episode);
+    this.audio.src = src;
+    this.audio.playbackRate = this.playbackRate();
+    this.audio.load();
+
+    const savedTime = await this.libraryService.getProgress(episode.id);
+    if (savedTime > 0) {
+      this.audio.currentTime = savedTime;
+    }
+
+    this.loading.set(false);
+  }
+
   async togglePlay(): Promise<void> {
     if (this.isPlaying()) {
       this.audio.pause();

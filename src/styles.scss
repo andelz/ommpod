@@ -27,6 +27,10 @@
   --gap: 8px;
   --gap-lg: 16px;
 
+  --corner: 1rem;
+  --corner-s: 0.5rem;
+
+
   --font-size-m: 1rem;
   --font-size-s: 0.875rem;
   --font-size-xs: 0.75rem;
@@ -150,8 +154,8 @@ a {
     --artwork-sm: 44px;
     --artwork-md: 48px;
     --artwork-lg: 100%;
-    --progress-h: 8px;
-    --progress-h-np: 8px;
+    --progress-h: 2px;
+    --progress-h-np: 2px;
     --progress-thumb: 20px;
     --row-pad-v: 12px;
     --row-pad-h: 16px;

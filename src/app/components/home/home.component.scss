@@ -43,83 +43,9 @@ main {
   gap: 4px;
 }
 
-.genre-section {
-  border-bottom: 1px solid var(--mid);
-  padding: var(--row-pad-v) 0;
-}
-
-.genre-label {
-  display: block;
-  font-size: var(--font-size-s);
-  color: var(--on-surface-dim);
-  padding: 0 var(--row-pad-h) var(--row-pad-v);
-}
-
-.genre-row {
-  display: flex;
-  overflow-x: auto;
-  gap: var(--gap);
-  padding: 0 var(--row-pad-h) var(--row-pad-v);
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-.podcast-card {
-  display: flex;
-  flex-direction: column;
-  width: 120px;
-  min-width: 120px;
-  cursor: pointer;
-  gap: 4px;
-
-  &:hover,
-  &:focus {
-    outline: none;
-
-    .card-artwork {
-      opacity: 1;
-    }
-  }
-}
-
-.card-artwork {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  filter: grayscale(100%);
-  opacity: 0.8;
-  transition: opacity 0.15s;
-}
-
-.artwork-placeholder {
-  background: var(--mid);
-}
-
-.card-title {
-  font-size: var(--font-size-xs);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.card-meta {
-  font-size: var(--font-size-xs);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.sub-btn {
-  align-self: flex-start;
-  font-size: var(--font-size-xs);
-  opacity: 0.4;
-
-  &:hover {
-    opacity: 1;
-  }
+.ep-list {
+  flex: 1;
+  overflow-y: auto;
 }
 
 .dim {

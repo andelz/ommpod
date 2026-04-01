@@ -1,106 +1,49 @@
 
-
 <h1>{{ 'home.label' | translate }}</h1>
 
 <main>
   @if (!hasSubscriptions()) {
-      <div class="welcome">
-        <span>{{ 'home.welcome.title' | translate }}</span>
-        <span class="dim">{{ 'home.welcome.subtitle' | translate }}</span>
-        <button class="search-btn" (click)="goToSearch()">{{ 'home.subscribe' | translate }}</button>
+    <div class="welcome">
+      <span>{{ 'home.welcome.title' | translate }}</span>
+      <span class="dim">{{ 'home.welcome.subtitle' | translate }}</span>
+      <button class="search-btn" (click)="goToSearch()">{{ 'home.subscribe' | translate }}</button>
+    </div>
+  }
+
+  @if (hasSubscriptions()) {
+    @if (loading()) {
+      <div class="status"><span class="dim">{{ 'home.loading' | translate }}</span></div>
+    }
+
+    @if (refreshing()) {
+      <div class="status refresh-hint"><span class="dim">{{ 'home.refreshing' | translate }}</span></div>
+    }
+
+    @if (error()) {
+      <div class="status"><span>! {{ error() }}</span></div>
+    }
+
+    <div class="ep-list">
+      @for (entry of entries(); track entry.episode.id) {
+        <app-episode-row
+          [episode]="entry.episode"
+          [progressRatio]="listenProgressRatio(entry.episode)"
+          [showPodcastTitle]="true"
+          [downloaded]="isDownloaded(entry.episode)"
+          [downloadProgress]="downloadProgress(entry.episode)"
+          (selected)="select($event)"
+          (playClicked)="play($event)"
+          (podcastClicked)="openPodcast($event)"
+          (downloadClicked)="downloadEpisode($event)"
+          (removeDownloadClicked)="removeDownload($event)" />
+      }
+    </div>
+
+    @if (!loading() && entries().length === 0 && !error()) {
+      <div class="status">
+        <span class="dim">{{ 'home.empty.message' | translate }}</span>
+        <span class="dim hint">{{ 'home.empty.hint' | translate }}</span>
       </div>
     }
-
-    @if (hasSubscriptions()) {
-      @if (loading()) {
-        <div class="status"><span class="dim">{{ 'home.loading' | translate }}</span></div>
-      }
-
-      @if (error()) {
-        <div class="status"><span>! {{ error() }}</span></div>
-      }
-
-      @for (section of recommendations(); track section.genre) {
-        <div class="genre-section">
-          <span class="genre-label">{{ 'home.genre-label' | translate: { genre: section.genre } }}</span>
-          <div class="genre-row">
-            @for (p of section.podcasts; track p.id) {
-              <div class="podcast-card" (click)="select(p)" tabindex="0" (keydown.enter)="select(p)">
-                @if (p.artworkUrl) {
-                  <img class="card-artwork" [src]="p.artworkUrl" [alt]="p.title" loading="lazy" />
-                } @else {
-                  <div class="card-artwork artwork-placeholder"></div>
-                }
-                <span class="card-title">{{ p.title }}</span>
-                <span class="card-meta dim">{{ p.author }}</span>
-                <button class="sub-btn" (click)="subscribe(p, $event)" [attr.aria-label]="'home.subscribe' | translate">[+]</button>
-              </div>
-            }
-          </div>
-        </div>
-      }
-
-      @if (!loading() && recommendations().length === 0 && !error()) {
-        <div class="status">
-          <span class="dim">{{ 'home.empty.message' | translate }}</span>
-          <span class="dim hint">{{ 'home.empty.hint' | translate }}</span>
-        </div>
-      }
-    }
+  }
 </main>
-
-
-
-
-<!-- <div class="home-view">
-  <div class="home-header">
-    <span class="label">{{ 'home.label' | translate }}</span>
-  </div>
-
-  <div class="home-content">
-    @if (!hasSubscriptions()) {
-      <div class="welcome">
-        <span>{{ 'home.welcome.title' | translate }}</span>
-        <span class="dim">{{ 'home.welcome.subtitle' | translate }}</span>
-        <button class="search-btn" (click)="goToSearch()">{{ 'home.subscribe' | translate }}</button>
-      </div>
-    }
-
-    @if (hasSubscriptions()) {
-      @if (loading()) {
-        <div class="status"><span class="dim">{{ 'home.loading' | translate }}</span></div>
-      }
-
-      @if (error()) {
-        <div class="status"><span>! {{ error() }}</span></div>
-      }
-
-      @for (section of recommendations(); track section.genre) {
-        <div class="genre-section">
-          <span class="genre-label">{{ 'home.genre-label' | translate: { genre: section.genre } }}</span>
-          <div class="genre-row">
-            @for (p of section.podcasts; track p.id) {
-              <div class="podcast-card" (click)="select(p)" tabindex="0" (keydown.enter)="select(p)">
-                @if (p.artworkUrl) {
-                  <img class="card-artwork" [src]="p.artworkUrl" [alt]="p.title" loading="lazy" />
-                } @else {
-                  <div class="card-artwork artwork-placeholder"></div>
-                }
-                <span class="card-title">{{ p.title }}</span>
-                <span class="card-meta dim">{{ p.author }}</span>
-                <button class="sub-btn" (click)="subscribe(p, $event)" [attr.aria-label]="'home.subscribe' | translate">[+]</button>
-              </div>
-            }
-          </div>
-        </div>
-      }
-
-      @if (!loading() && recommendations().length === 0 && !error()) {
-        <div class="status">
-          <span class="dim">{{ 'home.empty.message' | translate }}</span>
-          <span class="dim hint">{{ 'home.empty.hint' | translate }}</span>
-        </div>
-      }
-    }
-  </div>
-</div> -->

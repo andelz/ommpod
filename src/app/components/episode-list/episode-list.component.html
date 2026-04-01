@@ -1,6 +1,5 @@
 <div class="ep-view">
   <div class="ep-header">
-    <button class="back-btn" (click)="goBack()">{{ 'episode-list.back' | translate }}</button>
     @if (podcast()!.artworkUrl) {
       <img class="artwork" [src]="podcast()!.artworkUrl" [alt]="podcast()!.title" />
     }
@@ -8,9 +7,18 @@
       <span class="pod-title">{{ podcast()!.title }}</span>
       <span class="pod-author dim">{{ podcast()!.author }}</span>
     </div>
-    <button class="sub-btn" (click)="toggleSubscribe($event)">
-      {{ library.isSubscribed(podcast()!.id) ? ('episode-list.unsubscribe' | translate) : ('episode-list.subscribe' | translate) }}
-    </button>
+
+    <div class="actions">
+      <button class="back-btn" (click)="goBack()">{{ 'episode-list.back' | translate }}</button>
+
+      <button class="sub-btn" (click)="toggleSubscribe($event)">
+        {{
+          library.isSubscribed(podcast()!.id)
+            ? ('episode-list.unsubscribe' | translate)
+            : ('episode-list.subscribe' | translate)
+        }}
+      </button>
+    </div>
   </div>
 
   @if (loading()) {
@@ -20,49 +28,15 @@
   } @else {
     <div class="ep-list">
       @for (ep of episodes(); track ep.id) {
-        <div class="ep-row" [class.active]="isActive(ep)" [class.completed]="isCompleted(ep)"
-          (click)="playEpisode(ep)" tabindex="0" (keydown.enter)="playEpisode(ep)">
-          @if (ep.artworkUrl) {
-            <img class="ep-artwork" [src]="ep.artworkUrl" [alt]="ep.title" loading="lazy" />
-          } @else {
-            <div class="ep-artwork ep-artwork-placeholder"></div>
-          }
-          <div class="ep-main">
-            <span class="ep-title">
-              @if (isActive(ep)) {
-                <span class="now">{{ isPlaying(ep) ? '|>' : '||' }}&nbsp;</span>
-              }
-              @if (isCompleted(ep)) {
-                <span class="done-mark dim">[✓]&nbsp;</span>
-              }
-              {{ ep.title }}
-            </span>
-            <span class="ep-meta dim">
-              {{ ep.pubDate | date: 'yyyy-MM-dd' }}
-              @if (ep.duration) { &middot; {{ ep.duration | duration }} }
-            </span>
-            @if (!isCompleted(ep) && listenProgressRatio(ep) > 0) {
-              <div class="listen-bar">
-                <div class="listen-fill" [style.width.%]="listenProgressRatio(ep) * 100"></div>
-              </div>
-            }
-          </div>
-          <div class="ep-actions">
-            @if (downloadProgress(ep) !== undefined) {
-              <div class="dl-progress">
-                <div class="dl-bar">
-                  <div class="dl-fill" [style.width.%]="downloadProgress(ep)"></div>
-                </div>
-                <span class="dl-pct dim">{{ downloadProgress(ep) }}%</span>
-              </div>
-            } @else {
-              <button class="dl-btn" (click)="toggleDownload(ep, $event)"
-                [attr.aria-label]="isDownloaded(ep) ? ('episode-list.delete-download' | translate) : ('episode-list.download' | translate)">
-                {{ isDownloaded(ep) ? '[x]' : '[dl]' }}
-              </button>
-            }
-          </div>
-        </div>
+        <app-episode-row
+          [episode]="ep"
+          [progressRatio]="listenProgressRatio(ep)"
+          [downloaded]="isDownloaded(ep)"
+          [downloadProgress]="downloadProgress(ep)"
+          (selected)="selectEpisode($event)"
+          (playClicked)="playEpisode($event)"
+          (downloadClicked)="downloadEpisode($event)"
+          (removeDownloadClicked)="removeDownload($event)" />
       }
       @if (episodes().length === 0) {
         <div class="status dim">{{ 'episode-list.empty' | translate }}</div>

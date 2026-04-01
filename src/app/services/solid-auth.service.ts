@@ -93,12 +93,16 @@ export class SolidAuthService {
    * it also silently restores sessions from prior visits.
    */
   async handleRedirectAfterLogin(): Promise<void> {
-    const info = await handleIncomingRedirect({ restorePreviousSession: true });
-    if (info?.isLoggedIn && info.webId) {
-      this.isLoggedIn.set(true);
-      this.webId.set(info.webId);
-      const pod = await this.discoverPodUrl(info.webId);
-      this.podUrl.set(pod);
+    try {
+      const info = await handleIncomingRedirect({ restorePreviousSession: true });
+      if (info?.isLoggedIn && info.webId) {
+        this.isLoggedIn.set(true);
+        this.webId.set(info.webId);
+        const pod = await this.discoverPodUrl(info.webId);
+        this.podUrl.set(pod);
+      }
+    } catch {
+      // Solid backend unreachable — app continues without sync.
     }
   }
 

@@ -3,7 +3,7 @@ import { openDB, IDBPDatabase } from 'idb';
 import { Podcast, Episode } from '../models/podcast.model';
 
 const DB_NAME = 'pod-db';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 interface ProgressEntry {
   episodeId: string;
@@ -14,6 +14,13 @@ interface ProgressEntry {
 interface CompletedEntry {
   episodeId: string;
   completedAt: number;
+}
+
+export interface FeedCacheRecord {
+  id: string;
+  entries: { episode: Record<string, unknown>; podcastArtworkUrl: string }[];
+  cachedAt: string;
+  subsKey: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -34,6 +41,9 @@ export class PersistenceService {
         }
         if (!db.objectStoreNames.contains('downloads')) {
           db.createObjectStore('downloads', { keyPath: 'id' });
+        }
+        if (!db.objectStoreNames.contains('feed-cache')) {
+          db.createObjectStore('feed-cache', { keyPath: 'id' });
         }
       },
     });
@@ -134,5 +144,19 @@ export class PersistenceService {
 
   async deleteDownloadMeta(episodeId: string): Promise<void> {
     await (await this.db).delete('downloads', episodeId);
+  }
+
+  // ── Feed cache ──
+
+  async getFeedCache(id: string): Promise<FeedCacheRecord | undefined> {
+    return (await this.db).get('feed-cache', id);
+  }
+
+  async putFeedCache(record: FeedCacheRecord): Promise<void> {
+    await (await this.db).put('feed-cache', record);
+  }
+
+  async clearFeedCache(): Promise<void> {
+    await (await this.db).clear('feed-cache');
   }
 }

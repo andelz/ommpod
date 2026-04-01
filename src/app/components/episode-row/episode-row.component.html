@@ -1,0 +1,53 @@
+<div class="ep-row" [class.active]="active()" [class.completed]="completed()"
+  (click)="select()" tabindex="0" (keydown.enter)="select()">
+  @if (episode().artworkUrl) {
+    <img class="ep-artwork" [src]="episode().artworkUrl" [alt]="episode().title" loading="lazy" />
+  } @else {
+    <div class="ep-artwork ep-artwork-placeholder"></div>
+  }
+  <div class="ep-main">
+    <span class="ep-title">
+      @if (active()) {
+        <span class="now">{{ playing() ? '|>' : '||' }}&nbsp;</span>
+      }
+      @if (completed()) {
+        <span class="done-mark dim">[&#10003;]&nbsp;</span>
+      }
+      {{ episode().title }}
+    </span>
+    <span class="ep-meta dim">
+      @if (showPodcastTitle()) {
+        <button class="podcast-link" (click)="onPodcastClick($event)">{{ episode().podcastTitle }}</button>
+        &middot;
+      }
+      {{ episode().pubDate | date: 'yyyy-MM-dd' }}
+      @if (episode().duration) { &middot; {{ episode().duration | duration }} }
+    </span>
+    @if (!completed() && progressRatio() > 0) {
+      <div class="listen-bar">
+        <div class="listen-fill" [style.width.%]="progressRatio() * 100"></div>
+      </div>
+    }
+  </div>
+  <div class="ep-actions">
+    <button class="action-btn" (click)="onPlay($event)" aria-label="Play">
+      <lucide-icon [img]="icons.play" [size]="16"></lucide-icon>
+    </button>
+    @if (downloadProgress() !== undefined) {
+      <div class="dl-progress">
+        <div class="dl-bar">
+          <div class="dl-fill" [style.width.%]="downloadProgress()"></div>
+        </div>
+        <span class="dl-pct dim">{{ downloadProgress() }}%</span>
+      </div>
+    } @else if (downloaded()) {
+      <button class="action-btn" (click)="onRemoveDownload($event)" aria-label="Remove download">
+        <lucide-icon [img]="icons.remove" [size]="16"></lucide-icon>
+      </button>
+    } @else {
+      <button class="action-btn" (click)="onDownload($event)" aria-label="Download">
+        <lucide-icon [img]="icons.download" [size]="16"></lucide-icon>
+      </button>
+    }
+  </div>
+</div>
