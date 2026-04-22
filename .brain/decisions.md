@@ -40,4 +40,10 @@ Architectural decisions and rationale. Each entry: **date · decision · why**.
 **Why:** Ensures consistent sizing across all components and makes mobile responsiveness a single-point-of-change
 **Consequence:** All component SCSS must use tokens instead of hardcoded values
 
+## ADR-007 · Remove Solid Pod integration
+**Date:** 2026-04-22
+**Decision:** Drop `SolidAuthService` / `SolidDataService` / `SolidSyncService`, the `@inrupt/*` packages, and the Solid Pod section of the Settings UI. The `LibraryService.lastChange` hook (only consumed by sync) is removed with them.
+**Why:** The Solid-based remote sync didn't pan out; a different persistence / sync layer will be introduced later.
+**Consequence:** The app is back to IndexedDB-only (via `PersistenceService`) — no cross-device sync until the replacement lands. Stale localStorage keys `pod-solid-issuer` and `pod-sync-queue` may linger in users' browsers; they're harmless and will be overwritten by whatever comes next.
+
 <!-- Add new decisions below -->
