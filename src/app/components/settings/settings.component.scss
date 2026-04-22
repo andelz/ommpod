@@ -52,83 +52,7 @@
   }
 }
 
-// Solid Pod section
-
-.solid-info {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap);
-}
-
-.solid-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--gap-sm);
-}
-
-.solid-label {
-  font-weight: 600;
-  font-size: var(--font-size-s);
-  color: var(--on-surface-dim);
-  min-width: 6rem;
-}
-
-.solid-value {
-  font-size: var(--font-size-s);
-  word-break: break-all;
-}
-
-.solid-status[data-status='syncing'] {
-  color: var(--accent);
-}
-
-.solid-status[data-status='error'] {
-  color: var(--error, #e53935);
-}
-
-.solid-status[data-status='offline'] {
-  color: var(--on-surface-dim);
-}
-
-.solid-last-sync {
-  font-size: var(--font-size-xs, 0.75rem);
-  color: var(--on-surface-dim);
-}
-
-.solid-actions {
-  display: flex;
-  gap: var(--gap);
-  margin-top: var(--gap-sm);
-}
-
-.solid-connect {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap);
-}
-
-.solid-input-label {
-  font-size: var(--font-size-s);
-  color: var(--on-surface-dim);
-}
-
-.solid-input {
-  padding: var(--gap) var(--gap-lg);
-  border-radius: var(--radius);
-  border: 1px solid var(--surface-outline);
-  background: transparent;
-  color: var(--on-surface);
-  font-size: var(--font-size-m);
-  font-family: inherit;
-
-  &:focus {
-    outline: none;
-    border-color: var(--accent);
-  }
-}
-
-.solid-btn {
+.settings-btn {
   padding: var(--gap) var(--gap-lg);
   border-radius: var(--radius);
   border: 1px solid var(--accent);
@@ -146,15 +70,5 @@
   &:disabled {
     opacity: 0.5;
     cursor: default;
-  }
-
-  &--disconnect {
-    background: transparent;
-    color: var(--on-surface);
-    border-color: var(--surface-outline);
-
-    &:hover {
-      background: var(--surface-2);
-    }
   }
 }

@@ -9,7 +9,6 @@ export class LibraryService {
   subscriptions = signal<Podcast[]>([]);
   completedEpisodes = signal<Set<string>>(new Set());
   ready = signal(false);
-  lastChange = signal(0);
 
   constructor() {
     this.init();
@@ -30,13 +29,11 @@ export class LibraryService {
     if (current.some(p => p.id === podcast.id)) return;
     this.subscriptions.set([...current, podcast]);
     await this.persistence.putSubscription(podcast);
-    this.lastChange.update(v => v + 1);
   }
 
   async unsubscribe(podcastId: string): Promise<void> {
     this.subscriptions.set(this.subscriptions().filter(p => p.id !== podcastId));
     await this.persistence.deleteSubscription(podcastId);
-    this.lastChange.update(v => v + 1);
   }
 
   isSubscribed(podcastId: string): boolean {
@@ -45,7 +42,6 @@ export class LibraryService {
 
   async saveProgress(episodeId: string, time: number): Promise<void> {
     await this.persistence.putProgress(episodeId, time);
-    this.lastChange.update(v => v + 1);
   }
 
   async getProgress(episodeId: string): Promise<number> {
@@ -58,7 +54,6 @@ export class LibraryService {
     this.completedEpisodes.set(ids);
     await this.persistence.putCompleted(episodeId);
     await this.persistence.deleteProgress(episodeId);
-    this.lastChange.update(v => v + 1);
   }
 
   isCompleted(episodeId: string): boolean {
