@@ -24,6 +24,8 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/aria": "^21.2.14",
+    "@angular/cdk": "^21.2.14",
     "@angular/common": "^21.2.5",
     "@angular/compiler": "^21.2.5",
     "@angular/core": "^21.2.5",
@@ -35,7 +37,8 @@
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
     "idb": "^8.0.3",
-    "lucide-angular": "^0.577.0",
+    "lucide-angular": "^1.0.0",
+    "omm-ui": "github:andelz/omm-ui-dist#v0.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
