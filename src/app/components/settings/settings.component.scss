@@ -42,3 +42,14 @@
     cursor: default;
   }
 }
+
+.storage-line {
+  font-size: var(--pod-font-size-m);
+  margin: 0 0 var(--pod-gap);
+}
+
+.storage-detail {
+  font-size: var(--pod-font-size-s);
+  color: var(--omm-text-muted);
+  margin: 0 0 var(--pod-gap);
+}

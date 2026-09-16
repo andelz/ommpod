@@ -113,28 +113,28 @@ async function handleDownload(data, port) {
       return;
     }
 
-    // Stream with progress
+    // Stream straight into the cache, counting bytes as they pass through so we
+    // can report progress without ever holding the whole episode in memory —
+    // a long episode is well over 100MB, and buffering it used to cost that in RAM.
     const contentLength = Number(response.headers.get('content-length') ?? '0');
-    const reader = response.body.getReader();
-    const chunks = [];
     let received = 0;
 
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      chunks.push(value);
-      received += value.length;
-      if (contentLength > 0 && port) {
-        port.postMessage({ type: 'progress', id, pct: Math.round((received / contentLength) * 99) });
-      }
-    }
+    const counter = new TransformStream({
+      transform(chunk, controller) {
+        received += chunk.byteLength;
+        if (contentLength > 0 && port) {
+          port.postMessage({ type: 'progress', id, pct: Math.round((received / contentLength) * 99) });
+        }
+        controller.enqueue(chunk);
+      },
+    });
 
-    const blob = new Blob(chunks);
-    const stored = new Response(blob, {
+    const stored = new Response(response.body.pipeThrough(counter), {
       status: 200,
       headers: { 'Content-Type': response.headers.get('Content-Type') || 'audio/mpeg' },
     });
     const cache = await caches.open(AUDIO_CACHE);
+    // Resolves once the stream has been drained to disk.
     await cache.put(url, stored);
 
     port?.postMessage({ type: 'progress', id, pct: 100 });

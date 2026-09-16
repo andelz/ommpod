@@ -27,4 +27,31 @@
       (ngModelChange)="selectLanguage($event)"
     />
   </section>
+
+  <section class="settings-section">
+    <h3 class="section-title">{{ 'settings.storage.label' | translate }}</h3>
+
+    @if (storageUsage(); as usage) {
+      <p class="storage-line">
+        {{ 'settings.storage.usage' | translate: { used: formatBytes(usage.usage), quota: formatBytes(usage.quota) } }}
+      </p>
+      @if (usage.details?.caches; as downloads) {
+        <p class="storage-detail">{{ 'settings.storage.downloads' | translate: { size: formatBytes(downloads) } }}</p>
+      }
+    } @else {
+      <p class="storage-line">{{ 'settings.storage.unavailable' | translate }}</p>
+    }
+
+    @switch (persisted()) {
+      @case (true) {
+        <p class="storage-detail">{{ 'settings.storage.protected' | translate }}</p>
+      }
+      @case (false) {
+        <p class="storage-detail">{{ 'settings.storage.evictable' | translate }}</p>
+        <button class="settings-btn primary" (click)="requestPersistence()">
+          {{ 'settings.storage.protect' | translate }}
+        </button>
+      }
+    }
+  </section>
 </div>

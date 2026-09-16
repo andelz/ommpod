@@ -1,12 +1,15 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { Episode } from '../models/podcast.model';
 import { PersistenceService } from './persistence.service';
+import { StorageService } from './storage.service';
 
 const SW_PATH = '/audio-sw.js';
+const RECONCILE_TIMEOUT_MS = 5000;
 
 @Injectable({ providedIn: 'root' })
 export class DownloadService {
   private persistence = inject(PersistenceService);
+  private storage = inject(StorageService);
 
   progress = signal<Record<string, number>>({});
   downloadedEpisodes = signal<Episode[]>([]);
@@ -21,6 +24,37 @@ export class DownloadService {
   private async init(): Promise<void> {
     const episodes = await this.persistence.getDownloadedEpisodes();
     this.downloadedEpisodes.set(episodes);
+    await this.reconcile(episodes);
+  }
+
+  /**
+   * Episode bytes live in the service worker's cache while the metadata rows
+   * live in IndexedDB, and nothing keeps the two in step. An evicted cache
+   * leaves rows pointing at audio that is gone, so the UI offers an offline
+   * play that fails. Drop those orphans at startup.
+   *
+   * Only the SW can answer what is actually cached, and only a real answer is
+   * safe to act on: with no SW `listDownloadedUrls()` returns an empty list,
+   * which is indistinguishable from "every download was evicted".
+   */
+  private async reconcile(episodes: Episode[]): Promise<void> {
+    if (episodes.length === 0) return;
+    if (!(await this.getSW())) return;
+
+    const urls = await this.withTimeout(this.listDownloadedUrls(), RECONCILE_TIMEOUT_MS);
+    if (!urls) return;
+
+    const cached = new Set(urls);
+    const orphans = episodes.filter(e => !cached.has(e.audioUrl));
+    if (orphans.length === 0) return;
+
+    this.downloadedEpisodes.set(episodes.filter(e => cached.has(e.audioUrl)));
+    await Promise.all(orphans.map(e => this.persistence.deleteDownloadMeta(e.id)));
+  }
+
+  /** Resolves `null` rather than hanging when the SW never answers. */
+  private withTimeout<T>(p: Promise<T>, ms: number): Promise<T | null> {
+    return Promise.race([p, new Promise<null>(resolve => setTimeout(() => resolve(null), ms))]);
   }
 
   private async registerSW(): Promise<ServiceWorker | null> {
@@ -51,6 +85,9 @@ export class DownloadService {
   }
 
   async download(episode: Episode): Promise<void> {
+    // Downloads are the heaviest thing this app stores, so make sure the origin
+    // is durable before filling it up.
+    void this.storage.claimPersistence();
     const sw = await this.getSW();
     if (sw) {
       await this.downloadViaSW(sw, episode);

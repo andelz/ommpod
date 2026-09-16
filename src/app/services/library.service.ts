@@ -1,10 +1,12 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { Podcast } from '../models/podcast.model';
 import { PersistenceService } from './persistence.service';
+import { StorageService } from './storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class LibraryService {
   private persistence = inject(PersistenceService);
+  private storage = inject(StorageService);
 
   subscriptions = signal<Podcast[]>([]);
   completedEpisodes = signal<Set<string>>(new Set());
@@ -29,6 +31,9 @@ export class LibraryService {
     if (current.some(p => p.id === podcast.id)) return;
     this.subscriptions.set([...current, podcast]);
     await this.persistence.putSubscription(podcast);
+    // A first subscription is the earliest point the user has data worth keeping,
+    // and so the best moment to ask the browser not to evict it.
+    void this.storage.claimPersistence();
   }
 
   async unsubscribe(podcastId: string): Promise<void> {
