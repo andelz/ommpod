@@ -7,7 +7,7 @@
 
 h1 {
   margin: 0;
-  padding: var(--header-pad-v) var(--header-pad-h);
+  padding: var(--pod-header-pad-v) var(--pod-header-pad-h);
   flex-shrink: 0;
 }
 
@@ -21,23 +21,23 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--gap);
-  padding: var(--gap-lg);
+  gap: var(--pod-gap);
+  padding: var(--pod-gap-lg);
   height: 100%;
   text-align: center;
 }
 
 .search-btn {
-  margin-top: var(--gap);
-  font-size: var(--font-size-s);
+  margin-top: var(--pod-gap);
+  font-size: var(--pod-font-size-s);
 
   &:hover {
-    color: var(--on-surface);
+    color: var(--omm-text);
   }
 }
 
 .status {
-  padding: var(--row-pad-v) var(--row-pad-h);
+  padding: var(--pod-row-pad-v) var(--pod-row-pad-h);
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -49,9 +49,9 @@ main {
 }
 
 .dim {
-  color: var(--on-surface-dim);
+  color: var(--omm-text-muted);
 }
 
 .hint {
-  font-size: var(--font-size-xs);
+  font-size: var(--pod-font-size-xs);
 }

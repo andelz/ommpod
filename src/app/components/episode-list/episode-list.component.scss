@@ -11,9 +11,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--gap);
-  padding: var(--header-pad-v) var(--header-pad-h);
-  border-bottom: 1px solid var(--surface-outline);
+  gap: var(--pod-gap);
+  padding: var(--pod-header-pad-v) var(--pod-header-pad-h);
+  border-bottom: 1px solid var(--omm-outline-muted);
   flex-shrink: 0;
   height: var(--pod-header-height);
 }
@@ -21,7 +21,7 @@
 .artwork {
   aspect-ratio: 1 / 1;
   height: 64%;
-  border-radius: var(--corner-s);
+  border-radius: var(--omm-corner);
   flex-shrink: 0;
   object-fit: cover;
   filter: grayscale(100%);
@@ -36,25 +36,25 @@
 }
 
 .pod-title {
-  font-size: var(--font-size-s);
+  font-size: var(--pod-font-size-s);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .pod-author {
-  font-size: var(--font-size-xs);
+  font-size: var(--pod-font-size-xs);
 }
 
 .actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--gap);
+  gap: var(--pod-gap);
 
   button {
     flex-shrink: 0;
-    font-size: var(--font-size-s);
+    font-size: var(--pod-font-size-s);
     opacity: 0.6;
 
     &:hover {
@@ -65,7 +65,7 @@
 
 .status {
   padding: 12px;
-  font-size: var(--font-size-s);
+  font-size: var(--pod-font-size-s);
 }
 
 .error {
@@ -78,5 +78,5 @@
 }
 
 .dim {
-  color: var(--on-surface-dim);
+  color: var(--omm-text-muted);
 }

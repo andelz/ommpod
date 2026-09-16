@@ -23,7 +23,7 @@ dialog {
 
 /* The mobile tap-highlight is omm-ui's (it sets it on `html` via
    color-mix). POD's own rule is gone: it used relative color syntax,
-   `rgb(from var(--on-surface) r g b / 0.1)`, which computes to an invalid
+   relative color syntax over the old text token, which computes to an invalid
    value when the origin is a light-dark() token — so it would have
    rendered fully transparent rather than a 10% wash. */
 
@@ -72,76 +72,22 @@ dialog {
   --pod-nav-icon: 18px;
   --pod-np-play-size: 20px;
 
-  /* ===== SHIM: POD's legacy token names, in terms of omm-ui ===========
-     Component SCSS still reads these. They are retired per-component in
-     Phases 6-7 by rewriting call sites to --omm-* / --pod-*; this block
-     is the single place to retune a mapping until then.
-
-     "Migration complete" is when this returns nothing:
-       grep -rhoE "var\(--[a-z0-9-]+" src --include=*.scss --include=*.html \
-         | sort -u | grep -v -- '--omm-\|--pod-'                          */
-
-  --surface: var(--omm-surface);
-  --on-surface: var(--omm-text);
-  --on-surface-dim: var(--omm-text-muted);
-
-  --surface-outline: var(--omm-outline-muted);
-
-  --surface-high: var(--omm-pane-surface);
-  --surface-high-outline: var(--omm-outline-muted);
-
-  /* No omm-ui token for these two tiers; derived so they track the theme. */
-  --surface-highest: color-mix(in srgb, var(--omm-text) 12%, var(--omm-surface));
-  --surface-highest-outline: var(--omm-outline);
-
-  /* Accent-tinted surface — that was always the intent of the hardcoded
-     #292420, so express it as a mix rather than a literal. */
-  --surface-emphasize: color-mix(in srgb, var(--omm-accent) 12%, var(--omm-surface));
-  --surface-emphasize-outline: color-mix(in srgb, var(--omm-accent) 35%, var(--omm-surface));
-
-  --accent: var(--omm-accent);
-  --hover: var(--omm-active-background);
-
-  --corner: var(--omm-corner-l);
-  --corner-s: var(--omm-corner);
-
-  --spacing: var(--omm-spacing);
-  --spacing-s: var(--omm-spacing-s);
-  --spacing-xs: var(--omm-spacing-xs);
-
-  --font: var(--pod-font);
-  --gap: var(--pod-gap);
-  --gap-lg: var(--pod-gap-lg);
-
-  --font-size-xs: var(--pod-font-size-xs);
-  --font-size-s: var(--pod-font-size-s);
-  --font-size-m: var(--pod-font-size-m);
-  --font-size-lg: var(--pod-font-size-lg);
-  --font-size-xl: var(--pod-font-size-xl);
-
-  --touch-min: var(--pod-touch-min);
-  --artwork-sm: var(--pod-artwork-sm);
-  --artwork-md: var(--pod-artwork-md);
-  --artwork-lg: var(--pod-artwork-lg);
-  --progress-h: var(--pod-progress-h);
-  --progress-h-np: var(--pod-progress-h-np);
-  --progress-thumb: var(--pod-progress-thumb);
-  --row-pad-v: var(--pod-row-pad-v);
-  --row-pad-h: var(--pod-row-pad-h);
-  --row-min-h: var(--pod-row-min-h);
-  --header-pad-v: var(--pod-header-pad-v);
-  --header-pad-h: var(--pod-header-pad-h);
-  --nav-icon: var(--pod-nav-icon);
-  --np-play-size: var(--pod-np-play-size);
+  /* Two surface tiers omm-ui has no token for. Derived rather than
+     hardcoded so they track the theme: --pod-surface-emphasize replaces a
+     literal #292420, which was always meant to read as an accent-tinted
+     surface. */
+  --pod-surface-highest: color-mix(in srgb, var(--omm-text) 12%, var(--omm-surface));
+  --pod-surface-emphasize: color-mix(in srgb, var(--omm-accent) 12%, var(--omm-surface));
+  --pod-surface-emphasize-outline: color-mix(in srgb, var(--omm-accent) 35%, var(--omm-surface));
 }
 
 html,
 body {
   height: 100%;
-  background: var(--surface);
-  color: var(--on-surface);
-  font-family: var(--font);
-  font-size: var(--font-size-m);
+  background: var(--omm-surface);
+  color: var(--omm-text);
+  font-family: var(--pod-font);
+  font-size: var(--pod-font-size-m);
   line-height: 1.5;
   overflow: hidden;
 }
@@ -178,7 +124,7 @@ input[type='search'] {
 }
 
 a {
-  color: var(--on-surface);
+  color: var(--omm-text);
   text-decoration: underline;
 }
 

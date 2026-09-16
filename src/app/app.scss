@@ -31,7 +31,7 @@
     grid-area: header;
     display: flex;
 
-    padding: var(--spacing-s) var(--spacing);
+    padding: var(--omm-spacing-s) var(--omm-spacing);
   }
   nav {
     grid-area: nav;
@@ -47,24 +47,24 @@
 
 nav {
   display: flex;
-  gap: var(--gap);
+  gap: var(--pod-gap);
   align-items: center;
   justify-content: center;
-  background-color: var(--surface-high);
-  border-top: 1px solid var(--surface-high-outline);
+  background-color: var(--omm-pane-surface);
+  border-top: 1px solid var(--omm-outline-muted);
 }
 
 .brand {
   grid-area: brand;
-  font-size: var(--font-size-xs);
+  font-size: var(--pod-font-size-xs);
   letter-spacing: 4px;
-  color: var(--on-surface-dim);
+  color: var(--omm-text-muted);
   flex: 1;
   text-decoration: none;
 
   > em {
     font-style: normal;
-    color: var(--accent);
+    color: var(--omm-accent);
   }
 }
 
@@ -73,18 +73,18 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing);
-  min-width: var(--touch-min);
-  min-height: var(--touch-min);
+  padding: var(--omm-spacing);
+  min-width: var(--pod-touch-min);
+  min-height: var(--pod-touch-min);
   position: relative;
-  color: var(--on-surface-dim);
+  color: var(--omm-text-muted);
 
   &:hover {
     opacity: 0.8;
   }
   
   &.active {
-color: var(--on-surface);
+color: var(--omm-text);
     opacity: 1;    
   }
 }
