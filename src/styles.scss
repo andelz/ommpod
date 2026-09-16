@@ -1,3 +1,33 @@
+@use 'omm-ui/styles/omm-ui';
+
+/* TEMP (Phase 3) — neutralise the omm-ui element styles that out-specify or
+   go unopposed by POD's own reset below, so that importing the library is a
+   no-op on arrival. Each line here is an explicit to-do: they come out in
+   Phase 7, together with POD's button/input reset, once every button has
+   been given omm-ui's .icon / .primary classes.
+
+   Note the cascade: `@use` must come first in a Sass file, so omm-ui's rules
+   land *before* POD's. Same-specificity `button` rules are therefore already
+   won by POD on source order — only these three need suppressing.
+
+   Each selector below deliberately MATCHES the specificity of the omm-ui rule
+   it cancels and relies on source order to win. Going higher (e.g. adding
+   :not(.primary)) would also out-specify the component stylesheets, which are
+   (0,2,0) once Angular's scoping attribute is counted, and would strip their
+   padding too. */
+button:not(.icon) {
+  padding-inline: 0;
+}
+
+button:hover {
+  background-color: transparent;
+}
+
+input[type='search'] {
+  padding: 0;
+  border-radius: 0;
+}
+
 /* Terminal B&W aesthetic - global reset and base */
 
 *,
