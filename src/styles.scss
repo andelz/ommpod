@@ -191,18 +191,19 @@ a {
   white-space: nowrap;
 }
 
-@media (max-width: 480px) {
+/* Layout density — how much room the screen has. 599.98px is the width
+   below omm-ui's --breakpoint-tablet-portrait (600px), so the app and the
+   library agree on where "phone" starts. */
+@media (max-width: 599.98px) {
   :root {
     --pod-gap: 12px;
     --pod-gap-lg: 20px;
 
-    --pod-touch-min: 44px;
     --pod-artwork-sm: 44px;
     --pod-artwork-md: 48px;
     --pod-artwork-lg: 100%;
     --pod-progress-h: 2px;
     --pod-progress-h-np: 2px;
-    --pod-progress-thumb: 20px;
     --pod-row-pad-v: 12px;
     --pod-row-pad-h: 16px;
     --pod-row-min-h: 56px;
@@ -211,14 +212,24 @@ a {
     --pod-nav-icon: 24px;
     --pod-np-play-size: 24px;
   }
+}
 
-  button {
-    min-height: var(--touch-min);
-    min-width: var(--touch-min);
+/* Touch targets — what the user is pointing with, which is not the same
+   question as how wide the screen is. Keyed off the pointer so a touch
+   laptop gets 44px targets it previously missed, and a phone-width desktop
+   window doesn't get them for no reason. */
+@media (pointer: coarse) {
+  :root {
+    --pod-touch-min: 44px;
+    --pod-progress-thumb: 20px;
   }
 
+  button,
   input {
-    min-height: var(--touch-min);
-    font-size: var(--font-size-m);
+    min-height: var(--pod-touch-min);
+  }
+
+  button {
+    min-width: var(--pod-touch-min);
   }
 }
