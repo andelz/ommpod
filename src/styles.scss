@@ -41,66 +41,102 @@ input[type='search'] {
 }
 
 :root {
-  --accent: #f2a90c;
-  // --bg: #000;
-  // --fg: #fff;
-  // --dim: #666;
-  // --mid: #333;
-  // --border: #333;
-  --hover: #111;
-  // --active: #fff;
+  /* ===== App-local tokens (--pod-*) ==================================
+     Things omm-ui has no equivalent for, or where its scale doesn't fit. */
 
-  // --active-bg: #fff;
-  // --active-fg: #000;
+  --pod-font: 'Google Sans Code', monospace;
 
-  --font: 'Google Sans Code', monospace;
-  --gap: 8px;
-  --gap-lg: 16px;
+  /* Type scale stays rem-based and app-local. omm-ui's scale is em-based
+     (calc(1em * 0.875)), which would compound inside any already-shrunk
+     ancestor — and POD has ~50 call sites for these. */
+  --pod-font-size-xs: 0.75rem;
+  --pod-font-size-s: 0.875rem;
+  --pod-font-size-m: 1rem;
+  --pod-font-size-lg: 1.25rem;
+  --pod-font-size-xl: 1.5rem;
 
-  --corner: 1rem;
-  --corner-s: 0.5rem;
+  /* Gaps are app-local because the mobile block re-declares them with
+     values omm-ui's fixed spacing scale cannot express (12/20 vs 8/16). */
+  --pod-gap: var(--omm-spacing-s);
+  --pod-gap-lg: var(--omm-spacing);
 
+  /* Layout tokens — player/list geometry, no omm-ui equivalent. */
+  --pod-touch-min: 0px;
+  --pod-artwork-sm: 32px;
+  --pod-artwork-md: 36px;
+  --pod-artwork-lg: 240px;
+  --pod-progress-h: 2px;
+  --pod-progress-h-np: 3px;
+  --pod-progress-thumb: 10px;
+  --pod-row-pad-v: 8px;
+  --pod-row-pad-h: 12px;
+  --pod-row-min-h: 0px;
+  --pod-header-pad-v: 8px;
+  --pod-header-pad-h: 12px;
+  --pod-nav-icon: 18px;
+  --pod-np-play-size: 20px;
 
-  --font-size-m: 1rem;
-  --font-size-s: 0.875rem;
-  --font-size-xs: 0.75rem;
-  --font-size-lg: 1.25rem;
-  --font-size-xl: 1.5rem;
+  /* ===== SHIM: POD's legacy token names, in terms of omm-ui ===========
+     Component SCSS still reads these. They are retired per-component in
+     Phases 6-7 by rewriting call sites to --omm-* / --pod-*; this block
+     is the single place to retune a mapping until then.
 
-  --spacing: 16px;
-  --spacing-s: 8px;
-  --spacing-xs: 4px;
+     "Migration complete" is when this returns nothing:
+       grep -rhoE "var\(--[a-z0-9-]+" src --include=*.scss --include=*.html \
+         | sort -u | grep -v -- '--omm-\|--pod-'                          */
 
-  --on-surface: #fff;
-  --on-surface-dim: #757575;
+  --surface: var(--omm-surface);
+  --on-surface: var(--omm-text);
+  --on-surface-dim: var(--omm-text-muted);
 
-  --surface: #121212;
-  --surface-outline: #333;
+  --surface-outline: var(--omm-outline-muted);
 
-  --surface-highest: #2b2b2b;
-  --surface-highest-outline: #353535;
+  --surface-high: var(--omm-pane-surface);
+  --surface-high-outline: var(--omm-outline-muted);
 
-  --surface-high: #191919;
-  --surface-high-outline: #242424;
+  /* No omm-ui token for these two tiers; derived so they track the theme. */
+  --surface-highest: color-mix(in srgb, var(--omm-text) 12%, var(--omm-surface));
+  --surface-highest-outline: var(--omm-outline);
 
-  --surface-emphasize: #292420;
-  --surface-emphasize-outline: #4b4743;
+  /* Accent-tinted surface — that was always the intent of the hardcoded
+     #292420, so express it as a mix rather than a literal. */
+  --surface-emphasize: color-mix(in srgb, var(--omm-accent) 12%, var(--omm-surface));
+  --surface-emphasize-outline: color-mix(in srgb, var(--omm-accent) 35%, var(--omm-surface));
 
-  /* layout tokens */
-  --touch-min: 0px;
-  --artwork-sm: 32px;
-  --artwork-md: 36px;
-  --artwork-lg: 240px;
-  --progress-h: 2px;
-  --progress-h-np: 3px;
-  --progress-thumb: 10px;
-  --row-pad-v: 8px;
-  --row-pad-h: 12px;
-  --row-min-h: 0px;
-  --header-pad-v: 8px;
-  --header-pad-h: 12px;
-  --nav-icon: 18px;
-  --np-play-size: 20px;
+  --accent: var(--omm-accent);
+  --hover: var(--omm-active-background);
+
+  --corner: var(--omm-corner-l);
+  --corner-s: var(--omm-corner);
+
+  --spacing: var(--omm-spacing);
+  --spacing-s: var(--omm-spacing-s);
+  --spacing-xs: var(--omm-spacing-xs);
+
+  --font: var(--pod-font);
+  --gap: var(--pod-gap);
+  --gap-lg: var(--pod-gap-lg);
+
+  --font-size-xs: var(--pod-font-size-xs);
+  --font-size-s: var(--pod-font-size-s);
+  --font-size-m: var(--pod-font-size-m);
+  --font-size-lg: var(--pod-font-size-lg);
+  --font-size-xl: var(--pod-font-size-xl);
+
+  --touch-min: var(--pod-touch-min);
+  --artwork-sm: var(--pod-artwork-sm);
+  --artwork-md: var(--pod-artwork-md);
+  --artwork-lg: var(--pod-artwork-lg);
+  --progress-h: var(--pod-progress-h);
+  --progress-h-np: var(--pod-progress-h-np);
+  --progress-thumb: var(--pod-progress-thumb);
+  --row-pad-v: var(--pod-row-pad-v);
+  --row-pad-h: var(--pod-row-pad-h);
+  --row-min-h: var(--pod-row-min-h);
+  --header-pad-v: var(--pod-header-pad-v);
+  --header-pad-h: var(--pod-header-pad-h);
+  --nav-icon: var(--pod-nav-icon);
+  --np-play-size: var(--pod-np-play-size);
 }
 
 html,
@@ -177,23 +213,23 @@ a {
 
 @media (max-width: 480px) {
   :root {
-    --gap: 12px;
-    --gap-lg: 20px;
+    --pod-gap: 12px;
+    --pod-gap-lg: 20px;
 
-    --touch-min: 44px;
-    --artwork-sm: 44px;
-    --artwork-md: 48px;
-    --artwork-lg: 100%;
-    --progress-h: 2px;
-    --progress-h-np: 2px;
-    --progress-thumb: 20px;
-    --row-pad-v: 12px;
-    --row-pad-h: 16px;
-    --row-min-h: 56px;
-    --header-pad-v: 10px;
-    --header-pad-h: 16px;
-    --nav-icon: 24px;
-    --np-play-size: 24px;
+    --pod-touch-min: 44px;
+    --pod-artwork-sm: 44px;
+    --pod-artwork-md: 48px;
+    --pod-artwork-lg: 100%;
+    --pod-progress-h: 2px;
+    --pod-progress-h-np: 2px;
+    --pod-progress-thumb: 20px;
+    --pod-row-pad-v: 12px;
+    --pod-row-pad-h: 16px;
+    --pod-row-min-h: 56px;
+    --pod-header-pad-v: 10px;
+    --pod-header-pad-h: 16px;
+    --pod-nav-icon: 24px;
+    --pod-np-play-size: 24px;
   }
 
   button {
