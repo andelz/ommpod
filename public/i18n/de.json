@@ -50,6 +50,7 @@
 	"search.empty": "Keine Ergebnisse gefunden.",
 	"search.episodes": "{{count}} Folgen",
 	"search.error": "Suche fehlgeschlagen. Prüfe deine Verbindung und versuche es erneut.",
+	"search.label": "Suche",
 	"search.loading": "Suche läuft…",
 	"search.placeholder": "Podcasts suchen...",
 	"search.subscribe": "Abonnieren",

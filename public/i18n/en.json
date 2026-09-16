@@ -50,6 +50,7 @@
 	"search.empty": "No results found.",
 	"search.episodes": "{{count}} episodes",
 	"search.error": "Search failed. Check your connection and try again.",
+	"search.label": "Search",
 	"search.loading": "Searching…",
 	"search.placeholder": "Search podcasts...",
 	"search.subscribe": "Subscribe",

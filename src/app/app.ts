@@ -2,17 +2,17 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { FolderDownIcon, Grid2x2Icon, Grid2x2XIcon, HouseIcon, LucideAngularModule, SearchIcon, SettingsIcon, SquareLibraryIcon } from 'lucide-angular';
-import { EnvironmentService, ThemeService } from 'omm-ui';
+import { FolderDownIcon, Grid2x2Icon, LucideAngularModule, SearchIcon, SettingsIcon, SquareLibraryIcon } from 'lucide-angular';
+import { EnvironmentService, ThemeService, Tooltip } from 'omm-ui';
 import { filter, map, startWith } from 'rxjs';
 import { PlayerBarComponent } from './components/player-bar/player-bar.component';
 import { UpdateService } from './services/update.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, 
+  imports: [RouterOutlet,
     LucideAngularModule, TranslateModule,
-    RouterLink, RouterLinkActive, PlayerBarComponent],
+    RouterLink, RouterLinkActive, PlayerBarComponent, Tooltip],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -20,13 +20,16 @@ import { UpdateService } from './services/update.service';
 export class App {
   private router = inject(Router);  
 
-  icons = {
-    home: Grid2x2Icon,
-    lib: SquareLibraryIcon,
-    download: FolderDownIcon,
-    search: SearchIcon,
-    settings: SettingsIcon,
-  }
+  /** The nav is icon-only, so each entry carries the label its tooltip and
+   *  aria-label both use. */
+  navItems = [
+    { route: '/home', icon: Grid2x2Icon, labelKey: 'home.label' },
+    { route: '/library', icon: SquareLibraryIcon, labelKey: 'library.label' },
+    { route: '/downloads', icon: FolderDownIcon, labelKey: 'downloads.label' },
+    { route: '/search', icon: SearchIcon, labelKey: 'search.label' },
+    { route: '/settings', icon: SettingsIcon, labelKey: 'settings.label' },
+  ];
+
   updateService = inject(UpdateService);
 
   isNowPlaying = toSignal(
