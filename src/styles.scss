@@ -38,6 +38,16 @@ input[type='search'] {
   padding: 0;
 }
 
+/* The universal `margin: 0` above also cancels the UA stylesheet's
+   `dialog:modal { margin: auto }`, which is what centres a modal dialog in
+   the top layer. omm-ui's _dialog.scss doesn't set the margin itself, so
+   without this every ConfirmService dialog renders in the top-left corner.
+   Both of omm-ui's own exceptions — .bottom-sheet and .transparent — set
+   their own margin at higher specificity, so they are unaffected. */
+dialog {
+  margin: auto;
+}
+
 /* The mobile tap-highlight is omm-ui's (it sets it on `html` via
    color-mix). POD's own rule is gone: it used relative color syntax,
    `rgb(from var(--on-surface) r g b / 0.1)`, which computes to an invalid

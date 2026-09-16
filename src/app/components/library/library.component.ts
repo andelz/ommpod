@@ -1,6 +1,7 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ConfirmService } from 'omm-ui';
 import { LibraryService } from '../../services/library.service';
 import { Podcast } from '../../models/podcast.model';
 
@@ -15,13 +16,20 @@ import { Podcast } from '../../models/podcast.model';
 export class LibraryComponent {
   library = inject(LibraryService);
   private router = inject(Router);
+  private confirm = inject(ConfirmService);
+  private translate = inject(TranslateService);
 
   select(podcast: Podcast): void {
     this.router.navigate(['/library', podcast.id], { state: { podcast } });
   }
 
-  unsubscribe(podcast: Podcast, event: Event): void {
+  async unsubscribe(podcast: Podcast, event: Event): Promise<void> {
     event.stopPropagation();
-    this.library.unsubscribe(podcast.id);
+    const message = this.translate.instant('library.unsubscribe.confirm', {
+      title: podcast.title,
+    });
+    if (await this.confirm.confirm(message)) {
+      this.library.unsubscribe(podcast.id);
+    }
   }
 }
