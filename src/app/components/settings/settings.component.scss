@@ -22,36 +22,6 @@
   margin: 0 0 var(--gap);
 }
 
-.lang-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--pod-gap);
-}
-
-.lang-btn {
-  display: flex;
-  align-items: center;
-  padding: var(--gap) var(--gap-lg);
-  border-radius: var(--omm-corner-xs);
-  border: 1px solid var(--surface-outline);
-  background: transparent;
-  color: var(--on-surface);
-  font-size: var(--font-size-m);
-  cursor: pointer;
-  transition: background 0.1s, border-color 0.1s;
-  text-align: left;
-
-  &:hover {
-    background: var(--omm-pane-surface);
-  }
-
-  &.active {
-    border-color: var(--accent);
-    color: var(--accent);
-    font-weight: 600;
-  }
-}
-
 .settings-btn {
   padding: var(--gap) var(--gap-lg);
   border-radius: var(--omm-corner-xs);

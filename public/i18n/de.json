@@ -49,9 +49,13 @@
 	"search.subscribe": "Abonnieren",
 	"search.unsubscribe": "Abonnement beenden",
 	"settings.label": "Einstellungen",
-	"settings.update.label": "App-Update",
-	"settings.update.up-to-date": "Du verwendest die neueste Version.",
+	"settings.language.label": "Sprache",
+	"settings.theme.dark": "Dunkel",
+	"settings.theme.label": "Darstellung",
+	"settings.theme.light": "Hell",
+	"settings.theme.system": "System",
 	"settings.update.check": "Nach Updates suchen",
 	"settings.update.checking": "Prüfe…",
-	"settings.language.label": "Sprache"
+	"settings.update.label": "App-Update",
+	"settings.update.up-to-date": "Du verwendest die neueste Version."
 }

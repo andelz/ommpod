@@ -49,9 +49,13 @@
 	"search.subscribe": "Subscribe",
 	"search.unsubscribe": "Unsubscribe",
 	"settings.label": "Settings",
-	"settings.update.label": "App Update",
-	"settings.update.up-to-date": "You're running the latest version.",
+	"settings.language.label": "Language",
+	"settings.theme.dark": "Dark",
+	"settings.theme.label": "Appearance",
+	"settings.theme.light": "Light",
+	"settings.theme.system": "System",
 	"settings.update.check": "Check for updates",
 	"settings.update.checking": "Checking…",
-	"settings.language.label": "Language"
+	"settings.update.label": "App Update",
+	"settings.update.up-to-date": "You're running the latest version."
 }
