@@ -3,6 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FolderDownIcon, Grid2x2Icon, Grid2x2XIcon, HouseIcon, LucideAngularModule, SearchIcon, SettingsIcon, SquareLibraryIcon } from 'lucide-angular';
+import { EnvironmentService, ThemeService } from 'omm-ui';
 import { filter, map, startWith } from 'rxjs';
 import { PlayerBarComponent } from './components/player-bar/player-bar.component';
 import { UpdateService } from './services/update.service';
@@ -38,6 +39,12 @@ export class App {
   );
 
   constructor() {
+    // Both are opt-in: their signals never update until init() is called.
+    // ThemeService takes over the data-theme attribute on <html> (and keeps
+    // the theme-color meta in sync), so index.html no longer pins it.
+    inject(ThemeService).init();
+    inject(EnvironmentService).init();
+
     const savedLang = localStorage.getItem('lang');
     if (savedLang) {
       inject(TranslateService).use(savedLang);

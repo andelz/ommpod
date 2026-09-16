@@ -8,9 +8,13 @@
   max-width: 800px;
 
   margin: 0 auto;
-      box-shadow: 0 0 200px 5px rgb(255 255 255 / .1);
-    outline: 1px solid rgb(255 255 255 / .1);
-  
+  // Halo + hairline that lift the shell off the page. Hardcoded white
+  // before, which only reads as a glow on a dark ground; the overlay
+  // tokens invert to black over light.
+  box-shadow: 0 0 200px 5px var(--omm-overlay-weak);
+  outline: 1px solid var(--omm-overlay-weak);
+
+
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:

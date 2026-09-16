@@ -36,9 +36,13 @@ input[type='search'] {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  // global tap-highlight fix for mobile
-  -webkit-tap-highlight-color: rgb(from var(--on-surface) r g b / 0.1);
 }
+
+/* The mobile tap-highlight is omm-ui's (it sets it on `html` via
+   color-mix). POD's own rule is gone: it used relative color syntax,
+   `rgb(from var(--on-surface) r g b / 0.1)`, which computes to an invalid
+   value when the origin is a light-dark() token — so it would have
+   rendered fully transparent rather than a 10% wash. */
 
 :root {
   /* ===== App-local tokens (--pod-*) ==================================
@@ -159,10 +163,9 @@ body {
   overflow: hidden;
 }
 
-::selection {
-  background: var(--on-surface);
-  color: var(--surface);
-}
+/* ::selection is omm-ui's too — accent-tinted, and correct in both
+   themes. POD's inverted version is dropped as part of adopting the
+   library's identity. */
 
 /* Scrollbars are omm-ui's (_scrollbar.scss) — it styles the same
    ::-webkit-scrollbar pseudo-elements from its own tokens. POD's override
