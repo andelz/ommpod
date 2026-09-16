@@ -20,7 +20,7 @@
             @if (ep.duration) { &middot; {{ ep.duration | duration }} }
           </span>
         </div>
-        <button class="del-btn" (click)="remove(ep, $event)" [attr.aria-label]="'downloads.remove' | translate">[x]</button>
+        <button class="del-btn icon" (click)="remove(ep, $event)" [attr.aria-label]="'downloads.remove' | translate">[x]</button>
       </div>
     }
 

@@ -9,9 +9,9 @@
     </div>
 
     <div class="actions">
-      <button class="back-btn" (click)="goBack()">{{ 'episode-list.back' | translate }}</button>
+      <button class="back-btn icon" (click)="goBack()">{{ 'episode-list.back' | translate }}</button>
 
-      <button class="sub-btn" (click)="toggleSubscribe($event)">
+      <button class="sub-btn icon" (click)="toggleSubscribe($event)">
         {{
           library.isSubscribed(podcast()!.id)
             ? ('episode-list.unsubscribe' | translate)

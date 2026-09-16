@@ -10,7 +10,7 @@
       autocomplete="off"
       spellcheck="false"
     />
-    <button (click)="search()" [disabled]="loading()">
+    <button class="icon" (click)="search()" [disabled]="loading()">
       {{ loading() ? ('search.loading' | translate) : ('search.button' | translate) }}
     </button>
   </div>
@@ -27,7 +27,7 @@
           <span class="result-title">{{ p.title }}</span>
           <span class="result-meta dim">{{ p.author }} &middot; {{ p.genre }} &middot; {{ 'search.episodes' | translate: { count: p.episodeCount } }}</span>
         </div>
-        <button class="sub-btn" (click)="toggleSubscribe(p, $event)"
+        <button class="sub-btn icon" (click)="toggleSubscribe(p, $event)"
           [attr.aria-label]="library.isSubscribed(p.id) ? ('search.unsubscribe' | translate) : ('search.subscribe' | translate)">
           {{ library.isSubscribed(p.id) ? '[-]' : '[+]' }}
         </button>

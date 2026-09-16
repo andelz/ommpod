@@ -11,7 +11,7 @@
     <!-- controls -->
     <div class="controls">
 
-      <button class="ep-info" (click)="openNowPlaying()" [title]="'player.open-now-playing' | translate">
+      <button class="ep-info icon" (click)="openNowPlaying()" [title]="'player.open-now-playing' | translate">
         @if (player.loading()) {
           <span class="status-dot">...</span>
         }
@@ -20,14 +20,14 @@
       </button>
 
       <div class="btns">
-        <button (click)="skip(-15)" [title]="'player.skip-back' | translate: { s: 15 }">-15</button>
-        <button class="play-btn" (click)="player.togglePlay()" [attr.aria-label]="player.isPlaying() ? ('player.pause' | translate) : ('player.play' | translate)">
+        <button class="icon" (click)="skip(-15)" [title]="'player.skip-back' | translate: { s: 15 }">-15</button>
+        <button class="play-btn icon" (click)="player.togglePlay()" [attr.aria-label]="player.isPlaying() ? ('player.pause' | translate) : ('player.play' | translate)">
           {{ player.isPlaying() ? '[||]' : '[>]' }}
         </button>
-        <button (click)="skip(30)" [title]="'player.skip-fwd' | translate: { s: 30 }">+30</button>
-        <button class="rate-btn" (click)="player.cycleRate()" [title]="'player.playback-rate' | translate">{{ player.playbackRate() }}x</button>
+        <button class="icon" (click)="skip(30)" [title]="'player.skip-fwd' | translate: { s: 30 }">+30</button>
+        <button class="rate-btn icon" (click)="player.cycleRate()" [title]="'player.playback-rate' | translate">{{ player.playbackRate() }}x</button>
         <span class="time dim">{{ player.currentTime() | duration }} / {{ player.duration() | duration }}</span>
-        <button class="stop-btn" (click)="player.stop()" [title]="'player.stop' | translate">✕</button>
+        <button class="stop-btn icon" (click)="player.stop()" [title]="'player.stop' | translate">✕</button>
       </div>
     </div>
   </div>

@@ -76,24 +76,24 @@
 }
 
 .play-btn {
-  font-size: var(--font-size-lg) !important;
-  opacity: 1 !important;
+  font-size: var(--font-size-lg);
+  opacity: 1;
   letter-spacing: 1px;
 }
 
 .rate-btn {
-  font-size: var(--font-size-xs) !important;
-  border: 1px solid var(--surface-outline) !important;
-  padding: 1px 4px !important;
+  font-size: var(--font-size-xs);
+  border: 1px solid var(--surface-outline);
+  padding: 1px 4px;
 }
 
 .stop-btn {
-  font-size: var(--font-size-xs) !important;
-  opacity: 0.4 !important;
+  font-size: var(--font-size-xs);
+  opacity: 0.4;
   margin-inline-start: var(--gap);
 
   &:hover {
-    opacity: 0.8 !important;
+    opacity: 0.8;
   }
 }
 

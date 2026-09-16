@@ -17,7 +17,7 @@
     </span>
     <span class="ep-meta dim">
       @if (showPodcastTitle()) {
-        <button class="podcast-link" (click)="onPodcastClick($event)">{{ episode().podcastTitle }}</button>
+        <button class="podcast-link icon" (click)="onPodcastClick($event)">{{ episode().podcastTitle }}</button>
         &middot;
       }
       {{ episode().pubDate | date: 'yyyy-MM-dd' }}
@@ -30,7 +30,7 @@
     }
   </div>
   <div class="ep-actions">
-    <button class="action-btn" (click)="onPlay($event)" aria-label="Play">
+    <button class="action-btn icon" (click)="onPlay($event)" aria-label="Play">
       <lucide-icon [img]="icons.play" [size]="16"></lucide-icon>
     </button>
     @if (downloadProgress() !== undefined) {
@@ -41,11 +41,11 @@
         <span class="dl-pct dim">{{ downloadProgress() }}%</span>
       </div>
     } @else if (downloaded()) {
-      <button class="action-btn" (click)="onRemoveDownload($event)" aria-label="Remove download">
+      <button class="action-btn icon" (click)="onRemoveDownload($event)" aria-label="Remove download">
         <lucide-icon [img]="icons.remove" [size]="16"></lucide-icon>
       </button>
     } @else {
-      <button class="action-btn" (click)="onDownload($event)" aria-label="Download">
+      <button class="action-btn icon" (click)="onDownload($event)" aria-label="Download">
         <lucide-icon [img]="icons.download" [size]="16"></lucide-icon>
       </button>
     }

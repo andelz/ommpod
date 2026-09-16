@@ -1,6 +1,6 @@
 <div class="np-view">
   <div class="np-header">
-    <button class="close-btn" (click)="goBack()">{{ 'now-playing.back' | translate }}</button>
+    <button class="close-btn icon" (click)="goBack()">{{ 'now-playing.back' | translate }}</button>
     <span class="label dim">{{ 'now-playing.label' | translate }}</span>
   </div>
 
@@ -35,14 +35,14 @@
           <span class="status dim">{{ 'now-playing.buffering' | translate }}</span>
         }
         <div class="np-btns">
-          <button (click)="player.seekRelative(-30)" [title]="'player.skip-back' | translate: { s: 30 }" class="skip-btn">-30</button>
-          <button (click)="player.seekRelative(-15)" [title]="'player.skip-back' | translate: { s: 15 }" class="skip-btn">-15</button>
-          <button class="play-btn" (click)="player.togglePlay()"
+          <button (click)="player.seekRelative(-30)" [title]="'player.skip-back' | translate: { s: 30 }" class="skip-btn icon">-30</button>
+          <button (click)="player.seekRelative(-15)" [title]="'player.skip-back' | translate: { s: 15 }" class="skip-btn icon">-15</button>
+          <button class="play-btn icon" (click)="player.togglePlay()"
             [attr.aria-label]="player.isPlaying() ? ('now-playing.pause' | translate) : ('now-playing.play' | translate)">
             {{ player.isPlaying() ? '[ || ]' : '[ > ]' }}
           </button>
-          <button (click)="player.seekRelative(30)" [title]="'player.skip-fwd' | translate: { s: 30 }" class="skip-btn">+30</button>
-          <button (click)="player.seekRelative(60)" [title]="'player.skip-fwd' | translate: { s: 60 }" class="skip-btn">+60</button>
+          <button (click)="player.seekRelative(30)" [title]="'player.skip-fwd' | translate: { s: 30 }" class="skip-btn icon">+30</button>
+          <button (click)="player.seekRelative(60)" [title]="'player.skip-fwd' | translate: { s: 60 }" class="skip-btn icon">+60</button>
         </div>
         <omm-button-toggle
           class="rate-toggle"

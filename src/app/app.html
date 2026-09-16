@@ -2,7 +2,7 @@
   @if (updateService.updateAvailable()) {
     <div class="update-banner" role="alert">
       <span>{{ 'home.update.message' | translate }}</span>
-      <button class="update-btn" (click)="updateService.reload()">{{ 'home.update.reload' | translate }}</button>
+      <button class="update-btn primary" (click)="updateService.reload()">{{ 'home.update.reload' | translate }}</button>
     </div>
   }
 

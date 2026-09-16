@@ -15,7 +15,7 @@
           <span class="lib-title">{{ p.title }}</span>
           <span class="lib-meta dim">{{ p.author }} &middot; {{ 'library.episodes' | translate: { count: p.episodeCount } }}</span>
         </div>
-        <button class="unsub-btn" (click)="unsubscribe(p, $event)" [attr.aria-label]="'library.unsubscribe' | translate">
+        <button class="unsub-btn icon" (click)="unsubscribe(p, $event)" [attr.aria-label]="'library.unsubscribe' | translate">
           [-]
         </button>
       </div>
