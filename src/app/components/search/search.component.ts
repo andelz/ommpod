@@ -3,7 +3,8 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ToastService } from 'omm-ui';
 import { PodcastSearchService } from '../../services/podcast-search.service';
 import { LibraryService } from '../../services/library.service';
 import { Podcast } from '../../models/podcast.model';
@@ -19,24 +20,24 @@ import { Podcast } from '../../models/podcast.model';
 export class SearchComponent {
   private searchSvc = inject(PodcastSearchService);
   private router = inject(Router);
+  private toast = inject(ToastService);
+  private translate = inject(TranslateService);
   library = inject(LibraryService);
 
   query = signal('');
   results = signal<Podcast[]>([]);
   loading = signal(false);
-  error = signal('');
 
   async search(): Promise<void> {
     const q = this.query().trim();
     if (!q) return;
     this.loading.set(true);
-    this.error.set('');
     this.results.set([]);
     try {
       const res = await this.searchSvc.search(q).toPromise();
       this.results.set(res ?? []);
     } catch {
-      this.error.set('search failed');
+      this.toast.toast(this.translate.instant('search.error'), 'error');
     } finally {
       this.loading.set(false);
     }

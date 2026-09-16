@@ -15,10 +15,6 @@
     </button>
   </div>
 
-  @if (error()) {
-    <div class="error">! {{ error() }}</div>
-  }
-
   <div class="results">
     @for (p of results(); track p.id) {
       <div class="result-row" (click)="select(p)" tabindex="0" (keydown.enter)="select(p)">

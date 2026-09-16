@@ -19,10 +19,6 @@
       <div class="status refresh-hint"><span class="dim">{{ 'home.refreshing' | translate }}</span></div>
     }
 
-    @if (error()) {
-      <div class="status"><span>! {{ error() }}</span></div>
-    }
-
     <div class="ep-list">
       @for (entry of entries(); track entry.episode.id) {
         <app-episode-row

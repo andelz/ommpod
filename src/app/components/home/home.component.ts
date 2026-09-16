@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy, inject, computed, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, effect, inject, computed, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ToastService } from 'omm-ui';
 import { FeedService, FeedEntry } from '../../services/feed.service';
 import { LibraryService } from '../../services/library.service';
 import { PlayerService } from '../../services/player.service';
@@ -24,10 +25,14 @@ export class HomeComponent {
   private download = inject(DownloadService);
   private router = inject(Router);
   private player = inject(PlayerService);
+  private toast = inject(ToastService);
+  private translate = inject(TranslateService);
 
   entries = this.feed.entries;
   loading = this.feed.loading;
   refreshing = this.feed.refreshing;
+  /** Still drives the template, but only to suppress the "no episodes"
+   *  empty state — the message itself is now a toast. */
   error = this.feed.error;
   hasSubscriptions = computed(() => this.library.subscriptions().length > 0);
 
@@ -35,6 +40,15 @@ export class HomeComponent {
   private progressCache: Record<string, number> = {};
 
   constructor() {
+    // FeedService keeps the error as shared state, and swallows it entirely
+    // when it still has cached entries to show. Surface it as a toast when
+    // it does surface, rather than as a line of text inside the feed.
+    effect(() => {
+      if (this.feed.error()) {
+        this.toast.toast(this.translate.instant('home.error'), 'error');
+      }
+    });
+
     this.feed.loadFeed();
     this.loadData();
   }
