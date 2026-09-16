@@ -1,0 +1,121 @@
+// Shared list-screen primitives.
+//
+// Library, search, downloads and episode-row each grew their own near-identical
+// copy of this — .lib-row / .result-row / .dl-row / .ep-row, and a matching
+// -main / -title / -meta / artwork set. The markup differs in what trails the
+// row (unsubscribe, subscribe toggle, delete, play+download), but the frame is
+// the same everywhere, so it lives here once.
+//
+// Global on purpose: Angular scopes component styles, so an @use'd partial
+// would be re-emitted into all four components. These are app-level primitives
+// and only the class names are shared, never component logic.
+
+// ── Screen scaffold ────────────────────────────────────────────────────────
+
+.pod-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.pod-header {
+  padding: var(--pod-header-pad-v) var(--pod-header-pad-h);
+  border-bottom: 1px solid var(--omm-outline-muted);
+  flex-shrink: 0;
+}
+
+.pod-scroll {
+  flex: 1;
+  overflow-y: auto;
+}
+
+// ── Row ────────────────────────────────────────────────────────────────────
+
+.pod-row {
+  display: flex;
+  align-items: center;
+  padding: var(--pod-row-pad-v) var(--pod-row-pad-h);
+  border-bottom: 1px solid var(--pod-divider);
+  cursor: pointer;
+  gap: var(--pod-gap);
+  min-height: var(--pod-row-min-h);
+
+  &:hover,
+  &:focus {
+    background: var(--omm-active-background);
+    outline: none;
+  }
+
+  // Marks the row as the one currently loaded in the player.
+  &.active {
+    border-left: 2px solid var(--omm-text);
+  }
+}
+
+.pod-row-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.pod-row-title {
+  font-size: var(--pod-font-size-s);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pod-row-meta {
+  font-size: var(--pod-font-size-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Trailing affordance — [-], [+], [x] and the icon buttons. Recedes until the
+// row is hovered so it doesn't compete with the title.
+.pod-row-action {
+  flex-shrink: 0;
+  font-size: var(--pod-font-size-xs);
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// ── Artwork ────────────────────────────────────────────────────────────────
+
+// Size is a local override so episode rows can run smaller art than the
+// podcast lists without a second rule.
+.pod-artwork {
+  width: var(--pod-artwork-size, var(--pod-artwork-md));
+  height: var(--pod-artwork-size, var(--pod-artwork-md));
+  flex-shrink: 0;
+  object-fit: cover;
+  filter: grayscale(100%);
+  opacity: 0.8;
+}
+
+.pod-artwork-placeholder {
+  background: var(--pod-fill-weak);
+}
+
+// ── Empty states ───────────────────────────────────────────────────────────
+
+.pod-empty {
+  padding: var(--omm-spacing-s) var(--pod-row-pad-h);
+  display: flex;
+  flex-direction: column;
+  gap: var(--omm-spacing-xs);
+}
+
+.hint {
+  font-size: var(--pod-font-size-xs);
+}
+
+.dim {
+  color: var(--omm-text-muted);
+}

@@ -1,95 +1,11 @@
-.lib-view {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
+// Row, artwork, empty-state and scaffold styles are shared app-level
+// primitives in src/styles/_row.scss. Only library's own deltas live here.
+
+.pod-header .label {
+  font-size: var(--pod-font-size-s);
+  color: var(--omm-text-muted);
 }
 
-.lib-header {
-  padding: var(--header-pad-v) var(--header-pad-h);
-  border-bottom: 1px solid var(--surface-outline);
-  flex-shrink: 0;
-
-  .label {
-    font-size: var(--font-size-s);
-    color: var(--on-surface-dim);
-  }
-}
-
-.lib-list {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.artwork {
-  width: var(--artwork-md);
-  height: var(--artwork-md);
-  flex-shrink: 0;
-  object-fit: cover;
-  filter: grayscale(100%);
-  opacity: 0.8;
-}
-
-.artwork-placeholder {
-  background: var(--pod-fill-weak);
-}
-
-.lib-row {
-  display: flex;
-  align-items: center;
+.pod-row {
   justify-content: space-between;
-  padding: var(--row-pad-v) var(--row-pad-h);
-  border-bottom: 1px solid var(--pod-divider);
-  cursor: pointer;
-  gap: var(--gap);
-  min-height: var(--row-min-h);
-
-  &:hover,
-  &:focus {
-    background: var(--hover);
-    outline: none;
-  }
-}
-
-.lib-main {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  flex: 1;
-}
-
-.lib-title {
-  font-size: var(--font-size-s);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.lib-meta {
-  font-size: var(--font-size-xs);
-}
-
-.unsub-btn {
-  flex-shrink: 0;
-  font-size: var(--font-size-xs);
-  opacity: 0.4;
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
-.empty {
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.hint {
-  font-size: var(--font-size-xs);
-}
-
-.dim {
-  color: var(--on-surface-dim);
 }

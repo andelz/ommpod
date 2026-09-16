@@ -1,4 +1,4 @@
-<div class="search-view">
+<div class="pod-view">
   <div class="search-bar">
     <span class="prompt">>&nbsp;</span>
     <input
@@ -15,26 +15,26 @@
     </button>
   </div>
 
-  <div class="results">
+  <div class="pod-scroll results">
     @for (p of results(); track p.id) {
-      <div class="result-row" (click)="select(p)" tabindex="0" (keydown.enter)="select(p)">
+      <div class="pod-row" (click)="select(p)" tabindex="0" (keydown.enter)="select(p)">
         @if (p.artworkUrl) {
-          <img class="artwork" [src]="p.artworkUrl" [alt]="p.title" loading="lazy" />
+          <img class="pod-artwork" [src]="p.artworkUrl" [alt]="p.title" loading="lazy" />
         } @else {
-          <div class="artwork artwork-placeholder"></div>
+          <div class="pod-artwork pod-artwork-placeholder"></div>
         }
-        <div class="result-main">
-          <span class="result-title">{{ p.title }}</span>
-          <span class="result-meta dim">{{ p.author }} &middot; {{ p.genre }} &middot; {{ 'search.episodes' | translate: { count: p.episodeCount } }}</span>
+        <div class="pod-row-main">
+          <span class="pod-row-title">{{ p.title }}</span>
+          <span class="pod-row-meta dim">{{ p.author }} &middot; {{ p.genre }} &middot; {{ 'search.episodes' | translate: { count: p.episodeCount } }}</span>
         </div>
-        <button class="sub-btn icon" (click)="toggleSubscribe(p, $event)"
+        <button class="sub-btn icon pod-row-action" (click)="toggleSubscribe(p, $event)"
           [attr.aria-label]="library.isSubscribed(p.id) ? ('search.unsubscribe' | translate) : ('search.subscribe' | translate)">
           {{ library.isSubscribed(p.id) ? '[-]' : '[+]' }}
         </button>
       </div>
     }
     @if (!loading() && results().length === 0 && query()) {
-      <div class="empty dim">{{ 'search.empty' | translate }}</div>
+      <div class="pod-empty dim">{{ 'search.empty' | translate }}</div>
     }
   </div>
 </div>

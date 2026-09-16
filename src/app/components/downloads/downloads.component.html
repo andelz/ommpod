@@ -1,31 +1,31 @@
-<div class="dl-view">
-  <div class="dl-header">
+<div class="pod-view">
+  <div class="pod-header dl-header">
     <span class="label">{{ 'downloads.label' | translate }}</span>
     <span class="count dim">{{ 'downloads.episodes' | translate: { count: download.downloadedEpisodes().length } }}</span>
   </div>
 
-  <div class="dl-list">
+  <div class="pod-scroll">
     @for (ep of download.downloadedEpisodes(); track ep.id) {
-      <div class="dl-row" [class.active]="isActive(ep)" (click)="play(ep)"
+      <div class="pod-row" [class.active]="isActive(ep)" (click)="play(ep)"
         tabindex="0" (keydown.enter)="play(ep)">
-        <div class="dl-main">
-          <span class="dl-title">
+        <div class="pod-row-main">
+          <span class="pod-row-title">
             @if (isActive(ep)) {
               <span class="now">{{ isPlaying(ep) ? '|>' : '||' }}&nbsp;</span>
             }
             {{ ep.title }}
           </span>
-          <span class="dl-meta dim">
+          <span class="pod-row-meta dim">
             {{ ep.podcastTitle }}
             @if (ep.duration) { &middot; {{ ep.duration | duration }} }
           </span>
         </div>
-        <button class="del-btn icon" (click)="remove(ep, $event)" [attr.aria-label]="'downloads.remove' | translate">[x]</button>
+        <button class="del-btn icon pod-row-action" (click)="remove(ep, $event)" [attr.aria-label]="'downloads.remove' | translate">[x]</button>
       </div>
     }
 
     @if (download.downloadedEpisodes().length === 0) {
-      <div class="empty">
+      <div class="pod-empty">
         <span class="dim">{{ 'downloads.empty.message' | translate }}</span>
         <span class="dim hint">{{ 'downloads.empty.hint' | translate }}</span>
       </div>

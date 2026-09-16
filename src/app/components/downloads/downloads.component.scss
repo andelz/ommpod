@@ -1,101 +1,27 @@
-.dl-view {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
-}
+// Row, artwork, empty-state and scaffold styles are shared app-level
+// primitives in src/styles/_row.scss. Only downloads' own deltas live here.
 
 .dl-header {
   display: flex;
   align-items: baseline;
-  gap: var(--gap);
-  padding: var(--header-pad-v) var(--header-pad-h);
-  border-bottom: 1px solid var(--surface-outline);
-  flex-shrink: 0;
+  gap: var(--pod-gap);
 
   .label {
-    font-size: var(--font-size-s);
-    color: var(--on-surface);
+    font-size: var(--pod-font-size-s);
+    color: var(--omm-text);
   }
 
   .count {
-    font-size: var(--font-size-xs);
+    font-size: var(--pod-font-size-xs);
   }
 }
 
-.dl-list {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.dl-row {
-  display: flex;
-  align-items: center;
+.pod-row {
   justify-content: space-between;
-  padding: var(--row-pad-v) var(--row-pad-h);
-  border-bottom: 1px solid var(--pod-divider);
-  cursor: pointer;
-  gap: var(--gap);
-  min-height: var(--row-min-h);
-
-  &:hover,
-  &:focus {
-    background: var(--hover);
-    outline: none;
-  }
-
-  &.active {
-    border-left: 2px solid var(--on-surface);
-  }
 }
 
-.dl-main {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  flex: 1;
-}
-
-.dl-title {
-  font-size: var(--font-size-s);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
+// Transport glyph shown on the row currently loaded in the player.
 .now {
-  font-size: var(--font-size-xs);
+  font-size: var(--pod-font-size-xs);
   opacity: 0.8;
-}
-
-.dl-meta {
-  font-size: var(--font-size-xs);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.del-btn {
-  flex-shrink: 0;
-  font-size: var(--font-size-xs);
-  opacity: 0.4;
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
-.empty {
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.hint {
-  font-size: var(--font-size-xs);
-}
-
-.dim {
-  color: var(--on-surface-dim);
 }

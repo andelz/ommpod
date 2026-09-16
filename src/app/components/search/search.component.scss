@@ -1,20 +1,16 @@
-.search-view {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
-}
+// Row, artwork, empty-state and scaffold styles are shared app-level
+// primitives in src/styles/_row.scss. Only search's own deltas live here.
 
 .search-bar {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--surface-outline);
-  padding: var(--header-pad-v) var(--header-pad-h);
-  gap: var(--gap);
+  border-bottom: 1px solid var(--omm-outline-muted);
+  padding: var(--pod-header-pad-v) var(--pod-header-pad-h);
+  gap: var(--pod-gap);
   flex-shrink: 0;
 
   .prompt {
-    color: var(--on-surface-dim);
+    color: var(--omm-text-muted);
     flex-shrink: 0;
   }
 
@@ -25,7 +21,7 @@
   button {
     flex-shrink: 0;
     opacity: 0.7;
-    font-size: var(--font-size-s);
+    font-size: var(--pod-font-size-s);
 
     &:hover:not([disabled]) {
       opacity: 1;
@@ -37,85 +33,6 @@
   }
 }
 
-.error {
-  padding: var(--header-pad-v) var(--header-pad-h);
-  font-size: var(--font-size-s);
-  color: var(--on-surface);
-  opacity: 0.5;
-  flex-shrink: 0;
-}
-
-.results {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.artwork {
-  width: var(--artwork-md);
-  height: var(--artwork-md);
-  flex-shrink: 0;
-  object-fit: cover;
-  filter: grayscale(100%);
-  opacity: 0.8;
-}
-
-.artwork-placeholder {
-  background: var(--pod-fill-weak);
-}
-
-.result-row {
-  display: flex;
-  align-items: center;
+.pod-row {
   justify-content: space-between;
-  padding: var(--row-pad-v) var(--row-pad-h);
-  border-bottom: 1px solid var(--pod-divider);
-  cursor: pointer;
-  gap: var(--gap);
-  min-height: var(--row-min-h);
-
-  &:hover,
-  &:focus {
-    background: var(--hover);
-    outline: none;
-  }
-}
-
-.result-main {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  flex: 1;
-}
-
-.result-title {
-  font-size: var(--font-size-s);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.result-meta {
-  font-size: var(--font-size-xs);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.sub-btn {
-  flex-shrink: 0;
-  font-size: var(--font-size-s);
-  opacity: 0.5;
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
-.empty {
-  padding: 12px;
-  font-size: var(--font-size-s);
-}
-
-.dim {
-  color: var(--on-surface-dim);
 }

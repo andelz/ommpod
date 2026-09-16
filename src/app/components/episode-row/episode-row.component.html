@@ -1,12 +1,12 @@
-<div class="ep-row" [class.active]="active()" [class.completed]="completed()"
+<div class="pod-row" [class.active]="active()" [class.completed]="completed()"
   (click)="select()" tabindex="0" (keydown.enter)="select()">
   @if (episode().artworkUrl) {
-    <img class="ep-artwork" [src]="episode().artworkUrl" [alt]="episode().title" loading="lazy" />
+    <img class="pod-artwork" [src]="episode().artworkUrl" [alt]="episode().title" loading="lazy" />
   } @else {
-    <div class="ep-artwork ep-artwork-placeholder"></div>
+    <div class="pod-artwork pod-artwork-placeholder"></div>
   }
-  <div class="ep-main">
-    <span class="ep-title">
+  <div class="pod-row-main">
+    <span class="pod-row-title">
       @if (active()) {
         <span class="now">{{ playing() ? '|>' : '||' }}&nbsp;</span>
       }
@@ -15,7 +15,7 @@
       }
       {{ episode().title }}
     </span>
-    <span class="ep-meta dim">
+    <span class="pod-row-meta dim">
       @if (showPodcastTitle()) {
         <button class="podcast-link icon" (click)="onPodcastClick($event)">{{ episode().podcastTitle }}</button>
         &middot;
