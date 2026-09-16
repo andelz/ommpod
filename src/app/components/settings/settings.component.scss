@@ -1,5 +1,5 @@
 .settings {
-  padding: var(--content-pad);
+  padding: var(--omm-spacing);
   overflow-y: auto;
   height: 100%;
 }
@@ -25,14 +25,14 @@
 .lang-list {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-sm);
+  gap: var(--pod-gap);
 }
 
 .lang-btn {
   display: flex;
   align-items: center;
   padding: var(--gap) var(--gap-lg);
-  border-radius: var(--radius);
+  border-radius: var(--omm-corner-xs);
   border: 1px solid var(--surface-outline);
   background: transparent;
   color: var(--on-surface);
@@ -42,7 +42,7 @@
   text-align: left;
 
   &:hover {
-    background: var(--surface-2);
+    background: var(--omm-pane-surface);
   }
 
   &.active {
@@ -54,10 +54,10 @@
 
 .settings-btn {
   padding: var(--gap) var(--gap-lg);
-  border-radius: var(--radius);
+  border-radius: var(--omm-corner-xs);
   border: 1px solid var(--accent);
   background: var(--accent);
-  color: var(--on-accent, #fff);
+  color: var(--omm-on-accent);
   font-size: var(--font-size-m);
   font-family: inherit;
   cursor: pointer;

@@ -8,14 +8,14 @@
 }
 
 .ep-artwork-placeholder {
-  background: var(--mid);
+  background: var(--pod-fill-weak);
 }
 
 .ep-row {
   display: flex;
   align-items: center;
   padding: var(--row-pad-v) var(--row-pad-h);
-  border-bottom: 1px solid var(--mid);
+  border-bottom: 1px solid var(--pod-divider);
   cursor: pointer;
   gap: var(--gap);
   min-height: var(--row-min-h);
@@ -68,7 +68,7 @@
 .listen-bar {
   width: 100%;
   height: var(--progress-h);
-  background: var(--mid);
+  background: var(--pod-fill-weak);
   margin-top: 4px;
   overflow: hidden;
 }
@@ -126,7 +126,7 @@
 .dl-bar {
   width: 100%;
   height: var(--progress-h);
-  background: var(--mid);
+  background: var(--pod-fill-weak);
   overflow: hidden;
 }
 

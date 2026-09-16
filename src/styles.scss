@@ -60,6 +60,15 @@ input[type='search'] {
   --pod-gap: var(--omm-spacing-s);
   --pod-gap-lg: var(--omm-spacing);
 
+  /* Hairline between rows, and the weak fill behind progress tracks and
+     artwork placeholders. Both previously went through a single "mid"
+     token that was never defined: as a border-color that resolved to
+     currentColor (full-brightness hairlines), and as a background to
+     transparent (invisible tracks and placeholders). One token doing two
+     jobs is why it was never defined — so it is split here. */
+  --pod-divider: var(--omm-divider);
+  --pod-fill-weak: var(--omm-overlay-weak);
+
   /* Layout tokens — player/list geometry, no omm-ui equivalent. */
   --pod-touch-min: 0px;
   --pod-artwork-sm: 32px;
@@ -155,18 +164,9 @@ body {
   color: var(--surface);
 }
 
-::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--surface);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--mid);
-}
+/* Scrollbars are omm-ui's (_scrollbar.scss) — it styles the same
+   ::-webkit-scrollbar pseudo-elements from its own tokens. POD's override
+   is gone: its thumb referenced the undefined --mid and never painted. */
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--on-surface-dim);
