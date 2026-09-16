@@ -26,6 +26,16 @@ export class PlayerService {
     loading: this.loading(),
   }));
 
+  /** Selectable playback speeds, in the order the rate control shows them. */
+  static readonly RATES: readonly number[] = [1, 1.25, 1.5, 1.75, 2];
+
+  /** How far through the episode we are, 0-100. Both the mini bar and the
+   *  full player render a progress track from this. */
+  progressPct = computed(() => {
+    const total = this.duration();
+    return total ? (this.currentTime() / total) * 100 : 0;
+  });
+
   constructor() {
     this.audio.addEventListener('timeupdate', () => {
       const t = this.audio.currentTime;
@@ -151,6 +161,20 @@ export class PlayerService {
   setPlaybackRate(rate: number): void {
     this.playbackRate.set(rate);
     this.audio.playbackRate = rate;
+  }
+
+  /** Step to the next speed, wrapping. Used by the mini bar, which has no
+   *  room for a segmented control. */
+  cycleRate(): void {
+    const rates = PlayerService.RATES;
+    const next = rates[(rates.indexOf(this.playbackRate()) + 1) % rates.length];
+    this.setPlaybackRate(next);
+  }
+
+  /** Seek to a fraction (0-1) of the episode — what a click on a progress
+   *  track resolves to. */
+  seekToRatio(ratio: number): void {
+    this.seek(Math.max(0, Math.min(1, ratio)) * this.duration());
   }
 
   private setupMediaSession(): void {

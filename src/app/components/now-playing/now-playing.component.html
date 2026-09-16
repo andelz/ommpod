@@ -21,8 +21,8 @@
         <div class="progress-track" (click)="onProgressClick($event)" role="slider"
           [attr.aria-valuenow]="player.currentTime()" [attr.aria-valuemax]="player.duration()"
           [attr.aria-label]="'now-playing.seek' | translate">
-          <div class="progress-fill" [style.width.%]="progressPct"></div>
-          <div class="progress-thumb" [style.left.%]="progressPct"></div>
+          <div class="progress-fill" [style.width.%]="progressPct()"></div>
+          <div class="progress-thumb" [style.left.%]="progressPct()"></div>
         </div>
         <div class="np-times">
           <span>{{ player.currentTime() | duration }}</span>
@@ -44,7 +44,13 @@
           <button (click)="player.seekRelative(30)" [title]="'player.skip-fwd' | translate: { s: 30 }" class="skip-btn">+30</button>
           <button (click)="player.seekRelative(60)" [title]="'player.skip-fwd' | translate: { s: 60 }" class="skip-btn">+60</button>
         </div>
-        <button class="rate-btn" (click)="cycleRate()">{{ player.playbackRate() }}x</button>
+        <omm-button-toggle
+          class="rate-toggle"
+          [options]="rateOptions"
+          [value]="player.playbackRate()"
+          [ariaLabel]="'player.playback-rate' | translate"
+          (valueChange)="player.setPlaybackRate($event)"
+        />
       </div>
 
       @if (ep.description) {
