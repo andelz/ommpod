@@ -8,11 +8,15 @@
       "resources": {
         "files": [
           "/favicon.ico",
+          "/favicon.svg",
           "/index.csr.html",
           "/index.html",
           "/manifest.webmanifest",
+          "/icons/**",
+          "/i18n/*.json",
           "/*.css",
-          "/*.js"
+          "/*.js",
+          "!/sw.js"
         ]
       }
     },

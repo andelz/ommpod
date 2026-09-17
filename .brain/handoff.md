@@ -24,7 +24,7 @@
   - All component HTML templates (translate pipe migration)
 
 ## Open questions / blockers
-- `en.json` is missing newer home-screen keys added this session: `home.welcome.*`, `home.loading`, `home.genre-label`, `home.subscribe`, `home.empty.*`, `home.update.*` — need to be added
+- `en.json` is missing newer home-screen keys added this session: `home.welcome.*`, `home.loading`, `home.subscribe`, `home.empty.*`, `home.update.*` — need to be added
 - SW update banner CSS class has a typo: `class="home.update-banner"` should be `class="update-banner"`
 - No language switcher UI yet — language is hardcoded to `'en'`
 - Changes are unstaged and uncommitted
@@ -34,5 +34,4 @@
 2. Fix the typo in `app.html` (`home.update-banner` → `update-banner`)
 3. Commit the current batch of work
 4. Add a language switcher (e.g., toggle in nav or settings) to let users switch between `en` and `de`
-5. Unit tests for DiscoveryService and HomeComponent
-6. Empty-state for users with no subscriptions (curated/trending)
+5. Unit tests for HomeComponent

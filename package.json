@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "i18n:extract": "ngx-translate-extract --input ./src --output ./public/i18n/en.json ./public/i18n/de.json --sort --clean --format json",
-    "postinstall": "node -e \"require('fs').rmSync('node_modules/@colsen1991/ngx-translate-extract/node_modules/@angular', {recursive:true, force:true})\""
+    "postinstall": "node -e \"require('fs').rmSync('node_modules/@colsen1991/ngx-translate-extract/node_modules/@angular', {recursive:true, force:true})\"",
+    "icons": "node tools/icons/generate.mjs"
   },
   "prettier": {
     "printWidth": 100,

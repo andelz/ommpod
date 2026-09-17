@@ -1,15 +1,23 @@
 import { Injectable, signal, inject } from '@angular/core';
+import { SwUpdate } from '@angular/service-worker';
 import { Episode } from '../models/podcast.model';
 import { PersistenceService } from './persistence.service';
 import { StorageService } from './storage.service';
 
-const SW_PATH = '/audio-sw.js';
 const RECONCILE_TIMEOUT_MS = 5000;
+
+/**
+ * `registerWhenStable:30000` gives Angular until 30s to register, so a wait
+ * longer than this is a worker that will never arrive, not a slow one.
+ */
+const SW_READY_TIMEOUT_MS = 45000;
 
 @Injectable({ providedIn: 'root' })
 export class DownloadService {
   private persistence = inject(PersistenceService);
   private storage = inject(StorageService);
+  /** Absent only where the app never provided a worker at all, tests included. */
+  private swUpdate = inject(SwUpdate, { optional: true });
 
   progress = signal<Record<string, number>>({});
   downloadedEpisodes = signal<Episode[]>([]);
@@ -17,7 +25,7 @@ export class DownloadService {
   private swReady: Promise<ServiceWorker | null>;
 
   constructor() {
-    this.swReady = this.registerSW();
+    this.swReady = this.resolveSW();
     this.init();
   }
 
@@ -57,12 +65,17 @@ export class DownloadService {
     return Promise.race([p, new Promise<null>(resolve => setTimeout(() => resolve(null), ms))]);
   }
 
-  private async registerSW(): Promise<ServiceWorker | null> {
-    if (!('serviceWorker' in navigator)) return null;
+  /**
+   * `provideServiceWorker` in app.config.ts owns registration now, so this only
+   * waits for the worker to come up. Both guards matter: `ready` never settles
+   * when nothing was ever registered, which is exactly the case in dev, where
+   * the worker is deliberately off.
+   */
+  private async resolveSW(): Promise<ServiceWorker | null> {
+    if (!this.swUpdate?.isEnabled) return null;
     try {
-      const reg = await navigator.serviceWorker.register(SW_PATH, { scope: '/' });
-      await navigator.serviceWorker.ready;
-      return reg.active ?? reg.installing ?? reg.waiting;
+      const reg = await this.withTimeout(navigator.serviceWorker.ready, SW_READY_TIMEOUT_MS);
+      return reg?.active ?? null;
     } catch {
       return null;
     }
@@ -71,6 +84,7 @@ export class DownloadService {
   private async getSW(): Promise<ServiceWorker | null> {
     const sw = await this.swReady;
     if (sw) return sw;
+    if (!this.swUpdate?.isEnabled) return null;
     const reg = await navigator.serviceWorker.getRegistration('/');
     return reg?.active ?? null;
   }

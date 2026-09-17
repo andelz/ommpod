@@ -30,9 +30,9 @@ Architectural decisions and rationale. Each entry: **date · decision · why**.
 
 ## ADR-005 · Home screen as default route
 **Date:** 2026-03-23
-**Decision:** Replace `/library` with `/home` as the default landing page; home shows genre-based recommendations derived from subscriptions
-**Why:** Provides a discovery surface that encourages exploration rather than dropping users straight into their existing library
-**Consequence:** Users with no subscriptions see an empty home screen — needs an onboarding/empty-state to remain useful for new users
+**Decision:** Replace `/library` with `/home` as the default landing page. Home originally showed genre-based recommendations; superseded by ADR-008, it now shows new episodes from the user's subscriptions.
+**Why:** A landing page that answers "what's new?" beats dropping users straight into their existing library
+**Consequence:** Users with no subscriptions see a welcome state pointing at search — browsing for podcasts lives on `/search`, not on home
 
 ## ADR-006 · Layout design tokens with mobile media query
 **Date:** 2026-03-23
@@ -45,5 +45,11 @@ Architectural decisions and rationale. Each entry: **date · decision · why**.
 **Decision:** Drop `SolidAuthService` / `SolidDataService` / `SolidSyncService`, the `@inrupt/*` packages, and the Solid Pod section of the Settings UI. The `LibraryService.lastChange` hook (only consumed by sync) is removed with them.
 **Why:** The Solid-based remote sync didn't pan out; a different persistence / sync layer will be introduced later.
 **Consequence:** The app is back to IndexedDB-only (via `PersistenceService`) — no cross-device sync until the replacement lands. Stale localStorage keys `pod-solid-issuer` and `pod-sync-queue` may linger in users' browsers; they're harmless and will be overwritten by whatever comes next.
+
+## ADR-008 · Remove discovery
+**Date:** 2026-09-17
+**Decision:** Drop `DiscoveryService`. The home screen shows only new episodes from the user's subscriptions; it never surfaces recommendations. Supersedes the recommendations half of ADR-005.
+**Why:** Home should answer "what's new in what I follow?" Recommendations made it a second, noisier browse surface competing with `/search`, and the genre-search heuristic behind them was weak. The service had already been orphaned — no component, route, or i18n key referenced it.
+**Consequence:** Finding new podcasts is `/search` only. `PodcastSearchService` stays — `SearchComponent`, `EpisodeListComponent`, and `FeedService` all use it.
 
 <!-- Add new decisions below -->
